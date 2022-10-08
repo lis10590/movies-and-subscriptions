@@ -1,17 +1,9 @@
 import { Navbar, Buttons, Button } from "react-bulma-companion";
 import { Link } from "react-router-dom";
-const NavbarComp = () => {
+const NavbarLogin = () => {
   return (
     <Navbar>
       <Navbar.Menu>
-        <Navbar.Start>
-          <Navbar.Item tab active>
-            Movies
-          </Navbar.Item>
-          <Navbar.Item tab>Subscriptions</Navbar.Item>
-          <Navbar.Item tab>Users Management</Navbar.Item>
-          <Navbar.Item tab>Logout</Navbar.Item>
-        </Navbar.Start>
         <Navbar.End>
           <Navbar.Item>
             <Buttons>
@@ -29,4 +21,4 @@ const NavbarComp = () => {
   );
 };
 
-export default NavbarComp;
+export default NavbarLogin;

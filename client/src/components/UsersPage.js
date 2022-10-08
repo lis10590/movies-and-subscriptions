@@ -1,14 +1,17 @@
 import { Tabs } from "react-bulma-companion";
-const Subscriptions = () => {
+import NavbarComp from "./NavbarComp";
+
+const UsersPage = () => {
   return (
     <div>
+      <NavbarComp />
       <Tabs>
         <Tabs.List className="is-large">
           <Tabs.ListItem active>
-            <Tabs.Link>All Members</Tabs.Link>
+            <Tabs.Link>All Users</Tabs.Link>
           </Tabs.ListItem>
           <Tabs.ListItem>
-            <Tabs.Link>Add Member</Tabs.Link>
+            <Tabs.Link>Add User</Tabs.Link>
           </Tabs.ListItem>
         </Tabs.List>
       </Tabs>
@@ -16,4 +19,4 @@ const Subscriptions = () => {
   );
 };
 
-export default Subscriptions;
+export default UsersPage;

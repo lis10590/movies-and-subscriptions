@@ -10,9 +10,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import NavbarLogin from "./NavbarLogin";
 const CreateAccountPage = () => {
   return (
     <div>
+      <NavbarLogin />
       <Title style={{ fontFamily: "Alkalami, serif" }}>
         Movies - Subscription Website
       </Title>
