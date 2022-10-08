@@ -1,3 +1,4 @@
+from tkinter import N
 from DAL.members_dal import *
 from pymongo import MongoClient
 
@@ -18,4 +19,16 @@ class MembersBL:
             user["email"] = member["email"]
             user["city"] = member["address"]["city"]
             self.__collection.insert_one(user) 
-        return "Created Members!"       
+        return "Created Members!"    
+
+    def add_new_member(self,member):
+        new_member = self.__members_dal.add_new_member(member)
+        return new_member
+
+    def update_member(self,id,member):
+        updated_member = self.__members_dal.update_member(id,member)
+        return updated_member
+
+    def delete_member(self,id):
+        deleted_member = self.__members_dal.delete_member(id)
+        return deleted_member               
