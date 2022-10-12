@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMovies from "./InputMovies";
 
-const EditMovie = () => {
+const EditMovie = (props) => {
+  // const [movie, setMovie] = useState(props.movieDetails)
+  console.log(props.movieDetails);
+
   return (
     <Box
       style={{

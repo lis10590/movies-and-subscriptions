@@ -7,6 +7,7 @@ import UsersPage from "./components/UsersPage";
 import Movies from "./components/Movies";
 import Subscriptions from "./components/Subscriptions";
 import AllMovies from "./components/AllMovies";
+import EditMovie from "./components/EditMovie";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/allmovies" element={<AllMovies />} />
+        <Route path="/editmovie" element={<EditMovie />} />
       </Routes>
     </div>
   );

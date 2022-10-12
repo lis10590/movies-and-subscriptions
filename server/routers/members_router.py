@@ -11,6 +11,12 @@ def get_all_members():
     members = members_bl.get_members()
     return jsonify(members)
 
+#Get All from DB
+@members.route("/getMembers", methods=['GET'])
+def get_all_members_from_db():
+    members = members_bl.get_members_from_db()
+    return jsonify(members)    
+
 #Add New Member
 @members.route("/newMember",methods=['POST'])
 def add_member():

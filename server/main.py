@@ -1,5 +1,6 @@
 from flask import Flask
 import json
+from flask_cors import CORS
 from bson import ObjectId
 from routers.members_router import members
 from routers.movies_router import movies
@@ -12,6 +13,7 @@ class JSONEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self,obj)
 
 app = Flask(__name__)
+CORS(app)
 
 
 app.json_encoder = JSONEncoder

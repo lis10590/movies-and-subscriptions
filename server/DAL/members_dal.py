@@ -13,6 +13,10 @@ class MembersDal:
         resp = requests.get(self.__url)
         return resp.json()
 
+     def get_members_from_db(self):
+        members = list(self.__collection.find({}))
+        return members  
+
      def add_new_member(self,member):
          list(self.__collection.insert_one(member))
          return 'Created with ID' + str(member["_id"])

@@ -13,7 +13,7 @@ export const addNewMember = async (member) => {
 
 export const getMembers = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/members`);
+    const res = await axios.get(`${apiUrl}/members/getMembers`);
 
     return res.data;
   } catch (err) {

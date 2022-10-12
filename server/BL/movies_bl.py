@@ -17,9 +17,14 @@ class MoviesBL:
             newMovie["name"] = movie["name"]
             newMovie["genres"] = movie["genres"]
             newMovie["image"] = movie["image"]
+            newMovie["premiered"] = movie["premiered"]
             self.__collection.insert_one(newMovie) 
         return "Created Movies!" 
-        
+
+    def get_movies_from_db(self):
+        movies = self.__movies_dal.get_movies_from_db()
+        return movies
+
     def add_new_movie(self,movie):
         new_movie = self.__movies_dal.add_new_movie(movie)
         return new_movie

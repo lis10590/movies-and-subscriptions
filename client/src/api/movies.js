@@ -13,7 +13,7 @@ export const addNewMovie = async (movie) => {
 
 export const getMovies = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/movies`);
+    const res = await axios.get(`${apiUrl}/movies/getMovies`);
 
     return res.data;
   } catch (err) {

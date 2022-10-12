@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs, Field, Input, Button } from "react-bulma-companion";
+import { Tabs } from "react-bulma-companion";
 import AddMovie from "./AddMovie";
 import AllMovies from "./AllMovies";
 import NavbarComp from "./NavbarComp";
@@ -35,16 +35,7 @@ const Movies = () => {
           </Tabs.ListItem>
         </Tabs.List>
       </Tabs>
-      <Field>
-        Find Movie
-        <Input
-          name="findMovie"
-          type="text"
-          style={{ maxWidth: "20rem" }}
-          className="ml-2 mr-2"
-        />
-        <Button>Find</Button>
-      </Field>
+
       {allMoviesTab ? <AllMovies /> : <AddMovie />}
     </div>
   );

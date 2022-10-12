@@ -13,6 +13,10 @@ class MoviesDal:
         resp = requests.get(self.__url)
         return resp.json()
 
+     def get_movies_from_db(self):
+        movies = list(self.__collection.find({}))
+        return movies   
+
      def add_new_movie(self,movie):
          list(self.__collection.insert_one(movie))
          return 'Created with ID' + str(movie["_id"])

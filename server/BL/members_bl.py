@@ -20,6 +20,11 @@ class MembersBL:
             user["city"] = member["address"]["city"]
             self.__collection.insert_one(user) 
         return "Created Members!"    
+    
+    def get_members_from_db(self):
+        members = self.__members_dal.get_members_from_db()
+        return members
+
 
     def add_new_member(self,member):
         new_member = self.__members_dal.add_new_member(member)

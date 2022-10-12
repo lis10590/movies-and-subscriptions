@@ -1,53 +1,60 @@
-import { useState } from "react";
-import { Card, Title, Buttons, Button } from "react-bulma-companion";
+import { useState, useEffect } from "react";
+import {
+  Card,
+  Title,
+  Buttons,
+  Button,
+  Field,
+  Input,
+} from "react-bulma-companion";
 import EditMovie from "./EditMovie";
+import { getAllMovies, selectAllMovies } from "../store/movies";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AllMovies = () => {
-  const movies = [
-    {
-      id: 1,
-      name: "Under the Dome",
-      geners: ["Drama", "Science-Fiction", "Thriller"],
-      image: {
-        medium:
-          "https://static.tvmaze.com/uploads/images/medium_portrait/81/202627.jpg",
-        original:
-          "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg",
-      },
-    },
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const movies = useSelector(selectAllMovies);
 
-    {
-      id: 2,
-      name: "Person of Interest",
-      geners: ["Action", "Crime", "Science-Fiction"],
-      image: {
-        medium:
-          "https://static.tvmaze.com/uploads/images/medium_portrait/163/407679.jpg",
-        original:
-          "https://static.tvmaze.com/uploads/images/original_untouched/163/407679.jpg",
-      },
-    },
-    {
-      id: 3,
-      name: "Bitten",
-      geners: ["Drama", "Horror", "Romance"],
-      image: {
-        medium:
-          "https://static.tvmaze.com/uploads/images/medium_portrait/0/15.jpg",
-        original:
-          "https://static.tvmaze.com/uploads/images/original_untouched/0/15.jpg",
-      },
-    },
-  ];
+  useEffect(() => {
+    dispatch(getAllMovies());
+  }, [dispatch]);
 
-  const [movieId, setMovieId] = useState("");
+  const [movieDetails, setMovieDetails] = useState({});
 
-  const onEditClickHandler = (id) => {
-    setMovieId(id);
+  const onEditClickHandler = (movie) => {
+    // const obj = {
+    //   _id: movie._id,
+    //   name: movie.name,
+    //   genres: movie.genres,
+    //   image: movie.image,
+    //   premiered: movie.premiered,
+    // };
+
+    setMovieDetails({
+      _id: movie._id,
+      name: movie.name,
+      genres: movie.genres,
+      image: movie.image,
+      premiered: movie.premiered,
+    });
+    console.log(movieDetails);
+    navigate("/editmovie");
   };
 
   return (
     <div>
+      <Field>
+        Find Movie
+        <Input
+          name="findMovie"
+          type="text"
+          style={{ maxWidth: "20rem" }}
+          className="ml-2 mr-2"
+        />
+        <Button>Find</Button>
+      </Field>
       <Title>All Movies</Title>
       {movies.map((movie) => {
         return (
@@ -58,19 +65,30 @@ const AllMovies = () => {
               marginLeft: "auto",
               marginRight: "auto",
             }}
-            key={movie.id}
+            key={movie._id}
           >
-            <Title size="5">{movie.name}</Title>
-            <h3>Geners: {movie.geners}</h3>
+            <Title size="5">
+              {movie.name},{movie.premiered.split("-")[0]}
+            </Title>
+            <h3>
+              Genres:
+              {movie.genres.map((genre, index) => {
+                return (
+                  <span>
+                    "{genre}"{index === movie.genres.length - 1 ? null : ","}
+                  </span>
+                );
+              })}
+            </h3>
             <img alt="movie" src={movie.image.medium} />
             <Buttons>
-              <Button onClick={() => onEditClickHandler(movie.id)}>Edit</Button>
+              <Button onClick={() => onEditClickHandler(movie)}>Edit</Button>
               <Button>Delete</Button>
             </Buttons>
           </Card>
         );
       })}
-      {true ? null : <EditMovie movieId={movieId} />}
+      {true ? null : <EditMovie movieDetails={movieDetails} />}
     </div>
   );
 };
