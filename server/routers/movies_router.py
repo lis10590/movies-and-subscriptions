@@ -17,6 +17,12 @@ def get_all_movies_from_db():
     movies = movies_bl.get_movies_from_db()
     return jsonify(movies)
 
+#Get One Movie
+@movies.route("/<movie_id>", methods=['GET'])
+def get_one_movie(movie_id):
+    movie = movies_bl.get_movie(movie_id)
+    return jsonify(movie)    
+
 #Add New Movie
 @movies.route("/newMovie",methods=['POST'])
 def add_movie():

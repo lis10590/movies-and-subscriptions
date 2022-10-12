@@ -4,6 +4,7 @@ import {
   getMovies,
   updateMovie,
   deleteMovie,
+  getOneMovie,
 } from "../api/movies";
 
 const initialMoviesState = {
@@ -36,6 +37,23 @@ export const getAllMovies = createAsyncThunk(
   async (thunkAPI) => {
     try {
       return await getMovies();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getMovie = createAsyncThunk(
+  "movies",
+  async (movieId, thunkAPI) => {
+    try {
+      return await getOneMovie(movieId);
     } catch (error) {
       const message =
         (error.response &&
@@ -109,6 +127,17 @@ const movieSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllMovies.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.movies = action.payload;
+      })
+      .addCase(getMovie.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getMovie.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMovie.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.movies = action.payload;

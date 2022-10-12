@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMovies from "./InputMovies";
+import { useSelector, useDispatch } from "react-redux";
+import { getMovie } from "../store/movies";
 
-const EditMovie = (props) => {
-  // const [movie, setMovie] = useState(props.movieDetails)
-  console.log(props.movieDetails);
+const EditMovie = () => {
+  const movieId = useSelector((state) => state.movieId.id);
+  const dispatch = useDispatch();
+  const movie = dispatch(getMovie(movieId));
+  // useEffect(() => {
+  //   const movie = dispatch(getMovie(movieId));
+  // }, [dispatch]);
+
+  console.log(movie);
 
   return (
     <Box

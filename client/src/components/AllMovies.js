@@ -11,35 +11,22 @@ import EditMovie from "./EditMovie";
 import { getAllMovies, selectAllMovies } from "../store/movies";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { movieIdActions } from "../store/movieId";
 
 const AllMovies = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const movies = useSelector(selectAllMovies);
+  const movieId = useSelector((state) => state.movieId.id);
 
   useEffect(() => {
     dispatch(getAllMovies());
   }, [dispatch]);
 
-  const [movieDetails, setMovieDetails] = useState({});
-
   const onEditClickHandler = (movie) => {
-    // const obj = {
-    //   _id: movie._id,
-    //   name: movie.name,
-    //   genres: movie.genres,
-    //   image: movie.image,
-    //   premiered: movie.premiered,
-    // };
-
-    setMovieDetails({
-      _id: movie._id,
-      name: movie.name,
-      genres: movie.genres,
-      image: movie.image,
-      premiered: movie.premiered,
-    });
-    console.log(movieDetails);
+    console.log(movie);
+    dispatch(movieIdActions.editId(movie));
+    console.log(movieId);
     navigate("/editmovie");
   };
 
@@ -74,7 +61,7 @@ const AllMovies = () => {
               Genres:
               {movie.genres.map((genre, index) => {
                 return (
-                  <span>
+                  <span key={index}>
                     "{genre}"{index === movie.genres.length - 1 ? null : ","}
                   </span>
                 );
@@ -82,13 +69,15 @@ const AllMovies = () => {
             </h3>
             <img alt="movie" src={movie.image.medium} />
             <Buttons>
-              <Button onClick={() => onEditClickHandler(movie)}>Edit</Button>
+              <Button onClick={() => onEditClickHandler(movie._id)}>
+                Edit
+              </Button>
               <Button>Delete</Button>
             </Buttons>
           </Card>
         );
       })}
-      {true ? null : <EditMovie movieDetails={movieDetails} />}
+      {true ? null : <EditMovie />}
     </div>
   );
 };

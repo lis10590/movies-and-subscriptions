@@ -15,7 +15,11 @@ class MoviesDal:
 
      def get_movies_from_db(self):
         movies = list(self.__collection.find({}))
-        return movies   
+        return movies
+
+     def get_one_movie(self,id):
+         movie = list(self.__collection.find_one({"_id" : ObjectId(id) }))
+         return movie
 
      def add_new_movie(self,movie):
          list(self.__collection.insert_one(movie))

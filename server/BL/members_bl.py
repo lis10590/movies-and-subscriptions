@@ -25,6 +25,9 @@ class MembersBL:
         members = self.__members_dal.get_members_from_db()
         return members
 
+    def get_one_member(self,id):
+        member = self.__members_dal.get_one_member(id)
+        return member
 
     def add_new_member(self,member):
         new_member = self.__members_dal.add_new_member(member)

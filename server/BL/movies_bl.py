@@ -24,6 +24,9 @@ class MoviesBL:
     def get_movies_from_db(self):
         movies = self.__movies_dal.get_movies_from_db()
         return movies
+    def get_movie(self,id):
+        movie = self.__movies_dal.get_one_movie(id)
+        return movie   
 
     def add_new_movie(self,movie):
         new_movie = self.__movies_dal.add_new_movie(movie)

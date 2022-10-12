@@ -21,6 +21,15 @@ export const getMovies = async () => {
   }
 };
 
+export const getOneMovie = async (movieId) => {
+  try {
+    const res = await axios.get(`${apiUrl}/movies`, { params: { movieId } });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const deleteMovie = async (movieId) => {
   try {
     const res = await axios.delete(`${apiUrl}/movies/deleteMovie`, {

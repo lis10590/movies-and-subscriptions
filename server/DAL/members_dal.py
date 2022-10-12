@@ -17,6 +17,10 @@ class MembersDal:
         members = list(self.__collection.find({}))
         return members  
 
+     def get_one_member(self,id):
+        member = list(self.__collection.find_one({"_id" : ObjectId(id) }))
+        return member   
+
      def add_new_member(self,member):
          list(self.__collection.insert_one(member))
          return 'Created with ID' + str(member["_id"])
