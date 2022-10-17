@@ -4,6 +4,9 @@ import moviesReducer from "./movies";
 import movieIdReducer from "./movieId";
 import memberIdReducer from "./memberId";
 import usersFromFileReducer from "./usersFromFile";
+import permissionsReducer from "./permissions";
+import userIdReducer from "./userId";
+import usersReducer from "./users";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +15,9 @@ const store = configureStore({
     movieId: movieIdReducer,
     memberId: memberIdReducer,
     usersFromFile: usersFromFileReducer,
+    permissions: permissionsReducer,
+    userId: userIdReducer,
+    users: usersReducer,
   },
 });
 

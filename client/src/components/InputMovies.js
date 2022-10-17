@@ -12,6 +12,7 @@ const InputMovies = (props) => {
             size="small"
             value={props.nameValue}
             onChange={props.onChangeName}
+            placeholder={props.plchName}
           />
         </Control>
       </Field>
@@ -24,6 +25,7 @@ const InputMovies = (props) => {
             size="small"
             value={props.genresValue}
             onChange={props.onChangeGenres}
+            placeholder={props.plchGenres}
           />
         </Control>
       </Field>
@@ -36,6 +38,7 @@ const InputMovies = (props) => {
             size="small"
             value={props.imgurlValue}
             onChange={props.onChangeImg}
+            placeholder={props.plchImg}
           />
         </Control>
       </Field>
@@ -48,6 +51,7 @@ const InputMovies = (props) => {
             size="small"
             value={props.premieredValue}
             onChange={props.onChangePremiered}
+            placeholder={props.plchpremiered}
           />
         </Control>
       </Field>

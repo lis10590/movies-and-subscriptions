@@ -7,3 +7,7 @@ class PermissionsBL:
     def get_permissions(self):
         permissions = self.__permissions_dal.get_permissions()
         return permissions
+
+    def get_permission(self,id):
+        permission = self.__permissions_dal.get_one_permission(id)  
+        return permission      

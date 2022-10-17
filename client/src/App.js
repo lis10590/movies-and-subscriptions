@@ -11,6 +11,7 @@ import EditMovie from "./components/EditMovie";
 import AllMembers from "./components/AllMembers";
 import EditMember from "./components/EditMember";
 import AddMovie from "./components/AddMovie";
+import EditUser from "./components/EditUser";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/allmembers" element={<AllMembers />} />
         <Route path="/editmember" element={<EditMember />} />
         <Route path="/addmovie" element={<AddMovie />} />
+        <Route path="/edituser" element={<EditUser />} />
       </Routes>
     </div>
   );

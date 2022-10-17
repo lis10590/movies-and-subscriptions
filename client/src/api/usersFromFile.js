@@ -11,3 +11,12 @@ export const getAllUsersFromFile = async () => {
     console.error(err);
   }
 };
+
+export const getOneUserFromFile = async (userId) => {
+  try {
+    const res = await axios.get(`${apiUrl}/usersfromfile/getOneUser/${userId}`);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

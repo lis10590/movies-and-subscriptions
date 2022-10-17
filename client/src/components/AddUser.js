@@ -1,5 +1,5 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
-import InputMovies from "./InputMovies";
+import InputUser from "./InputUser";
 const AddUser = () => {
   return (
     <Box
@@ -11,8 +11,8 @@ const AddUser = () => {
       }}
     >
       <Title>Add User</Title>
-      <InputMovies />
-      <Buttons className="is-flex is-justify-content-center">
+      <InputUser />
+      <Buttons className="is-flex is-justify-content-center mt-6">
         <Button>Save</Button>
         <Button>Cancel</Button>
       </Buttons>

@@ -13,6 +13,12 @@ class UsersFileDal:
         users = self.__data["users"]
         return users
 
+    def get_one_user_from_file(self,id):
+        users = self.__data["users"]
+        for user in users:
+            if user["_id"] == id:
+                return user
+         
 
 
 

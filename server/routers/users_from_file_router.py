@@ -9,3 +9,9 @@ users_from_file_bl = UsersFromFileBL()
 def get_all_users_from_file():
     users = users_from_file_bl.get_users_from_file()
     return jsonify(users)
+
+    
+@users_from_file.route("/getOneUser/<user_id>",methods=['GET'])
+def get_one_user(user_id):
+    result = users_from_file_bl.get_user_from_file(user_id)
+    return jsonify(result)

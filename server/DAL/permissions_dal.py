@@ -12,3 +12,9 @@ class PermissionsDal:
     def get_permissions(self):
         permissions = self.__data["permissions"]
         return permissions
+
+    def get_one_permission(self,id):
+        permissions = self.__data["permissions"]
+        for per in permissions:
+            if per["_id"] == id:
+                return per   
