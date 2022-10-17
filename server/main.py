@@ -4,6 +4,8 @@ from flask_cors import CORS
 from bson import ObjectId
 from routers.members_router import members
 from routers.movies_router import movies
+from routers.users_from_file_router import users_from_file
+from routers.permissions_router import permissions
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -20,6 +22,8 @@ app.json_encoder = JSONEncoder
 
 app.register_blueprint(members, url_prefix="/members")
 app.register_blueprint(movies, url_prefix="/movies")
+app.register_blueprint(users_from_file, url_prefix="/usersfromfile")
+app.register_blueprint(permissions, url_prefix="/permissions")
 
 
 app.run()

@@ -17,16 +17,14 @@ const AllMovies = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const movies = useSelector(selectAllMovies);
-  const movieId = useSelector((state) => state.movieId.id);
 
   useEffect(() => {
     dispatch(getAllMovies());
   }, [dispatch]);
 
   const onEditClickHandler = (movie) => {
-    console.log(movie);
     dispatch(movieIdActions.editId(movie));
-    console.log(movieId);
+
     navigate("/editmovie");
   };
 

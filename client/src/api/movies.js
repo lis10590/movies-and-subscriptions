@@ -23,7 +23,7 @@ export const getMovies = async () => {
 
 export const getOneMovie = async (movieId) => {
   try {
-    const res = await axios.get(`${apiUrl}/movies`, { params: { movieId } });
+    const res = await axios.get(`${apiUrl}/movies/getOneMovie/${movieId}`);
     return res.data;
   } catch (err) {
     console.error(err);

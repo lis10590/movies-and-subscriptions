@@ -1,18 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMovies from "./InputMovies";
 import { useSelector, useDispatch } from "react-redux";
-import { getMovie } from "../store/movies";
+import { getMovie, selectOneMovie, onChangeInputValue } from "../store/movies";
 
-const EditMovie = () => {
+const EditMovie = (props) => {
   const movieId = useSelector((state) => state.movieId.id);
   const dispatch = useDispatch();
-  const movie = dispatch(getMovie(movieId));
-  // useEffect(() => {
-  //   const movie = dispatch(getMovie(movieId));
-  // }, [dispatch]);
 
-  console.log(movie);
+  useEffect(() => {
+    dispatch(getMovie(movieId));
+  }, [dispatch, movieId]);
+  const movie = useSelector(selectOneMovie);
+
+  const onChangeInput = (e) => {
+    // dispatch(onChangeInputValue(e.target.value));
+  };
 
   return (
     <Box
@@ -24,7 +27,24 @@ const EditMovie = () => {
       }}
     >
       <Title>Edit Movie</Title>
-      <InputMovies />
+      <InputMovies
+        nameValue={movie.name}
+        onChangeName={onChangeInput}
+        genresValue={
+          Object.keys(movie).length !== 0
+            ? movie.genres.map((genre) => {
+                return genre;
+              })
+            : null
+        }
+        onChangeGenres={onChangeInput}
+        imgurlValue={
+          Object.keys(movie).length !== 0 ? movie.image.medium : null
+        }
+        onChangeImg={onChangeInput}
+        premieredValue={movie.premiered}
+        onChangePremiered={onChangeInput}
+      />
       <Buttons className="is-flex is-justify-content-center">
         <Button>Update</Button>
         <Button>Cancel</Button>

@@ -1,7 +1,6 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
-import InputMembers from "./InputMembers";
-
-const AddMember = () => {
+import InputMovies from "./InputMovies";
+const AddUser = () => {
   return (
     <Box
       style={{
@@ -11,8 +10,8 @@ const AddMember = () => {
         marginRight: "auto",
       }}
     >
-      <Title>Add Member</Title>
-      <InputMembers />
+      <Title>Add User</Title>
+      <InputMovies />
       <Buttons className="is-flex is-justify-content-center">
         <Button>Save</Button>
         <Button>Cancel</Button>
@@ -21,4 +20,4 @@ const AddMember = () => {
   );
 };
 
-export default AddMember;
+export default AddUser;

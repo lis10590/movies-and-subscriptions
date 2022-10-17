@@ -18,7 +18,7 @@ class MembersDal:
         return members  
 
      def get_one_member(self,id):
-        member = list(self.__collection.find_one({"_id" : ObjectId(id) }))
+        member = self.__collection.find_one({"_id" : ObjectId(id) })
         return member   
 
      def add_new_member(self,member):

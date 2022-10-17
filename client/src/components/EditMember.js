@@ -1,6 +1,19 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMembers from "./InputMembers";
+import { selectMember, getMember } from "../store/members";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 const EditMember = () => {
+  const memberId = useSelector((state) => state.memberId.id);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMember(memberId));
+  }, [dispatch, memberId]);
+
+  const member = useSelector(selectMember);
+
+  console.log(member);
   return (
     <Box
       style={{

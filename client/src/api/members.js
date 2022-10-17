@@ -21,6 +21,16 @@ export const getMembers = async () => {
   }
 };
 
+export const getOneMember = async (memberId) => {
+  try {
+    const res = await axios.get(`${apiUrl}/members/getOneMember/${memberId}`);
+
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const deleteMember = async (memberId) => {
   try {
     const res = await axios.delete(`${apiUrl}/members/deleteMember`, {

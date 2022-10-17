@@ -8,6 +8,9 @@ import Movies from "./components/Movies";
 import Subscriptions from "./components/Subscriptions";
 import AllMovies from "./components/AllMovies";
 import EditMovie from "./components/EditMovie";
+import AllMembers from "./components/AllMembers";
+import EditMember from "./components/EditMember";
+import AddMovie from "./components/AddMovie";
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/allmovies" element={<AllMovies />} />
         <Route path="/editmovie" element={<EditMovie />} />
+        <Route path="/allmembers" element={<AllMembers />} />
+        <Route path="/editmember" element={<EditMember />} />
+        <Route path="/addmovie" element={<AddMovie />} />
       </Routes>
     </div>
   );

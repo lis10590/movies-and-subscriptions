@@ -18,11 +18,11 @@ class MoviesDal:
         return movies
 
      def get_one_movie(self,id):
-         movie = list(self.__collection.find_one({"_id" : ObjectId(id) }))
+         movie = self.__collection.find_one({"_id" : ObjectId(id) })
          return movie
 
      def add_new_movie(self,movie):
-         list(self.__collection.insert_one(movie))
+         self.__collection.insert_one(movie)
          return 'Created with ID' + str(movie["_id"])
 
      def update_movie(self,id,movie):

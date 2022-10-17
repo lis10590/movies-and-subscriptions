@@ -9,6 +9,7 @@ import {
 
 const initialMoviesState = {
   movies: [],
+  movie: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -50,7 +51,7 @@ export const getAllMovies = createAsyncThunk(
 );
 
 export const getMovie = createAsyncThunk(
-  "movies",
+  "movies/getOneMovie",
   async (movieId, thunkAPI) => {
     try {
       return await getOneMovie(movieId);
@@ -105,6 +106,9 @@ const movieSlice = createSlice({
   initialState: initialMoviesState,
   reducers: {
     reset: (state) => initialMoviesState,
+    // onChangeInputValue: (state, action) => {
+    //   return { ...state.movie }, void (state.movie = action.payload);
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -140,7 +144,7 @@ const movieSlice = createSlice({
       .addCase(getMovie.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.movies = action.payload;
+        state.movie = action.payload;
       })
       .addCase(getAllMovies.rejected, (state, action) => {
         state.isLoading = false;
@@ -177,5 +181,6 @@ const movieSlice = createSlice({
 });
 
 export default movieSlice.reducer;
-export const { reset } = movieSlice.actions;
+export const { reset, onChangeInputValue } = movieSlice.actions;
 export const selectAllMovies = (state) => state.movies.movies;
+export const selectOneMovie = (state) => state.movies.movie;

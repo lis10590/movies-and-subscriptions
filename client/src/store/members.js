@@ -4,10 +4,12 @@ import {
   addNewMember,
   updateMember,
   deleteMember,
+  getOneMember,
 } from "../api/members";
 
 const initialMembersState = {
   members: [],
+  member: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -36,6 +38,23 @@ export const getAllMembers = createAsyncThunk(
   async (thunkAPI) => {
     try {
       return await getMembers();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getMember = createAsyncThunk(
+  "members/getOneMember",
+  async (memberId, thunkAPI) => {
+    try {
+      return await getOneMember(memberId);
     } catch (error) {
       const message =
         (error.response &&
@@ -87,6 +106,7 @@ const memberSlice = createSlice({
   initialState: initialMembersState,
   reducers: {
     reset: (state) => initialMembersState,
+    onChangeInputValue: (state, action) => (state.member = action.payload),
   },
   extraReducers: (builder) => {
     builder
@@ -114,6 +134,17 @@ const memberSlice = createSlice({
         state.members = action.payload;
       })
       .addCase(getAllMembers.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getMember.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMember.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.member = action.payload;
+      })
+      .addCase(getMember.rejected, (state, action) => {
         state.isLoading = false;
       })
       .addCase(deleteOneMember.pending, (state, action) => {
@@ -148,5 +179,6 @@ const memberSlice = createSlice({
 });
 
 export default memberSlice.reducer;
-export const { reset } = memberSlice.actions;
+export const { reset, onChangeInputValue } = memberSlice.actions;
 export const selectAllMembers = (state) => state.members.members;
+export const selectMember = (state) => state.members.member;

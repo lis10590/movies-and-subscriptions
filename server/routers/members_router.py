@@ -18,10 +18,9 @@ def get_all_members_from_db():
     return jsonify(members)  
 
 #Get One Member
-@members.route("/getOneMember", methods=['GET'])
-def get_one_member():
-    member_id = request.json
-    member = members_bl.get_one_member(member_id)
+@members.route("/getOneMember/<member_id>", methods=['GET'])
+def get_one_member(member_id):
+    member = members_bl.get_member(member_id)
     return jsonify(member)       
 
 #Add New Member

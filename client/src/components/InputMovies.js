@@ -6,7 +6,13 @@ const InputMovies = (props) => {
       <Field>
         <Label size="small">Name</Label>
         <Control className="has-icons-left">
-          <Input name="name" type="text" size="small" value={props.nameValue} />
+          <Input
+            name="name"
+            type="text"
+            size="small"
+            value={props.nameValue}
+            onChange={props.onChangeName}
+          />
         </Control>
       </Field>
       <Field>
@@ -17,6 +23,7 @@ const InputMovies = (props) => {
             type="text"
             size="small"
             value={props.genresValue}
+            onChange={props.onChangeGenres}
           />
         </Control>
       </Field>
@@ -28,17 +35,19 @@ const InputMovies = (props) => {
             type="text"
             size="small"
             value={props.imgurlValue}
+            onChange={props.onChangeImg}
           />
         </Control>
       </Field>
       <Field>
-        <Label size="small">Premired</Label>
+        <Label size="small">Premiered</Label>
         <Control className="has-icons-left">
           <Input
-            name="premired"
+            name="premiered"
             type="text"
             size="small"
             value={props.premieredValue}
+            onChange={props.onChangePremiered}
           />
         </Control>
       </Field>
