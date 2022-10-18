@@ -57,35 +57,67 @@ const InputUser = (props) => {
       </Field>
       <Field className="is-flex is-flex-direction-column is-align-items-flex-start">
         <Label>
-          <input type="checkbox" defaultChecked={props.checked} />
+          <input
+            type="checkbox"
+            checked={props.checkedViewSub}
+            onChange={props.onChangeViewSub}
+          />
           &nbsp; View Subscriptions
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedCreateSub}
+            onChange={props.onChangeCreateSub}
+          />
           &nbsp; Create Subscriptions
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedDelSub}
+            onChange={props.onChangeDelSub}
+          />
           &nbsp; Delete Subscriptions
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedUpdateSub}
+            onChange={props.onChangeUpdateSub}
+          />
           &nbsp; Update Subscriptions
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedViewMovies}
+            onChange={props.onChangeViewMovies}
+          />
           &nbsp; View Movies
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedCreateMovies}
+            onChange={props.onChangeCreateMovies}
+          />
           &nbsp; Create Movies
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedDelMovies}
+            onChange={props.onChangeDelMovies}
+          />
           &nbsp; Delete Movies
         </Label>
         <Label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={props.checkedUpdateMovies}
+            onChange={props.onChangeUpdateMovies}
+          />
           &nbsp; Update Movies
         </Label>
       </Field>

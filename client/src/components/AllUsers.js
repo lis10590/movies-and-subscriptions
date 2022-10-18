@@ -54,23 +54,23 @@ const AllUsers = () => {
       }
     }
     for (const per of arrPermissions) {
-      //   if (per === "View Subscriptions") {
-      //     dispatch(checkboxesActions.changeViewSub(true));
-      //   } else if (per === "Create Subscriptions") {
-      //     dispatch(checkboxesActions.changeCreateSub(true));
-      //   } else if (per === "Delete Subscriptions") {
-      //     dispatch(checkboxesActions.changeDeleteSub(true));
-      //   } else if (per === "Update Subscriptions") {
-      //     dispatch(checkboxesActions.changeUpdateSub(true));
-      //   } else if (per === "View Movies") {
-      //     dispatch(checkboxesActions.changeViewMovies(true));
-      //   } else if (per === "Create Movies") {
-      //     dispatch(checkboxesActions.changeCreateMovies(true));
-      //   } else if (per === "Delete Movies") {
-      //     dispatch(checkboxesActions.changeDeleteMovies(true));
-      //   } else {
-      //     dispatch(checkboxesActions.changeUpdateMovies(true));
-      //   }
+      if (per === "View Subscriptions") {
+        dispatch(checkboxesActions.changeViewSub(true));
+      } else if (per === "Create Subscriptions") {
+        dispatch(checkboxesActions.changeCreateSub(true));
+      } else if (per === "Delete Subscriptions") {
+        dispatch(checkboxesActions.changeDeleteSub(true));
+      } else if (per === "Update Subscriptions") {
+        dispatch(checkboxesActions.changeUpdateSub(true));
+      } else if (per === "View Movies") {
+        dispatch(checkboxesActions.changeViewMovies(true));
+      } else if (per === "Create Movies") {
+        dispatch(checkboxesActions.changeCreateMovies(true));
+      } else if (per === "Delete Movies") {
+        dispatch(checkboxesActions.changeDeleteMovies(true));
+      } else {
+        dispatch(checkboxesActions.changeUpdateMovies(true));
+      }
     }
     navigate("/edituser");
   };

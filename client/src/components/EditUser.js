@@ -37,26 +37,6 @@ const EditUser = () => {
     updateMovies: false,
   });
 
-  // for (const per of permission.permissions) {
-  //   if (per === "View Subscriptions") {
-  //     dispatch(checkboxesActions.changeViewSub(true));
-  //   } else if (per === "Create Subscriptions") {
-  //     dispatch(checkboxesActions.changeCreateSub(true));
-  //   } else if (per === "Delete Subscriptions") {
-  //     dispatch(checkboxesActions.changeDeleteSub(true));
-  //   } else if (per === "Update Subscriptions") {
-  //     dispatch(checkboxesActions.changeUpdateSub(true));
-  //   } else if (per === "View Movies") {
-  //     dispatch(checkboxesActions.changeViewMovies(true));
-  //   } else if (per === "Create Movies") {
-  //     dispatch(checkboxesActions.changeCreateMovies(true));
-  //   } else if (per === "Delete Movies") {
-  //     dispatch(checkboxesActions.changeDeleteMovies(true));
-  //   } else {
-  //     dispatch(checkboxesActions.changeUpdateMovies(true));
-  //   }
-  // }
-
   return (
     <Box
       style={{
@@ -72,7 +52,14 @@ const EditUser = () => {
         plchLastName={user.last_name}
         plchSession={user.session_time_out}
         plchUsername={userDB.username}
-        checked={checkboxes.viewSub ? true : false}
+        checkedViewSub={checkboxes.viewSub ? true : false}
+        checkedCreateSub={checkboxes.createSub ? true : false}
+        checkedDelSub={checkboxes.deleteSub ? true : false}
+        checkedUpdateSub={checkboxes.updateSub ? true : false}
+        checkedViewMovies={checkboxes.viewMovies ? true : false}
+        checkedCreateMovies={checkboxes.createMovies ? true : false}
+        checkedDelMovies={checkboxes.deleteMovies ? true : false}
+        checkedUpdateMovies={checkboxes.updateMovies ? true : false}
       />
       <Buttons className="is-flex is-justify-content-center">
         <Button>Update</Button>
