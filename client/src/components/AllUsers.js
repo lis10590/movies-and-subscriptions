@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userIdActions } from "../store/userId";
 import { useNavigate } from "react-router-dom";
+import { checkboxesActions } from "../store/checkboxes_permissions";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,32 @@ const AllUsers = () => {
 
   const EditUserHandler = (id) => {
     dispatch(userIdActions.editId(id));
+    let arrPermissions = [];
+    const perArr = comboArr(users, permissions);
+    for (const per of perArr) {
+      if (per._id === id) {
+        arrPermissions = per.permissions;
+      }
+    }
+    for (const per of arrPermissions) {
+      //   if (per === "View Subscriptions") {
+      //     dispatch(checkboxesActions.changeViewSub(true));
+      //   } else if (per === "Create Subscriptions") {
+      //     dispatch(checkboxesActions.changeCreateSub(true));
+      //   } else if (per === "Delete Subscriptions") {
+      //     dispatch(checkboxesActions.changeDeleteSub(true));
+      //   } else if (per === "Update Subscriptions") {
+      //     dispatch(checkboxesActions.changeUpdateSub(true));
+      //   } else if (per === "View Movies") {
+      //     dispatch(checkboxesActions.changeViewMovies(true));
+      //   } else if (per === "Create Movies") {
+      //     dispatch(checkboxesActions.changeCreateMovies(true));
+      //   } else if (per === "Delete Movies") {
+      //     dispatch(checkboxesActions.changeDeleteMovies(true));
+      //   } else {
+      //     dispatch(checkboxesActions.changeUpdateMovies(true));
+      //   }
+    }
     navigate("/edituser");
   };
 
