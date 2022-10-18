@@ -57,7 +57,7 @@ const InputUser = (props) => {
       </Field>
       <Field className="is-flex is-flex-direction-column is-align-items-flex-start">
         <Label>
-          <input type="checkbox" checked={props.checked} />
+          <input type="checkbox" defaultChecked={props.checked} />
           &nbsp; View Subscriptions
         </Label>
         <Label>

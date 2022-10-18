@@ -7,6 +7,7 @@ import usersFromFileReducer from "./usersFromFile";
 import permissionsReducer from "./permissions";
 import userIdReducer from "./userId";
 import usersReducer from "./users";
+import checkboxesReducer from "./checkboxes_permissions";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     permissions: permissionsReducer,
     userId: userIdReducer,
     users: usersReducer,
+    checkboxes: checkboxesReducer,
   },
 });
 

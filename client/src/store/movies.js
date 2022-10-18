@@ -107,7 +107,7 @@ const movieSlice = createSlice({
   reducers: {
     reset: (state) => initialMoviesState,
     // onChangeInputValue: (state, action) => {
-    //   return { ...state.movie }, void (state.movie = action.payload);
+    //   (state.movie = { ...state.movie }), action.payload;
     // },
   },
   extraReducers: (builder) => {
