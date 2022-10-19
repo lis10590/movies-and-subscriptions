@@ -20,7 +20,6 @@ const AllUsers = () => {
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
-  const checkboxes = useSelector((state) => state.checkboxes);
 
   const comboArr = (users, permissions) => {
     let arr = [];
@@ -72,6 +71,7 @@ const AllUsers = () => {
         dispatch(checkboxesActions.changeUpdateMovies(true));
       }
     }
+
     navigate("/edituser");
   };
 

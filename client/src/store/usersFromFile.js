@@ -1,9 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllUsersFromFile, getOneUserFromFile } from "../api/usersFromFile";
+import {
+  getAllUsersFromFile,
+  getOneUserFromFile,
+  updateUserFromFile,
+} from "../api/usersFromFile";
 
 const initialUsersFromFileState = {
   usersFromFile: [],
   userFromFile: {},
+  firstName: "",
+  lastName: "",
+  sessionTimeOut: 0,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -44,11 +51,32 @@ export const getUserFromFile = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk(
+  "/usersfromfile/updateUser",
+  async (obj, thunkAPI) => {
+    try {
+      return await updateUserFromFile(obj);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const usersFromFileSlice = createSlice({
   name: "usersFromFile",
   initialState: initialUsersFromFileState,
   reducers: {
     reset: (state) => initialUsersFromFileState,
+    changeFirstName: (state, action) => void (state.firstName = action.payload),
+    changeLastName: (state, action) => void (state.lastName = action.payload),
+    changeSessionTimeOut: (state, action) =>
+      void (state.sessionTimeOut = action.payload),
   },
   extraReducers: (builder) => {
     builder
@@ -63,6 +91,8 @@ const usersFromFileSlice = createSlice({
       })
       .addCase(getUsersFromFile.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       })
       .addCase(getUserFromFile.pending, (state, action) => {
         state.isLoading = true;
@@ -74,12 +104,27 @@ const usersFromFileSlice = createSlice({
       })
       .addCase(getUserFromFile.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.usersFromFile = state.usersFromFile.push(action.payload);
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
 
 export default usersFromFileSlice.reducer;
-export const { reset } = usersFromFileSlice.actions;
+export const usersFromFileActions = usersFromFileSlice.actions;
 export const selectAllUsersFromFile = (state) =>
   state.usersFromFile.usersFromFile;
 export const selectOneUserFromFile = (state) =>

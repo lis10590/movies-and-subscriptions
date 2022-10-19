@@ -2,7 +2,11 @@ import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserFromFile, selectOneUserFromFile } from "../store/usersFromFile";
+import {
+  getUserFromFile,
+  selectOneUserFromFile,
+  updateUser,
+} from "../store/usersFromFile";
 import { getPermission, selectOnePermission } from "../store/permissions";
 import { getUser, selectOneUser } from "../store/users";
 import { checkboxesActions } from "../store/checkboxes_permissions";
@@ -26,16 +30,53 @@ const EditUser = () => {
   const userDB = useSelector(selectOneUser);
   console.log(userDB);
 
-  const [permissions, setPermissions] = useState({
-    viewSub: false,
-    createSub: false,
-    deleteSub: false,
-    updateSub: false,
-    viewMovies: false,
-    createMovies: false,
-    deleteMovies: false,
-    updateMovies: false,
+  const [inputValue, setInputValue] = useState({
+    firstName: "",
+    lastName: "",
+    sessionTimeOut: "",
+    username: "",
   });
+
+  const changeViewSubHandler = () => {
+    dispatch(checkboxesActions.changeViewSub(!checkboxes.viewSub));
+  };
+  const changeCreateSubHandler = () => {
+    dispatch(checkboxesActions.changeCreateSub(!checkboxes.createSub));
+  };
+  const changeUpdateSubHandler = () => {
+    dispatch(checkboxesActions.changeUpdateSub(!checkboxes.updateSub));
+  };
+  const changeDeleteSubHandler = () => {
+    dispatch(checkboxesActions.changeDeleteSub(!checkboxes.deleteSub));
+  };
+
+  const changeViewMoviesHandler = () => {
+    dispatch(checkboxesActions.changeViewMovies(!checkboxes.viewMovies));
+  };
+
+  const changeCreateMoviesHandler = () => {
+    dispatch(checkboxesActions.changeCreateMovies(!checkboxes.createMovies));
+  };
+
+  const changeUpdateMoviesHandler = () => {
+    dispatch(checkboxesActions.changeUpdateMovies(!checkboxes.updateMovies));
+  };
+
+  const changeDeleteMoviesHandler = () => {
+    dispatch(checkboxesActions.changeDeleteMovies(!checkboxes.deleteMovies));
+  };
+
+  const onChangeInputValue = (e) => {
+    const { name, value } = e.target;
+    setInputValue((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const onUpdateClick = () => {
+    dispatch(updateUser(inputValue));
+  };
 
   return (
     <Box
@@ -52,6 +93,14 @@ const EditUser = () => {
         plchLastName={user.last_name}
         plchSession={user.session_time_out}
         plchUsername={userDB.username}
+        firstNameValue={inputValue.firstName}
+        lastNameValue={inputValue.lastName}
+        sessionValue={inputValue.sessionTimeOut}
+        usernameValue={inputValue.username}
+        onChangeFirstName={onChangeInputValue}
+        onChangeLastName={onChangeInputValue}
+        onChangeSession={onChangeInputValue}
+        onChangeUsername={onChangeInputValue}
         checkedViewSub={checkboxes.viewSub ? true : false}
         checkedCreateSub={checkboxes.createSub ? true : false}
         checkedDelSub={checkboxes.deleteSub ? true : false}
@@ -60,9 +109,17 @@ const EditUser = () => {
         checkedCreateMovies={checkboxes.createMovies ? true : false}
         checkedDelMovies={checkboxes.deleteMovies ? true : false}
         checkedUpdateMovies={checkboxes.updateMovies ? true : false}
+        onChangeViewSub={changeViewSubHandler}
+        onChangeCreateSub={changeCreateSubHandler}
+        onChangeDelSub={changeDeleteSubHandler}
+        onChangeUpdateSub={changeUpdateSubHandler}
+        onChangeViewMovies={changeViewMoviesHandler}
+        onChangeCreateMovies={changeCreateMoviesHandler}
+        onChangeDelMovies={changeDeleteMoviesHandler}
+        onChangeUpdateMovies={changeUpdateMoviesHandler}
       />
       <Buttons className="is-flex is-justify-content-center">
-        <Button>Update</Button>
+        <Button onClick={onUpdateClick}>Update</Button>
         <Button>Cancel</Button>
       </Buttons>
     </Box>
