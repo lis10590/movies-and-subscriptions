@@ -24,9 +24,9 @@ class UsersFileDal:
         users = self.__data["users"]
         for user in users:
             if user["_id"] == obj["_id"]:
-                user["first_name"] = obj["first_name"]
-                user["last_name"] = obj["last_name"]
-                user["session_time_out"] = obj["session_time_out"]
+                user["first_name"] = obj["firstName"]
+                user["last_name"] = obj["lastName"]
+                user["session_time_out"] = obj["sessionTimeOut"]
         f.close()
         with open(os.path.join(sys.path[0], "Users.json"), 'w') as f2:
             json.dump(data, f2)

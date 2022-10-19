@@ -75,7 +75,11 @@ const EditUser = () => {
   };
 
   const onUpdateClick = () => {
-    dispatch(updateUser(inputValue));
+    const obj = {
+      ...inputValue,
+      _id: userId,
+    };
+    dispatch(updateUser(obj));
   };
 
   return (

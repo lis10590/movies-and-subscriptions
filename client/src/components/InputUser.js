@@ -46,7 +46,7 @@ const InputUser = (props) => {
         <Label size="small">Session Time Out (Minutes)</Label>
         <Control className="has-icons-left">
           <Input
-            name="session"
+            name="sessionTimeOut"
             type="text"
             size="small"
             value={props.sessionValue}
