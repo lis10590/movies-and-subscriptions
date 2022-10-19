@@ -26,8 +26,9 @@ def add_user():
 
 #Update User
 @users.route("/updateUser", methods=['PUT'])
-def update_user(id):
+def update_user():
     user = request.json
+    id = user["_id"]
     result = users_bl.update_user(id,user)
     return jsonify(result)
 

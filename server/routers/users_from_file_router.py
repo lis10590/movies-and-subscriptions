@@ -1,5 +1,6 @@
 
-from unittest import result
+
+
 from flask import Blueprint, jsonify, request
 from BL.users_file_bl import UsersFromFileBL
 
@@ -23,4 +24,15 @@ def get_one_user(user_id):
 def update_one_user():
     obj = request.json
     result = users_from_file_bl.update_user_from_file(obj)
+    return jsonify(result)
+
+@users_from_file.route("/deleteUser/<id>",methods=['DELETE'])
+def delete_one_user(id):
+    result= users_from_file_bl.delete_user_from_file(id)    
+    return jsonify(result)
+
+@users_from_file.route("/addUser",methods=['POST']) 
+def add_user():
+    user= request.json
+    result = users_from_file_bl.add_new_user(user)   
     return jsonify(result)

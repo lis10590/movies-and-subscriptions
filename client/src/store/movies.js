@@ -156,7 +156,7 @@ const movieSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.movies = state.movies.filter(
-          (client) => client._id !== action.payload.id
+          (movie) => movie._id !== action.payload.id
         );
       })
       .addCase(deleteOneMovie.rejected, (state, action) => {

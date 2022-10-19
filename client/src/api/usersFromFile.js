@@ -29,3 +29,23 @@ export const updateUserFromFile = async (obj) => {
     console.error(err);
   }
 };
+
+export const deleteUserFromFile = async (userId) => {
+  try {
+    const res = await axios.delete(
+      `${apiUrl}/usersfromfile/deleteUser/${userId}`
+    );
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const addUserFromFile = async (user) => {
+  try {
+    const res = await axios.post(`${apiUrl}/usersfromfile/addUser`, user);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

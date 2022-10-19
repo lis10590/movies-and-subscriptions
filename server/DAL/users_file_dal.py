@@ -31,3 +31,20 @@ class UsersFileDal:
         with open(os.path.join(sys.path[0], "Users.json"), 'w') as f2:
             json.dump(data, f2)
         return "Updated!"
+
+    def delete_user_from_file(self,id):
+        users = self.__data["users"]
+        new_users = list(filter(lambda x: x["_id"]!=id,users))
+        data["users"] = new_users
+        f.close()
+        with open(os.path.join(sys.path[0], "Users.json"), 'w') as f2:
+            json.dump(data, f2)
+        return {"message":"Deleted", "id":id}    
+
+    def add_new_user(self,user):
+        users = self.__data["users"]
+        users.append(user)
+        f.close()
+        with open(os.path.join(sys.path[0], "Users.json"), 'w') as f2:
+            json.dump(data, f2) 
+        return user          

@@ -20,6 +20,14 @@
         "Create Subscriptions",
         "View Movies"
       ]
+    },
+    {
+      "_id": "635056ae3de7a0a6cc1d23c7",
+      "permissions": [
+        "View Subscriptions",
+        "Create Subscriptions",
+        "View Movies"
+      ]
     }
   ]
 }

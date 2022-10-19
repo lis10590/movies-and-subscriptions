@@ -2,6 +2,7 @@ import { Card, Button, Title, Buttons } from "react-bulma-companion";
 import {
   selectAllUsersFromFile,
   getUsersFromFile,
+  deleteUser,
 } from "../store/usersFromFile";
 import { selectAllPermissions, getPermissions } from "../store/permissions";
 import { useEffect } from "react";
@@ -20,6 +21,7 @@ const AllUsers = () => {
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
+  console.log(users);
 
   const comboArr = (users, permissions) => {
     let arr = [];
@@ -75,6 +77,10 @@ const AllUsers = () => {
     navigate("/edituser");
   };
 
+  const deleteUserHandler = (id) => {
+    dispatch(deleteUser(id));
+  };
+
   return (
     <div>
       <Title>All Users</Title>
@@ -109,7 +115,13 @@ const AllUsers = () => {
               >
                 Edit
               </Button>
-              <Button>Delete</Button>
+              <Button
+                onClick={() => {
+                  deleteUserHandler(user._id);
+                }}
+              >
+                Delete
+              </Button>
             </Buttons>
           </Card>
         );

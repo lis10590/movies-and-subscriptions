@@ -16,3 +16,11 @@ class UsersFromFileBL:
     def update_user_from_file(self, obj):
         user = self.__users_from_file_dal.update_user_from_file(obj)
         return user
+
+    def delete_user_from_file(self,id):
+        users = self.__users_from_file_dal.delete_user_from_file(id)
+        return users
+
+    def add_new_user(self,user):
+        new_user = self.__users_from_file_dal.add_new_user(user)
+        return new_user    

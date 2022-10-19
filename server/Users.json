@@ -1,1 +1,17 @@
-{"users": [{"_id": "634c342bcbb3da6a00d08409", "first_name": "Admin", "last_name": "Admin", "created_date": "16-10-2022", "session_time_out": 300000}, {"_id": "634c347dcbb3da6a00d0840a", "first_name": "Moshe", "last_name": "Cohen", "created_date": "16-10-2022", "session_time_out": "100"}]}
+{
+  "users": [
+    {
+      "_id": "634c342bcbb3da6a00d08409",
+      "first_name": "Admin",
+      "last_name": "Admin",
+      "created_date": "16-10-2022",
+      "session_time_out": 300000
+    },
+    {
+      "_id": "635056ae3de7a0a6cc1d23c7",
+      "first_name": "Dafna",
+      "last_name": "Ran",
+      "session_time_out": "200"
+    }
+  ]
+}

@@ -3,6 +3,8 @@ import {
   getAllUsersFromFile,
   getOneUserFromFile,
   updateUserFromFile,
+  deleteUserFromFile,
+  addUserFromFile,
 } from "../api/usersFromFile";
 
 const initialUsersFromFileState = {
@@ -68,6 +70,39 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  "/usersfromfile/deleteUser",
+  async (userId, thunkAPI) => {
+    try {
+      return await deleteUserFromFile(userId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const addUser = createAsyncThunk(
+  "/usersfromfile/addUser",
+  async (user, thunkAPI) => {
+    try {
+      return await addUserFromFile(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 const usersFromFileSlice = createSlice({
   name: "usersFromFile",
   initialState: initialUsersFromFileState,
@@ -116,6 +151,34 @@ const usersFromFileSlice = createSlice({
         state.usersFromFile.push(action.payload);
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.usersFromFile = state.usersFromFile.filter(
+          (user) => user._id !== action.payload.id
+        );
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(addUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(addUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.usersFromFile.push(action.payload);
+      })
+      .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
