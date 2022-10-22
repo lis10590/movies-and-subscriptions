@@ -14,9 +14,21 @@ const AllMembers = () => {
   }, [dispatch]);
 
   const members = useSelector(selectAllMembers);
+  console.log(members);
 
   const onEditMember = (id) => {
     dispatch(memberIdActions.editId(id));
+    let chosenMember = {};
+    for (const member of members) {
+      if (member._id === id) {
+        chosenMember = member;
+      }
+    }
+    console.log(chosenMember);
+    dispatch({ type: "onChangeName", payload: chosenMember.name });
+    dispatch({ type: "onChangeEmail", payload: chosenMember.email });
+    dispatch({ type: "onChangeCity", payload: chosenMember.city });
+
     navigate("/editmember");
   };
 

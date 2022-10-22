@@ -8,6 +8,9 @@ import permissionsReducer from "./permissions";
 import userIdReducer from "./userId";
 import usersReducer from "./users";
 import checkboxesReducer from "./checkboxes_permissions";
+import editMembersReducer from "./membersReducer";
+import editMoviesReducer from "./moviesReducer";
+import editUsersReducer from "./usersReducer";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +23,9 @@ const store = configureStore({
     userId: userIdReducer,
     users: usersReducer,
     checkboxes: checkboxesReducer,
+    editMember: editMembersReducer,
+    editMovie: editMoviesReducer,
+    editUser: editUsersReducer,
   },
 });
 

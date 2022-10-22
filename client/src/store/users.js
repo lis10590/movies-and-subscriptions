@@ -5,6 +5,7 @@ import {
   addNewUser,
   deleteUser,
   updateUser,
+  getOneUserByUsername,
 } from "../api/users";
 
 const initialUsersState = {
@@ -55,6 +56,23 @@ export const getUser = createAsyncThunk(
   async (userId, thunkAPI) => {
     try {
       return await getOneUser(userId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getUserByUsername = createAsyncThunk(
+  "users/getByUsername",
+  async (username, thunkAPI) => {
+    try {
+      return await getOneUserByUsername(username);
     } catch (error) {
       const message =
         (error.response &&
@@ -135,8 +153,11 @@ const usersSlice = createSlice({
         state.isSuccess = true;
         state.users = action.payload;
       })
-      .addCase(getUser.rejected, (state, action) => {
+
+      .addCase(getAllUsers.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       })
       .addCase(getUser.pending, (state, action) => {
         state.isLoading = true;
@@ -146,9 +167,26 @@ const usersSlice = createSlice({
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(getAllUsers.rejected, (state, action) => {
+      .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       })
+
+      .addCase(getUserByUsername.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserByUsername.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(getUserByUsername.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
       .addCase(deleteOneUser.pending, (state, action) => {
         state.isLoading = true;
       })

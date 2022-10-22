@@ -10,7 +10,9 @@ const InputMembers = (props) => {
             name="name"
             type="text"
             size="small"
+            value={props.nameValue}
             placeholder={props.plchName}
+            onChange={props.onChangeName}
           />
         </Control>
       </Field>
@@ -21,6 +23,8 @@ const InputMembers = (props) => {
             name="email"
             type="text"
             size="small"
+            value={props.emailValue}
+            onChange={props.onChangeEmail}
             placeholder={props.plchEmail}
           />
         </Control>
@@ -32,6 +36,8 @@ const InputMembers = (props) => {
             name="city"
             type="text"
             size="small"
+            value={props.cityValue}
+            onChange={props.onChangeCity}
             placeholder={props.plchCity}
           />
         </Control>

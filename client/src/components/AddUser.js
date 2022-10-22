@@ -1,11 +1,13 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/usersFromFile";
-import { userAddition } from "../store/users";
+import { userAddition, getUserByUsername, selectOneUser } from "../store/users";
 import { useState } from "react";
 const AddUser = () => {
   const dispatch = useDispatch();
+
+  const user = useSelector(selectOneUser);
 
   const [inputObj, setInputObj] = useState({
     firstName: "",
@@ -22,17 +24,29 @@ const AddUser = () => {
     }));
   };
 
-  const onSaveClickHandler = () => {
-    const obj1 = {};
-
+  const addUserToFile = () => {
     const obj2 = {
-      _id: "454353hf675",
+      _id: user._id,
       first_name: inputObj.firstName,
       last_name: inputObj.lastName,
       session_time_out: inputObj.sessionTimeOut,
     };
+
     dispatch(addUser(obj2));
   };
+
+  const onSaveClickHandler = () => {
+    const obj1 = {
+      username: inputObj.username,
+      password: "",
+    };
+
+    dispatch(userAddition(obj1));
+    dispatch(getUserByUsername(inputObj.username));
+
+    setTimeout(addUserToFile, 10000);
+  };
+
   return (
     <Box
       style={{

@@ -21,7 +21,6 @@ const AllUsers = () => {
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
-  console.log(users);
 
   const comboArr = (users, permissions) => {
     let arr = [];
@@ -48,12 +47,19 @@ const AllUsers = () => {
   const EditUserHandler = (id) => {
     dispatch(userIdActions.editId(id));
     let arrPermissions = [];
+    let chosenUser = {};
     const perArr = comboArr(users, permissions);
     for (const per of perArr) {
       if (per._id === id) {
         arrPermissions = per.permissions;
+        chosenUser = per;
       }
     }
+    dispatch({ type: "onChangeFirstName", payload: chosenUser.first_name });
+    dispatch({ type: "onChangeLastName", payload: chosenUser.last_name });
+    dispatch({ type: "onChangeUsername", payload: chosenUser.username });
+    dispatch({ type: "onChangeSession", payload: chosenUser.session_time_out });
+
     for (const per of arrPermissions) {
       if (per === "View Subscriptions") {
         dispatch(checkboxesActions.changeViewSub(true));

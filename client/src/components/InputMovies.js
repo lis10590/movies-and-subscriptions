@@ -33,7 +33,7 @@ const InputMovies = (props) => {
         <Label size="small">Image Url</Label>
         <Control className="has-icons-left">
           <Input
-            name="imgurl"
+            name="image"
             type="text"
             size="small"
             value={props.imgurlValue}

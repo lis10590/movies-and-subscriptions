@@ -3,9 +3,14 @@ import InputMembers from "./InputMembers";
 import { selectMember, getMember } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { selectEditMember } from "../store/membersReducer";
+
 const EditMember = () => {
   const memberId = useSelector((state) => state.memberId.id);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const editMember = useSelector(selectEditMember);
 
   useEffect(() => {
     dispatch(getMember(memberId));
@@ -13,7 +18,22 @@ const EditMember = () => {
 
   const member = useSelector(selectMember);
 
-  console.log(member);
+  const onChangeNameHandler = (e) => {
+    dispatch({ type: "onChangeName", payload: e.target.value });
+  };
+
+  const onChangeEmailHandler = (e) => {
+    dispatch({ type: "onChangeEmail", payload: e.target.value });
+  };
+
+  const onChangeCityHandler = (e) => {
+    dispatch({ type: "onChangeCity", payload: e.target.value });
+  };
+
+  const onCancelClick = () => {
+    navigate("/allmembers");
+  };
+
   return (
     <Box
       style={{
@@ -24,10 +44,20 @@ const EditMember = () => {
       }}
     >
       <Title>Edit Member</Title>
-      <InputMembers />
+      <InputMembers
+        plchName={member.name}
+        plchEmail={member.email}
+        plchCity={member.city}
+        nameValue={editMember.name}
+        emailValue={editMember.email}
+        cityValue={editMember.city}
+        onChangeName={onChangeNameHandler}
+        onChangeEmail={onChangeEmailHandler}
+        onChangeCity={onChangeCityHandler}
+      />
       <Buttons className="is-flex is-justify-content-center">
         <Button>Update</Button>
-        <Button>Cancel</Button>
+        <Button onClick={onCancelClick}>Cancel</Button>
       </Buttons>
     </Box>
   );

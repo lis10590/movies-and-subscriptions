@@ -1,20 +1,24 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   getUserFromFile,
   selectOneUserFromFile,
   updateUser,
 } from "../store/usersFromFile";
-import { getPermission, selectOnePermission } from "../store/permissions";
+import { getPermission } from "../store/permissions";
 import { getUser, selectOneUser } from "../store/users";
 import { checkboxesActions } from "../store/checkboxes_permissions";
+import { selectEditUser } from "../store/usersReducer";
+import { useNavigate } from "react-router-dom";
 
 const EditUser = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userId = useSelector((state) => state.userId.id);
   const checkboxes = useSelector((state) => state.checkboxes);
+  const editUser = useSelector(selectEditUser);
 
   useEffect(() => {
     dispatch(getUserFromFile(userId));
@@ -23,19 +27,8 @@ const EditUser = () => {
   }, [dispatch, userId]);
 
   const user = useSelector(selectOneUserFromFile);
-  console.log(user);
-  const permission = useSelector(selectOnePermission);
-  console.log(permission);
 
   const userDB = useSelector(selectOneUser);
-  console.log(userDB);
-
-  const [inputValue, setInputValue] = useState({
-    firstName: "",
-    lastName: "",
-    sessionTimeOut: "",
-    username: "",
-  });
 
   const changeViewSubHandler = () => {
     dispatch(checkboxesActions.changeViewSub(!checkboxes.viewSub));
@@ -66,20 +59,32 @@ const EditUser = () => {
     dispatch(checkboxesActions.changeDeleteMovies(!checkboxes.deleteMovies));
   };
 
-  const onChangeInputValue = (e) => {
-    const { name, value } = e.target;
-    setInputValue((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const onChangeFirstNameHandler = (e) => {
+    dispatch({ type: "onChangeFirstName", payload: e.target.value });
+  };
+
+  const onChangeLastNameHandler = (e) => {
+    dispatch({ type: "onChangeLastName", payload: e.target.value });
+  };
+
+  const onChangeUsernameHandler = (e) => {
+    dispatch({ type: "onChangeUsername", payload: e.target.value });
+  };
+
+  const onChangeSessionHandler = (e) => {
+    dispatch({ type: "onChangeSession", payload: e.target.value });
   };
 
   const onUpdateClick = () => {
     const obj = {
-      ...inputValue,
+      ...editUser,
       _id: userId,
     };
     dispatch(updateUser(obj));
+  };
+
+  const onCancelClick = () => {
+    navigate("/allusers");
   };
 
   return (
@@ -97,14 +102,14 @@ const EditUser = () => {
         plchLastName={user.last_name}
         plchSession={user.session_time_out}
         plchUsername={userDB.username}
-        firstNameValue={inputValue.firstName}
-        lastNameValue={inputValue.lastName}
-        sessionValue={inputValue.sessionTimeOut}
-        usernameValue={inputValue.username}
-        onChangeFirstName={onChangeInputValue}
-        onChangeLastName={onChangeInputValue}
-        onChangeSession={onChangeInputValue}
-        onChangeUsername={onChangeInputValue}
+        firstNameValue={editUser.first_name}
+        lastNameValue={editUser.last_name}
+        sessionValue={editUser.session_time_out}
+        usernameValue={editUser.username}
+        onChangeFirstName={onChangeFirstNameHandler}
+        onChangeLastName={onChangeLastNameHandler}
+        onChangeSession={onChangeSessionHandler}
+        onChangeUsername={onChangeUsernameHandler}
         checkedViewSub={checkboxes.viewSub ? true : false}
         checkedCreateSub={checkboxes.createSub ? true : false}
         checkedDelSub={checkboxes.deleteSub ? true : false}
@@ -124,7 +129,7 @@ const EditUser = () => {
       />
       <Buttons className="is-flex is-justify-content-center">
         <Button onClick={onUpdateClick}>Update</Button>
-        <Button>Cancel</Button>
+        <Button onClick={onCancelClick}>Cancel</Button>
       </Buttons>
     </Box>
   );

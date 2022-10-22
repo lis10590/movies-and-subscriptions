@@ -30,6 +30,15 @@ export const getOneUser = async (userId) => {
   }
 };
 
+export const getOneUserByUsername = async (username) => {
+  try {
+    const res = await axios.get(`${apiUrl}/users/getByUsername/${username}`);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const deleteUser = async (userId) => {
   try {
     const res = await axios.delete(`${apiUrl}/users/deleteUser`, {
