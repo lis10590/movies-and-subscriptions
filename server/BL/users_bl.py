@@ -11,7 +11,11 @@ class UsersBL:
             return users
         def get_user(self,id):
             user = self.__users_dal.get_one_user(id)
-            return user   
+            return user 
+
+        def get_user_by_username(self,username):
+            user = self.__users_dal.get_one_user_by_username(username)
+            return user      
 
         def add_new_user(self,user):
             new_user = self.__users_dal.add_new_user(user)

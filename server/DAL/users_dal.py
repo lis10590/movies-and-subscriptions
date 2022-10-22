@@ -17,6 +17,10 @@ class UsersDal:
          user = self.__collection.find_one({"_id" : ObjectId(id) })
          return user
 
+    def get_one_user_by_username(self,username):
+        user = self.__collection.find_one({"username" : username })
+        return user     
+
     def add_new_user(self,user):
         self.__collection.insert_one(user)
         return 'Created with ID' + str(user["_id"])
