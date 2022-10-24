@@ -27,7 +27,7 @@ const store = configureStore({
     editMember: editMembersReducer,
     editMovie: editMoviesReducer,
     editUser: editUsersReducer,
-    watchlist: watchListReducer,
+    watchList: watchListReducer,
   },
 });
 

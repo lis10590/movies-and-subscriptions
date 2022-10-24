@@ -12,17 +12,31 @@ import { getAllMovies, selectAllMovies } from "../store/movies";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { movieIdActions } from "../store/movieId";
+import { getList, selectAllWatchList } from "../store/watchList";
 
 const AllMovies = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const movies = useSelector(selectAllMovies);
-
-  const [queryInput, setQueryInput] = useState("");
 
   useEffect(() => {
     dispatch(getAllMovies());
+    dispatch(getList());
   }, [dispatch]);
+
+  const movies = useSelector(selectAllMovies);
+  const watchList = useSelector(selectAllWatchList);
+  const [queryInput, setQueryInput] = useState("");
+
+  console.log(watchList);
+
+  // const comboArr = (movies,watchList)=>{
+  //   let arr = []
+  //   for(const movie of movies){
+  //     for(const item of watchList){
+  //       if(movie._id === item.member_id)
+  //     }
+  //   }
+  // }
 
   const onEditClickHandler = (id) => {
     dispatch(movieIdActions.editId(id));

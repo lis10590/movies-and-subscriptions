@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Card, Title, Buttons, Button } from "react-bulma-companion";
 import { getAllMembers, selectAllMembers } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import {
   selectAllWatchList,
   watchListAddition,
 } from "../store/watchList";
+import AddSubscription from "./AddSubscription";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const AllMembers = () => {
 
   const members = useSelector(selectAllMembers);
   const subscriptions = useSelector(selectAllWatchList);
+
+  const [addButton, setAddButton] = useState(-1);
 
   const onEditMember = (id) => {
     dispatch(memberIdActions.editId(id));
@@ -38,9 +41,13 @@ const AllMembers = () => {
     navigate("/editmember");
   };
 
+  const onClickAddButton = (index) => {
+    setAddButton(index);
+  };
+
   return (
     <div>
-      {members.map((member) => {
+      {members.map((member, index) => {
         return (
           <Card
             style={{
@@ -66,7 +73,10 @@ const AllMembers = () => {
             </Buttons>
             <Card>
               <Title size="6">Movies Watched</Title>
-              <Button className="mb-3">Subscribe to a new movie </Button>
+              <Button className="mb-3" onClick={() => onClickAddButton(index)}>
+                Subscribe to a new movie{" "}
+              </Button>
+              {addButton === index ? <AddSubscription /> : null}
             </Card>
           </Card>
         );

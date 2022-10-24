@@ -25,7 +25,7 @@ def get_all_subscriptions():
 
 # Add New Subscription
 
-@watchList.route("/addToList", methods=['POST'])
+@watchList.route("/addToList", methods=['PUT'])
 def add_subscription():
     sub = request.json
     result = watch_list_bl.add_subscription(sub)

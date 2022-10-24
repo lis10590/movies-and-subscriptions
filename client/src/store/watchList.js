@@ -3,6 +3,7 @@ import { getWatchList, addToList, deleteWatchList } from "../api/watchList";
 
 const initialWatchListState = {
   watchList: [],
+  moviesList: [],
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -71,7 +72,7 @@ const watchListSlice = createSlice({
       .addCase(watchListAddition.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.watchList.push(action.payload);
+        state.moviesList.push(action.payload);
       })
       .addCase(watchListAddition.rejected, (state, action) => {
         state.isLoading = false;

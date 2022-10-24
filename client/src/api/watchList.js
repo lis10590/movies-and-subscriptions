@@ -4,7 +4,7 @@ const apiUrl = "http://localhost:5000";
 
 export const addToList = async (movie) => {
   try {
-    const res = await axios.post(`${apiUrl}/watchList/addToList`, movie);
+    const res = await axios.put(`${apiUrl}/watchList/addToList`, movie);
     return res.data;
   } catch (err) {
     console.error(err);

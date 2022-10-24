@@ -21,7 +21,8 @@ class WatchListDal:
         return users
 
     def add_new_subscription(self, movie):
-        self.__collection.insert_one(movie)
+        self.__collection.update_one({"_id": ObjectId(movie["_id"])}, {
+            "$push": {"movies": movie["movie"]}})
         return movie
 
     def delete_all_subscriptions(self, id):
