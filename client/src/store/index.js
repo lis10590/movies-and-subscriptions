@@ -11,6 +11,7 @@ import checkboxesReducer from "./checkboxes_permissions";
 import editMembersReducer from "./membersReducer";
 import editMoviesReducer from "./moviesReducer";
 import editUsersReducer from "./usersReducer";
+import watchListReducer from "./watchList";
 
 const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
     editMember: editMembersReducer,
     editMovie: editMoviesReducer,
     editUser: editUsersReducer,
+    watchlist: watchListReducer,
   },
 });
 

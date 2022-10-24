@@ -4,6 +4,11 @@ import { getAllMembers, selectAllMembers } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
 import { memberIdActions } from "../store/memberId";
 import { useNavigate } from "react-router-dom";
+import {
+  getList,
+  selectAllWatchList,
+  watchListAddition,
+} from "../store/watchList";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -11,10 +16,11 @@ const AllMembers = () => {
 
   useEffect(() => {
     dispatch(getAllMembers());
+    dispatch(getList());
   }, [dispatch]);
 
   const members = useSelector(selectAllMembers);
-  console.log(members);
+  const subscriptions = useSelector(selectAllWatchList);
 
   const onEditMember = (id) => {
     dispatch(memberIdActions.editId(id));
@@ -60,7 +66,7 @@ const AllMembers = () => {
             </Buttons>
             <Card>
               <Title size="6">Movies Watched</Title>
-              <Button>Subscribe to a new movie </Button>
+              <Button className="mb-3">Subscribe to a new movie </Button>
             </Card>
           </Card>
         );

@@ -85,8 +85,21 @@ const AllMovies = () => {
                   );
                 })}
               </h3>
-              <img alt="movie" src={movie.image.medium} />
-              <Buttons>
+              <div style={{ display: "flex" }}>
+                <img
+                  style={{
+                    maxWidth: "40%",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                  }}
+                  alt="movie"
+                  src={movie.image.medium}
+                />
+                <Card>
+                  <Title size="6">Subscriptions Watched</Title>
+                </Card>
+              </div>
+              <Buttons className="mt-5">
                 <Button onClick={() => onEditClickHandler(movie._id)}>
                   Edit
                 </Button>

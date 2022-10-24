@@ -14,6 +14,8 @@ import AddMovie from "./components/AddMovie";
 import EditUser from "./components/EditUser";
 import MainPage from "./components/MainPage";
 import AllUsers from "./components/AllUsers";
+import AddMember from "./components/AddMember";
+import AddUser from "./components/AddUser";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/edituser" element={<EditUser />} />
         <Route path="/mainpage" element={<MainPage />} />
         <Route path="allusers" element={<AllUsers />} />
+        <Route path="/addmember" element={<AddMember />} />
+        <Route path="/adduser" element={<AddUser />} />
       </Routes>
     </div>
   );
