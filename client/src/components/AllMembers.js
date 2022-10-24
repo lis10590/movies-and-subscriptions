@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Title, Buttons, Button } from "react-bulma-companion";
+import { Card, Title, Buttons, Button, Box } from "react-bulma-companion";
 import { getAllMembers, selectAllMembers } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
 import { memberIdActions } from "../store/memberId";
@@ -22,6 +22,7 @@ const AllMembers = () => {
 
   const members = useSelector(selectAllMembers);
   const subscriptions = useSelector(selectAllWatchList);
+  console.log(subscriptions);
 
   const [addButton, setAddButton] = useState(-1);
 
@@ -45,9 +46,25 @@ const AllMembers = () => {
     setAddButton(index);
   };
 
+  const comboArr = (members, subscriptions) => {
+    let arr = [];
+    for (const member of members) {
+      for (const sub of subscriptions) {
+        if (member._id === sub.member_id) {
+          const obj = {
+            ...member,
+            movies: sub.movies,
+          };
+          arr.push(obj);
+        }
+      }
+    }
+    return arr;
+  };
+
   return (
     <div>
-      {members.map((member, index) => {
+      {comboArr(members, subscriptions).map((member, index) => {
         return (
           <Card
             style={{
@@ -77,6 +94,15 @@ const AllMembers = () => {
                 Subscribe to a new movie{" "}
               </Button>
               {addButton === index ? <AddSubscription /> : null}
+              <Box className="is-flex is-justify-content-center">
+                <ul style={{ listStyleType: "disc" }}>
+                  {member.movies.length > 0
+                    ? member.movies.map((movie) => {
+                        return <li>{movie}</li>;
+                      })
+                    : null}
+                </ul>
+              </Box>
             </Card>
           </Card>
         );
