@@ -4,25 +4,37 @@ import { getAllMembers, selectAllMembers } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
 import { memberIdActions } from "../store/memberId";
 import { useNavigate } from "react-router-dom";
-import {
-  getList,
-  selectAllWatchList,
-  watchListAddition,
-} from "../store/watchList";
+import { getList, selectAllWatchList } from "../store/watchList";
 import AddSubscription from "./AddSubscription";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const members = useSelector(selectAllMembers);
+  const subscriptions = useSelector(selectAllWatchList);
+
+  const comboArr = (members, subscriptions) => {
+    let arr = [];
+    for (const member of members) {
+      for (const sub of subscriptions) {
+        if (member._id === sub.member_id) {
+          const obj = {
+            ...member,
+            movies: sub.movies,
+            subId: sub._id,
+          };
+          arr.push(obj);
+        }
+      }
+    }
+    return arr;
+  };
+
   useEffect(() => {
     dispatch(getAllMembers());
     dispatch(getList());
   }, [dispatch]);
-
-  const members = useSelector(selectAllMembers);
-  const subscriptions = useSelector(selectAllWatchList);
-  console.log(subscriptions);
 
   const [addButton, setAddButton] = useState(-1);
 
@@ -42,24 +54,9 @@ const AllMembers = () => {
     navigate("/editmember");
   };
 
-  const onClickAddButton = (index) => {
+  const onClickAddButton = (index, id) => {
     setAddButton(index);
-  };
-
-  const comboArr = (members, subscriptions) => {
-    let arr = [];
-    for (const member of members) {
-      for (const sub of subscriptions) {
-        if (member._id === sub.member_id) {
-          const obj = {
-            ...member,
-            movies: sub.movies,
-          };
-          arr.push(obj);
-        }
-      }
-    }
-    return arr;
+    dispatch({ type: "onChangeId", payload: id });
   };
 
   return (
@@ -90,7 +87,10 @@ const AllMembers = () => {
             </Buttons>
             <Card>
               <Title size="6">Movies Watched</Title>
-              <Button className="mb-3" onClick={() => onClickAddButton(index)}>
+              <Button
+                className="mb-3"
+                onClick={() => onClickAddButton(index, member.subId)}
+              >
                 Subscribe to a new movie{" "}
               </Button>
               {addButton === index ? <AddSubscription /> : null}
@@ -98,7 +98,11 @@ const AllMembers = () => {
                 <ul style={{ listStyleType: "disc" }}>
                   {member.movies.length > 0
                     ? member.movies.map((movie) => {
-                        return <li>{movie}</li>;
+                        return (
+                          <li>
+                            {movie.movie},{movie.date}
+                          </li>
+                        );
                       })
                     : null}
                 </ul>

@@ -4,19 +4,22 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllMovies, selectAllMovies } from "../store/movies";
+import { watchListAddition, getList } from "../store/watchList";
+import { selectSubscription } from "../store/subscriptionReducer";
 
 const AddSubscription = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllMovies());
+    dispatch(getList());
   }, [dispatch]);
 
   const movies = useSelector(selectAllMovies);
+  const subscription = useSelector(selectSubscription);
 
   const [openMenu, setOpenMenu] = useState(false);
   const [title, setTitle] = useState("Movies");
-  const [selectedMovie, setSelectedMovie] = useState("");
 
   const onClickDropdown = () => {
     setOpenMenu(!openMenu);
@@ -24,15 +27,22 @@ const AddSubscription = () => {
 
   const titleHandler = (e) => {
     setTitle(e.target.innerHTML);
-    setSelectedMovie(e.target.innerHTML);
+    dispatch({ type: "onChangeMovie", payload: e.target.innerHTML });
     setOpenMenu(false);
   };
 
-  const onSubscribeClick = (id) => {
+  const dateHandler = (e) => {
+    dispatch({ type: "onChangeDate", payload: e.target.value });
+  };
+
+  const onSubscribeClick = () => {
     const obj = {
-      _id: id,
-      movie: selectedMovie,
+      _id: subscription.id,
+      movie: subscription.movie,
+      date: subscription.date,
     };
+    console.log(obj);
+    dispatch(watchListAddition(obj));
   };
 
   return (
@@ -68,9 +78,11 @@ const AddSubscription = () => {
             </Dropdown.Content>
           </Dropdown.Menu>
         </Dropdown>
-        <input type="date" />
+        <input type="date" onChange={dateHandler} />
         <div>
-          <Button className="mt-4">Subscribe</Button>
+          <Button className="mt-4" onClick={onSubscribeClick}>
+            Subscribe
+          </Button>
         </div>
       </div>
     </Card>

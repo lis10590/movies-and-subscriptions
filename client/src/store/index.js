@@ -12,6 +12,7 @@ import editMembersReducer from "./membersReducer";
 import editMoviesReducer from "./moviesReducer";
 import editUsersReducer from "./usersReducer";
 import watchListReducer from "./watchList";
+import subscriptionReducer from "./subscriptionReducer";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     editMovie: editMoviesReducer,
     editUser: editUsersReducer,
     watchList: watchListReducer,
+    subscription: subscriptionReducer,
   },
 });
 

@@ -72,7 +72,7 @@ const watchListSlice = createSlice({
       .addCase(watchListAddition.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.moviesList.push(action.payload);
+        state.watchList = action.payload;
       })
       .addCase(watchListAddition.rejected, (state, action) => {
         state.isLoading = false;
