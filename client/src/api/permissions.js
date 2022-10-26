@@ -23,3 +23,13 @@ export const getOnePermission = async (permissionId) => {
     console.error(err);
   }
 };
+
+export const updatePermissions = async (obj) => {
+  try {
+    const res = await axios.put(`${apiUrl}/permissions/updatePermissions`, obj);
+
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

@@ -76,11 +76,23 @@ const EditUser = () => {
   };
 
   const onUpdateClick = () => {
+    let arr = [];
+    for (const per in checkboxes) {
+      if (checkboxes[per]) {
+        arr.push(per);
+      }
+    }
+
     const obj = {
       ...editUser,
       _id: userId,
+      permissions: arr,
     };
-    dispatch(updateUser(obj));
+
+    console.log(obj);
+
+    // dispatch(updateUser(obj));
+    // navigate("/allusers");
   };
 
   const onCancelClick = () => {

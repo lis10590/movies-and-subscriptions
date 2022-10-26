@@ -148,7 +148,7 @@ const usersFromFileSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.usersFromFile.push(action.payload);
+        state.usersFromFile = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -176,7 +176,7 @@ const usersFromFileSlice = createSlice({
       .addCase(addUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.usersFromFile.push(action.payload);
+        state.usersFromFile = action.payload;
       })
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false;

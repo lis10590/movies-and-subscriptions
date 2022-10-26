@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllPermissions, getOnePermission } from "../api/permissions";
+import {
+  getAllPermissions,
+  getOnePermission,
+  updatePermissions,
+} from "../api/permissions";
 
 const initialPermissionsState = {
   permissions: [],
@@ -44,6 +48,23 @@ export const getPermission = createAsyncThunk(
   }
 );
 
+export const permissionsUpdate = createAsyncThunk(
+  "/permissions/updatePermissions",
+  async (obj, thunkAPI) => {
+    try {
+      return await updatePermissions(obj);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const permissionsSlice = createSlice({
   name: "permissions",
   initialState: initialPermissionsState,
@@ -73,6 +94,17 @@ const permissionsSlice = createSlice({
         state.permission = action.payload;
       })
       .addCase(getPermission.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(permissionsUpdate.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(permissionsUpdate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.permissions = action.payload;
+      })
+      .addCase(permissionsUpdate.rejected, (state, action) => {
         state.isLoading = false;
       });
   },
