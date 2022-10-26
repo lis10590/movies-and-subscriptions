@@ -14,3 +14,9 @@ def get_all_permissions():
 def get_one_permission(permission_id):
     result = permissions_bl.get_permission(permission_id)
     return jsonify(result)
+
+@permissions.route("/updatePermissions",methods=['PUT']) 
+def update_permissions():
+    obj = request.json
+    result = permissions_bl.update_permissions(obj) 
+    return jsonify(result)  
