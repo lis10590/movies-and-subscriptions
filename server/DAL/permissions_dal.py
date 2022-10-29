@@ -32,4 +32,13 @@ class PermissionsDal:
             json.dump(data, f2)  
         return data["permissions"]          
 
-
+    def add_permissions(self,user):
+        with open(self.__path,'r') as f:
+            data = json.load(f) 
+        permissions = data["permissions"]
+        permissions["_id"] = user["_id"]
+        permissions["permissions"] = user["permissions"]
+        f.close()
+        with open(self.__path, 'a') as f2:
+            json.dump(data, f2)  
+        return data["permissions"]

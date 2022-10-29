@@ -5,6 +5,7 @@ from DAL.users_file_dal import *
 class UsersBL:
     def __init__(self):
         self.__users_dal = UsersDal()
+        self.__users_file_dal = UsersFileDal()
 
     def get_users(self):
         users = self.__users_dal.get_all_users()
@@ -29,3 +30,14 @@ class UsersBL:
     def delete_user(self, id):
         deleted_user = self.__users_dal.delete_user(id)
         return deleted_user
+
+    def add_user_and_permissions(self,user):
+        users = self.__users_dal.add_new_user(user)
+        for item in users:
+            if item["username"] == user["username"]:
+                chosen_user = item
+
+        users_file = self.__users_file_dal.add_new_user(chosen_user)
+        return users_file        
+
+                 

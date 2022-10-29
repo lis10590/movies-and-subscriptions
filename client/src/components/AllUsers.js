@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userIdActions } from "../store/userId";
 import { useNavigate } from "react-router-dom";
 import { checkboxesActions } from "../store/checkboxes_permissions";
+import { getAllUsers, selectAllUsers } from "../store/users";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -17,10 +18,13 @@ const AllUsers = () => {
   useEffect(() => {
     dispatch(getUsersFromFile());
     dispatch(getPermissions());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
+  const usersDB = useSelector(selectAllUsers);
+  let username = {};
 
   const comboArr = (users, permissions) => {
     let arr = [];
@@ -48,6 +52,7 @@ const AllUsers = () => {
     dispatch(userIdActions.editId(id));
     let arrPermissions = [];
     let chosenUser = {};
+
     const perArr = comboArr(users, permissions);
     for (const per of perArr) {
       if (per._id === id) {
@@ -55,9 +60,16 @@ const AllUsers = () => {
         chosenUser = per;
       }
     }
+
+    for (const item of usersDB) {
+      if (item._id === id) {
+        username = item;
+      }
+    }
+
     dispatch({ type: "onChangeFirstName", payload: chosenUser.first_name });
     dispatch({ type: "onChangeLastName", payload: chosenUser.last_name });
-    dispatch({ type: "onChangeUsername", payload: chosenUser.username });
+    dispatch({ type: "onChangeUsername", payload: username.username });
     dispatch({ type: "onChangeSession", payload: chosenUser.session_time_out });
 
     for (const per of arrPermissions) {
@@ -104,13 +116,18 @@ const AllUsers = () => {
             <p>
               Name: {user.first_name} {user.last_name}
             </p>
-            <p>Username: </p>
+            {usersDB.map((userDB) => {
+              if (userDB._id === user._id) {
+                return <p key={userDB._id}>Username: {userDB.username}</p>;
+              }
+            })}
+
             <p>Session Time Out (Minutes): {user.session_time_out} </p>
             <p>Created Data: {user.created_date}</p>
             <p>
               Permissions:{" "}
-              {user.permissions.map((per) => {
-                return <span>{per},</span>;
+              {user.permissions.map((per, index) => {
+                return <span key={index}>{per},</span>;
               })}
             </p>
             <Buttons>

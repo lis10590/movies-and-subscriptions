@@ -23,7 +23,8 @@ class UsersDal:
 
     def add_new_user(self,user):
         self.__collection.insert_one(user)
-        return 'Created with ID' + str(user["_id"])
+        users = list(self.__collection.find({}))
+        return users 
 
     def update_user(self,id,user):
         self.__collection.update_one({"_id" : ObjectId(id)}, {"$set" : user})

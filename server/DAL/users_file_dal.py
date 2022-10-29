@@ -41,7 +41,7 @@ class UsersFileDal:
         new_users = list(filter(lambda x: x["_id"]!=id,users))
         data["users"] = new_users
         f.close()
-        with open(os.path.join(sys.path[0], "Users.json"), 'w') as f2:
+        with open(self.__path, 'w') as f2:
             json.dump(data, f2)
         return {"message":"Deleted", "id":id}    
 
@@ -51,6 +51,6 @@ class UsersFileDal:
             users = data["users"]
             users.append(user)
             f.close()
-         with open(os.path.join(sys.path[0], "Users.json"), 'w') as f2:
+         with open(self.__path, 'w') as f2:
             json.dump(data, f2) 
          return data["users"]         

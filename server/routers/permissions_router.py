@@ -20,3 +20,9 @@ def update_permissions():
     obj = request.json
     result = permissions_bl.update_permissions(obj) 
     return jsonify(result)  
+
+@permissions.route("/addPermissions",methods=['POST'])
+def add_permissions():
+    user = request.json
+    result = permissions_bl.add_permissions(user)
+    return jsonify(result)    
