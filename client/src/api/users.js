@@ -4,7 +4,7 @@ const apiUrl = "http://localhost:5000";
 
 export const addNewUser = async (user) => {
   try {
-    const res = await axios.post(`${apiUrl}/users/newUser`, user);
+    const res = await axios.post(`${apiUrl}/users/addUserAndPermissions`, user);
     return res.data;
   } catch (err) {
     console.error(err);

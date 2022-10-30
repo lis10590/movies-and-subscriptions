@@ -22,7 +22,8 @@ class UsersDal:
         return user
 
     def add_new_user(self, user):
-        self.__collection.insert_one(user)
+        self.__collection.insert_one(
+            {"username": user["username"], "password": ""})
         users = list(self.__collection.find({}))
         return users
 

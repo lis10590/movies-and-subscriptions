@@ -46,18 +46,18 @@ class UsersFileDal:
             json.dump(data, f2)
         return {"message": "Deleted", "id": id}
 
-    def add_new_user(self, user):
+    def add_new_user(self, id, user):
         with open(self.__path, 'r') as f:
             data = json.load(f)
             users = data["users"]
-            users.append(user)
+            new_user = {}
+            new_user["_id"] = id
+            new_user["first_name"] = user["first_name"]
+            new_user["last_name"] = user["last_name"]
+            new_user["session_time_out"] = user["session_time_out"]
+            new_user["created_date"] = user["created_date"]
+            users.append(new_user)
             f.close()
-<<<<<<< HEAD
         with open(self.__path, 'w') as f2:
             json.dump(data, f2)
         return data["users"]
-=======
-         with open(self.__path, 'w') as f2:
-            json.dump(data, f2) 
-         return data["users"]         
->>>>>>> 9b28330bf77649597089d3782a608972a2a199ed

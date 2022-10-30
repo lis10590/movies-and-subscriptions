@@ -32,13 +32,11 @@ class UsersBL:
         deleted_user = self.__users_dal.delete_user(id)
         return deleted_user
 
-    def add_user_and_permissions(self,user):
+    def add_user_and_permissions(self, user):
         users = self.__users_dal.add_new_user(user)
         for item in users:
             if item["username"] == user["username"]:
-                chosen_user = item
+                id = str(item["_id"])
 
-        users_file = self.__users_file_dal.add_new_user(chosen_user)
-        return users_file        
-
-                 
+        users_file = self.__users_file_dal.add_new_user(id, user)
+        return users_file

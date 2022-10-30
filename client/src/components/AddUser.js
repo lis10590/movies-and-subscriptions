@@ -1,20 +1,13 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../store/usersFromFile";
-import {
-  userAddition,
-  selectOneUser,
-  getAllUsers,
-  selectAllUsers,
-} from "../store/users";
+import { userAddition, getAllUsers } from "../store/users";
 import { useState, useEffect } from "react";
+import { checkboxesActions } from "../store/checkboxes_permissions";
 const AddUser = () => {
   const dispatch = useDispatch();
-
-  const user = useSelector(selectOneUser);
-  const users = useSelector(selectAllUsers);
-  console.log(users);
+  const checkboxes = useSelector((state) => state.checkboxes);
+  console.log(checkboxes);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -35,24 +28,46 @@ const AddUser = () => {
     }));
   };
 
-  const addUserToFile = () => {
-    const obj2 = {
-      _id: user._id,
+  const onSaveClickHandler = () => {
+    const obj = {
+      username: inputObj.username,
+      password: "",
       first_name: inputObj.firstName,
       last_name: inputObj.lastName,
       session_time_out: inputObj.sessionTimeOut,
+      created_date: new Date().toLocaleDateString("en-GB"),
     };
 
-    dispatch(addUser(obj2));
+    dispatch(userAddition(obj));
   };
 
-  const onSaveClickHandler = () => {
-    const obj1 = {
-      username: inputObj.username,
-      password: "",
-    };
+  const changeViewSubHandler = () => {
+    dispatch(checkboxesActions.changeViewSub(!checkboxes.viewSub));
+  };
+  const changeCreateSubHandler = () => {
+    dispatch(checkboxesActions.changeCreateSub(!checkboxes.createSub));
+  };
+  const changeUpdateSubHandler = () => {
+    dispatch(checkboxesActions.changeUpdateSub(!checkboxes.updateSub));
+  };
+  const changeDeleteSubHandler = () => {
+    dispatch(checkboxesActions.changeDeleteSub(!checkboxes.deleteSub));
+  };
 
-    dispatch(userAddition(obj1));
+  const changeViewMoviesHandler = () => {
+    dispatch(checkboxesActions.changeViewMovies(!checkboxes.viewMovies));
+  };
+
+  const changeCreateMoviesHandler = () => {
+    dispatch(checkboxesActions.changeCreateMovies(!checkboxes.createMovies));
+  };
+
+  const changeUpdateMoviesHandler = () => {
+    dispatch(checkboxesActions.changeUpdateMovies(!checkboxes.updateMovies));
+  };
+
+  const changeDeleteMoviesHandler = () => {
+    dispatch(checkboxesActions.changeDeleteMovies(!checkboxes.deleteMovies));
   };
 
   return (
@@ -74,6 +89,22 @@ const AddUser = () => {
         onChangeLastName={onChangeInputHandler}
         onChangeSession={onChangeInputHandler}
         onChangeUsername={onChangeInputHandler}
+        checkedViewSub={checkboxes.viewSub}
+        checkedCreateSub={checkboxes.createSub}
+        checkedDelSub={checkboxes.deleteSub}
+        checkedUpdateSub={checkboxes.updateSub}
+        checkedViewMovies={checkboxes.viewMovies}
+        checkedCreateMovies={checkboxes.createMovies}
+        checkedDelMovies={checkboxes.deleteMovies}
+        checkedUpdateMovies={checkboxes.updateMovies}
+        onChangeViewSub={changeViewSubHandler}
+        onChangeCreateSub={changeCreateSubHandler}
+        onChangeDelSub={changeDeleteSubHandler}
+        onChangeUpdateSub={changeUpdateSubHandler}
+        onChangeViewMovies={changeViewMoviesHandler}
+        onChangeCreateMovies={changeCreateMoviesHandler}
+        onChangeDelMovies={changeDeleteMoviesHandler}
+        onChangeUpdateMovies={changeUpdateMoviesHandler}
       />
       <Buttons className="is-flex is-justify-content-center mt-6">
         <Button onClick={onSaveClickHandler}>Save</Button>

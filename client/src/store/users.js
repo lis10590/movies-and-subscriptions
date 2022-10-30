@@ -10,6 +10,7 @@ import {
 
 const initialUsersState = {
   users: [],
+  usersDetails: [],
   user: {},
   isLoading: false,
   isError: false,
@@ -18,7 +19,7 @@ const initialUsersState = {
 };
 
 export const userAddition = createAsyncThunk(
-  "users/newUser",
+  "users/addUserAndPermissions",
   async (user, thunkAPI) => {
     try {
       return await addNewUser(user);
@@ -138,7 +139,7 @@ const usersSlice = createSlice({
       .addCase(userAddition.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.users = action.payload;
+        state.usersDetails = action.payload;
       })
       .addCase(userAddition.rejected, (state, action) => {
         state.isLoading = false;
