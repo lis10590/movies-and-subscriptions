@@ -13,6 +13,10 @@ class PermissionsBL:
         permission = self.__permissions_dal.get_one_permission(id)
         return permission
 
-    def update_permissions(self,obj):
+    def update_permissions(self, obj):
         permissions = self.__permissions_dal.update_permissions(obj)
-        return permissions    
+        return permissions
+
+    def add_permissions(self, user):
+        permissions = self.__permissions_dal.add_permissions(user)
+        return permissions
