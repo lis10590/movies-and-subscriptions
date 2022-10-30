@@ -52,6 +52,12 @@ class UsersFileDal:
             users = data["users"]
             users.append(user)
             f.close()
+<<<<<<< HEAD
         with open(self.__path, 'w') as f2:
             json.dump(data, f2)
         return data["users"]
+=======
+         with open(self.__path, 'w') as f2:
+            json.dump(data, f2) 
+         return data["users"]         
+>>>>>>> 9b28330bf77649597089d3782a608972a2a199ed
