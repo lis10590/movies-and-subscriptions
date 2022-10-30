@@ -33,3 +33,13 @@ export const updatePermissions = async (obj) => {
     console.error(err);
   }
 };
+
+export const addPermissions = async (user) => {
+  try {
+    const res = await axios.post(`${apiUrl}/permissions/addPermissions`, user);
+
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

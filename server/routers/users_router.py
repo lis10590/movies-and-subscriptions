@@ -54,3 +54,10 @@ def update_user():
 def delete_user(id):
     result = users_bl.delete_user(id)
     return jsonify(result)
+
+
+@users.route("/addUserAndPermissions",methods=['POST'])
+def add_user_and_permissions():
+    user = request.json
+    result = users_bl.add_user_and_permissions(user)
+    return jsonify(result)

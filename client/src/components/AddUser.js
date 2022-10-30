@@ -2,12 +2,23 @@ import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/usersFromFile";
-import { userAddition, getUserByUsername, selectOneUser } from "../store/users";
-import { useState } from "react";
+import {
+  userAddition,
+  selectOneUser,
+  getAllUsers,
+  selectAllUsers,
+} from "../store/users";
+import { useState, useEffect } from "react";
 const AddUser = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(selectOneUser);
+  const users = useSelector(selectAllUsers);
+  console.log(users);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
 
   const [inputObj, setInputObj] = useState({
     firstName: "",
@@ -42,9 +53,6 @@ const AddUser = () => {
     };
 
     dispatch(userAddition(obj1));
-    dispatch(getUserByUsername(inputObj.username));
-
-    setTimeout(addUserToFile, 10000);
   };
 
   return (

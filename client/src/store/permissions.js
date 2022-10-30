@@ -3,6 +3,7 @@ import {
   getAllPermissions,
   getOnePermission,
   updatePermissions,
+  addPermissions,
 } from "../api/permissions";
 
 const initialPermissionsState = {
@@ -65,6 +66,23 @@ export const permissionsUpdate = createAsyncThunk(
   }
 );
 
+export const permissionsAddition = createAsyncThunk(
+  "/permissions/addPermissions",
+  async (user, thunkAPI) => {
+    try {
+      return await addPermissions(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const permissionsSlice = createSlice({
   name: "permissions",
   initialState: initialPermissionsState,
@@ -105,6 +123,17 @@ const permissionsSlice = createSlice({
         state.permissions = action.payload;
       })
       .addCase(permissionsUpdate.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(permissionsAddition.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(permissionsAddition.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.permissions = action.payload;
+      })
+      .addCase(permissionsAddition.rejected, (state, action) => {
         state.isLoading = false;
       });
   },
