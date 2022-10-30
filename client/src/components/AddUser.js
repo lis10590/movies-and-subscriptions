@@ -7,7 +7,6 @@ import { checkboxesActions } from "../store/checkboxes_permissions";
 const AddUser = () => {
   const dispatch = useDispatch();
   const checkboxes = useSelector((state) => state.checkboxes);
-  console.log(checkboxes);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -28,7 +27,50 @@ const AddUser = () => {
     }));
   };
 
+  const checkPermissions = () => {
+    let arr = [];
+    for (const per in checkboxes) {
+      if (checkboxes[per]) {
+        arr.push(per);
+      }
+    }
+    let arr2 = [];
+    for (const item of arr) {
+      switch (item) {
+        case "createSub":
+          arr2.push("Create Subscriptions");
+          break;
+        case "viewSub":
+          arr2.push("View Subscriptions");
+          break;
+        case "updateSub":
+          arr2.push("Update Subscriptions");
+          break;
+        case "deleteSub":
+          arr2.push("Delete Subscriptions");
+          break;
+        case "createMovies":
+          arr2.push("Create Movies");
+          break;
+        case "viewMovies":
+          arr2.push("View Movies");
+          break;
+        case "updateMovies":
+          arr2.push("Update Movies");
+          break;
+        case "deleteMovies":
+          arr2.push("Delete Movies");
+          break;
+        default:
+          console.log("no match");
+      }
+    }
+
+    return arr2;
+  };
+
   const onSaveClickHandler = () => {
+    const permissions = checkPermissions();
     const obj = {
       username: inputObj.username,
       password: "",
@@ -36,7 +78,10 @@ const AddUser = () => {
       last_name: inputObj.lastName,
       session_time_out: inputObj.sessionTimeOut,
       created_date: new Date().toLocaleDateString("en-GB"),
+      permissions,
     };
+
+    console.log(obj);
 
     dispatch(userAddition(obj));
   };

@@ -7,6 +7,7 @@ class UsersBL:
     def __init__(self):
         self.__users_dal = UsersDal()
         self.__users_file_dal = UsersFileDal()
+        self.__permissions_dal = PermissionsDal()
 
     def get_users(self):
         users = self.__users_dal.get_all_users()
@@ -39,4 +40,5 @@ class UsersBL:
                 id = str(item["_id"])
 
         users_file = self.__users_file_dal.add_new_user(id, user)
-        return users_file
+        permissions = self.__permissions_dal.add_permissions(id,user)
+        return {"users":users_file,"permissions":permissions}
