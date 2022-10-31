@@ -24,6 +24,7 @@ const AllUsers = () => {
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
   const usersDB = useSelector(selectAllUsers);
+  console.log(usersDB);
   let username = {};
 
   const comboArr = (users, permissions) => {

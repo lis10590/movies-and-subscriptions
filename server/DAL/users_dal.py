@@ -30,8 +30,9 @@ class UsersDal:
     def update_user(self, id, user):
         self.__collection.update_one(
             {"_id": ObjectId(id)}, {"$set": {"username": user["username"]}})
-        return 'Updated!'
+        users = list(self.__collection.find({}))
+        return users
 
     def delete_user(self, id):
         self.__collection.delete_one({"_id": ObjectId(id)})
-        return 'Deleted!'
+        return id

@@ -27,11 +27,16 @@ class UsersBL:
 
     def update_user(self, id, user):
         updated_user = self.__users_dal.update_user(id, user)
-        return updated_user
+        updated_users_file = self.__users_file_dal.update_user_from_file(user)
+        updated_permissions = self.__permissions_dal.update_permissions(user)
+        return {"users": updated_user, "users_file": updated_users_file, "permissions": updated_permissions}
 
     def delete_user(self, id):
         deleted_user = self.__users_dal.delete_user(id)
-        return deleted_user
+        deleted_user_from_file = self.__users_file_dal.delete_user_from_file(
+            id)
+        deleted_permissions = self.__permissions_dal.delete_permissions(id)
+        return {"users": deleted_user, "users_file": deleted_user_from_file, "permissions": deleted_permissions}
 
     def add_user_and_permissions(self, user):
         users = self.__users_dal.add_new_user(user)
@@ -40,5 +45,5 @@ class UsersBL:
                 id = str(item["_id"])
 
         users_file = self.__users_file_dal.add_new_user(id, user)
-        permissions = self.__permissions_dal.add_permissions(id,user)
-        return {"users":users_file,"permissions":permissions}
+        permissions = self.__permissions_dal.add_permissions(id, user)
+        return {"users": users, "users_file": users_file, "permissions": permissions}

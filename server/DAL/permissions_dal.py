@@ -33,7 +33,7 @@ class PermissionsDal:
             json.dump(data, f2)
         return data["permissions"]
 
-    def add_permissions(self, id,user):
+    def add_permissions(self, id, user):
         with open(self.__path, 'r') as f:
             data = json.load(f)
         permissions = data["permissions"]
@@ -44,6 +44,15 @@ class PermissionsDal:
         f.close()
         with open(self.__path, 'w') as f2:
             json.dump(data, f2)
-        return data["permissions"]    
+        return data["permissions"]
 
-     
+    def delete_permissions(self, id):
+        with open(self.__path, 'r') as f:
+            data = json.load(f)
+        permissions = data["permissions"]
+        new_permissions = list(filter(lambda x: x["_id"] != id, permissions))
+        data["permissions"] = new_permissions
+        f.close()
+        with open(self.__path, 'w') as f2:
+            json.dump(data, f2)
+        return id

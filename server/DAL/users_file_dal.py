@@ -44,7 +44,7 @@ class UsersFileDal:
         f.close()
         with open(self.__path, 'w') as f2:
             json.dump(data, f2)
-        return {"message": "Deleted", "id": id}
+        return id
 
     def add_new_user(self, id, user):
         with open(self.__path, 'r') as f:

@@ -2,13 +2,9 @@ import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import {
-  getUserFromFile,
-  selectOneUserFromFile,
-  updateUser,
-} from "../store/usersFromFile";
+import { getUserFromFile, selectOneUserFromFile } from "../store/usersFromFile";
 import { getPermission } from "../store/permissions";
-import { getUser, selectOneUser } from "../store/users";
+import { getUser, selectOneUser, userUpdate } from "../store/users";
 import { checkboxesActions } from "../store/checkboxes_permissions";
 import { selectEditUser } from "../store/usersReducer";
 import { useNavigate } from "react-router-dom";
@@ -75,24 +71,59 @@ const EditUser = () => {
     dispatch({ type: "onChangeSession", payload: e.target.value });
   };
 
-  const onUpdateClick = () => {
+  const checkPermissions = () => {
     let arr = [];
     for (const per in checkboxes) {
       if (checkboxes[per]) {
         arr.push(per);
       }
     }
+    let arr2 = [];
+    for (const item of arr) {
+      switch (item) {
+        case "createSub":
+          arr2.push("Create Subscriptions");
+          break;
+        case "viewSub":
+          arr2.push("View Subscriptions");
+          break;
+        case "updateSub":
+          arr2.push("Update Subscriptions");
+          break;
+        case "deleteSub":
+          arr2.push("Delete Subscriptions");
+          break;
+        case "createMovies":
+          arr2.push("Create Movies");
+          break;
+        case "viewMovies":
+          arr2.push("View Movies");
+          break;
+        case "updateMovies":
+          arr2.push("Update Movies");
+          break;
+        case "deleteMovies":
+          arr2.push("Delete Movies");
+          break;
+        default:
+          console.log("no match");
+      }
+    }
+
+    return arr2;
+  };
+
+  const onUpdateClick = () => {
+    const permissions = checkPermissions();
 
     const obj = {
       ...editUser,
       _id: userId,
-      permissions: arr,
+      permissions,
     };
 
-    console.log(obj);
-
-    // dispatch(updateUser(obj));
-    // navigate("/allusers");
+    dispatch(userUpdate(obj));
+    navigate("/allusers");
   };
 
   const onCancelClick = () => {

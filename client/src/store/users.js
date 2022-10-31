@@ -11,6 +11,8 @@ import {
 const initialUsersState = {
   users: [],
   usersDetails: [],
+  usersFromFile: [],
+  permisions: [],
   user: {},
   isLoading: false,
   isError: false,
@@ -125,9 +127,6 @@ const usersSlice = createSlice({
   initialState: initialUsersState,
   reducers: {
     reset: (state) => initialUsersState,
-    // onChangeInputValue: (state, action) => {
-    //   return { ...state.movie }, void (state.movie = action.payload);
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -209,7 +208,9 @@ const usersSlice = createSlice({
       .addCase(userUpdate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user.push(action.payload);
+        state.users = action.payload.users;
+        state.usersFromFile = action.payload.users_file;
+        state.permisions = action.payload.permisions;
       })
       .addCase(userUpdate.rejected, (state, action) => {
         state.isLoading = false;
