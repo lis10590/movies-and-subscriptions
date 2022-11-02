@@ -1,16 +1,18 @@
 import { Card, Button, Title, Buttons } from "react-bulma-companion";
-import {
-  selectAllUsersFromFile,
-  getUsersFromFile,
-  deleteUser,
-} from "../store/usersFromFile";
-import { selectAllPermissions, getPermissions } from "../store/permissions";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userIdActions } from "../store/userId";
 import { useNavigate } from "react-router-dom";
 import { checkboxesActions } from "../store/checkboxes_permissions";
-import { getAllUsers, selectAllUsers } from "../store/users";
+import {
+  getAllUsers,
+  selectAllUsers,
+  getPermissions,
+  selectAllPermissions,
+  getUsersFromFile,
+  selectAllUsersFromFile,
+} from "../store/users";
+import { deleteOneUser } from "../store/users";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -97,7 +99,7 @@ const AllUsers = () => {
   };
 
   const deleteUserHandler = (id) => {
-    dispatch(deleteUser(id));
+    dispatch(deleteOneUser(id));
   };
 
   return (
@@ -131,7 +133,7 @@ const AllUsers = () => {
                 return <span key={index}>{per},</span>;
               })}
             </p>
-            <Buttons>
+            <Buttons className="is-justify-content-center mt-4">
               <Button
                 onClick={() => {
                   EditUserHandler(user._id);

@@ -2,9 +2,14 @@ import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getUserFromFile, selectOneUserFromFile } from "../store/usersFromFile";
-import { getPermission } from "../store/permissions";
-import { getUser, selectOneUser, userUpdate } from "../store/users";
+import {
+  getUser,
+  selectOneUser,
+  userUpdate,
+  getUserFromFile,
+  selectOneUserFromFile,
+  getPermission,
+} from "../store/users";
 import { checkboxesActions } from "../store/checkboxes_permissions";
 import { selectEditUser } from "../store/usersReducer";
 import { useNavigate } from "react-router-dom";

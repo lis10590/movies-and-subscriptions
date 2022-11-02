@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { userAddition, getAllUsers } from "../store/users";
 import { useState, useEffect } from "react";
 import { checkboxesActions } from "../store/checkboxes_permissions";
+import { useNavigate } from "react-router-dom";
 const AddUser = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const checkboxes = useSelector((state) => state.checkboxes);
 
   useEffect(() => {
@@ -84,6 +86,7 @@ const AddUser = () => {
     console.log(obj);
 
     dispatch(userAddition(obj));
+    navigate("/allUsers");
   };
 
   const changeViewSubHandler = () => {

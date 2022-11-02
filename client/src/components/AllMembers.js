@@ -75,7 +75,7 @@ const AllMembers = () => {
             <Title size="5">{member.name}</Title>
             <p>Email: {member.email}</p>
             <p>City: {member.city}</p>
-            <Buttons>
+            <Buttons className="is-justify-content-center mt-4">
               <Button
                 onClick={() => {
                   onEditMember(member._id);

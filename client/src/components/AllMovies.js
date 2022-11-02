@@ -29,15 +29,6 @@ const AllMovies = () => {
 
   console.log(watchList);
 
-  // const comboArr = (movies,watchList)=>{
-  //   let arr = []
-  //   for(const movie of movies){
-  //     for(const item of watchList){
-  //       if(movie._id === item.member_id)
-  //     }
-  //   }
-  // }
-
   const onEditClickHandler = (id) => {
     dispatch(movieIdActions.editId(id));
     let chosenMovie = {};
@@ -113,7 +104,7 @@ const AllMovies = () => {
                   <Title size="6">Subscriptions Watched</Title>
                 </Card>
               </div>
-              <Buttons className="mt-5">
+              <Buttons className="is-justify-content-center mt-4">
                 <Button onClick={() => onEditClickHandler(movie._id)}>
                   Edit
                 </Button>
