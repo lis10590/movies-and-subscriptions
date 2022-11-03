@@ -1,1 +1,11 @@
-{"users": [{"_id": "634c342bcbb3da6a00d08409", "first_name": "Admin", "last_name": "Admin", "created_date": "16-10-2022", "session_time_out": 300000}, {"_id": "635056ae3de7a0a6cc1d23c7", "first_name": "Dafna", "last_name": "Ron", "session_time_out": "200"}, {"_id": "635e556919b51729d046aa61", "first_name": "Dana", "last_name": "Levi", "session_time_out": "100"}, {"_id": "635e8d94de981f1371085b9f", "first_name": "Yossi", "last_name": "Levi", "session_time_out": "200", "created_date": "30/10/2022"}, {"_id": "63626bfcca8fe21ff42f4d48", "first_name": "Shimi", "last_name": "Tavori", "session_time_out": "100", "created_date": "02/11/2022"}]}
+{
+  "users": [
+    {
+      "_id": "634c342bcbb3da6a00d08409",
+      "first_name": "Admin",
+      "last_name": "Admin",
+      "created_date": "16-10-2022",
+      "session_time_out": 300000
+    }
+  ]
+}

@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { movieIdActions } from "../store/movieId";
 import { getList, selectAllWatchList } from "../store/watchList";
+import { getAllMembers, selectAllMembers } from "../store/members";
 
 const AllMovies = () => {
   const dispatch = useDispatch();
@@ -21,13 +22,13 @@ const AllMovies = () => {
   useEffect(() => {
     dispatch(getAllMovies());
     dispatch(getList());
+    dispatch(getAllMembers());
   }, [dispatch]);
 
   const movies = useSelector(selectAllMovies);
   const watchList = useSelector(selectAllWatchList);
+  const members = useSelector(selectAllMembers);
   const [queryInput, setQueryInput] = useState("");
-
-  console.log(watchList);
 
   const onEditClickHandler = (id) => {
     dispatch(movieIdActions.editId(id));
@@ -48,6 +49,33 @@ const AllMovies = () => {
 
   const search = (e) => {
     setQueryInput(e.target.value);
+  };
+
+  const findSubscriptions = (watchList, movieName) => {
+    let arr = [];
+    let membersArr = [];
+    for (const item of watchList) {
+      for (const movie of item.movies) {
+        if (movieName === movie.movie) {
+          const obj = {
+            id: item.member_id,
+            date: movie.date,
+          };
+          arr.push(obj);
+        }
+      }
+    }
+
+    for (const item of arr) {
+      for (const member of members) {
+        if (item.id === member._id) {
+          const str = member.name + "," + item.date;
+          membersArr.push(str);
+        }
+      }
+    }
+
+    return membersArr;
   };
 
   return (
@@ -102,6 +130,11 @@ const AllMovies = () => {
                 />
                 <Card>
                   <Title size="6">Subscriptions Watched</Title>
+                  <ul>
+                    {findSubscriptions(watchList, movie.name).map((item) => {
+                      return <li>{item}</li>;
+                    })}
+                  </ul>
                 </Card>
               </div>
               <Buttons className="is-justify-content-center mt-4">
