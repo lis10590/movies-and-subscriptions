@@ -39,9 +39,9 @@ const AddSubscription = () => {
     const obj = {
       _id: subscription.id,
       movie: subscription.movie,
-      date: subscription.date,
+      date: new Date(subscription.date).toLocaleDateString("en-GB"),
     };
-    console.log(obj);
+
     dispatch(watchListAddition(obj));
   };
 

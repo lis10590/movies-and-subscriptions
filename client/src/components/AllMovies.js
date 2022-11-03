@@ -92,13 +92,14 @@ const AllMovies = () => {
         <Button>Find</Button>
       </Field>
       <Title>All Movies</Title>
+
       {movies
         .filter((item) => item.name.toLowerCase().includes(queryInput))
         .map((movie) => {
           return (
             <Card
               style={{
-                maxWidth: "25rem",
+                maxWidth: "30rem",
                 marginBottom: "2rem",
                 marginLeft: "auto",
                 marginRight: "auto",
@@ -121,21 +122,23 @@ const AllMovies = () => {
               <div style={{ display: "flex" }}>
                 <img
                   style={{
-                    maxWidth: "40%",
+                    maxWidth: "50%",
                     marginLeft: "15px",
                     marginRight: "15px",
                   }}
                   alt="movie"
                   src={movie.image.medium}
                 />
-                <Card>
+                <div>
                   <Title size="6">Subscriptions Watched</Title>
-                  <ul>
-                    {findSubscriptions(watchList, movie.name).map((item) => {
-                      return <li>{item}</li>;
-                    })}
+                  <ul style={{ listStyle: "disc", marginLeft: "20px" }}>
+                    {findSubscriptions(watchList, movie.name).map(
+                      (item, index) => {
+                        return <li key={index}>{item}</li>;
+                      }
+                    )}
                   </ul>
-                </Card>
+                </div>
               </div>
               <Buttons className="is-justify-content-center mt-4">
                 <Button onClick={() => onEditClickHandler(movie._id)}>

@@ -97,9 +97,9 @@ const AllMembers = () => {
               <Box className="is-flex is-justify-content-center">
                 <ul style={{ listStyleType: "disc" }}>
                   {member.movies.length > 0
-                    ? member.movies.map((movie) => {
+                    ? member.movies.map((movie, index) => {
                         return (
-                          <li>
+                          <li key={index}>
                             {movie.movie},{movie.date}
                           </li>
                         );
