@@ -13,6 +13,7 @@ import editMoviesReducer from "./moviesReducer";
 import editUsersReducer from "./usersReducer";
 import watchListReducer from "./watchList";
 import subscriptionReducer from "./subscriptionReducer";
+import authReducer from "./auth";
 
 const store = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ const store = configureStore({
     editUser: editUsersReducer,
     watchList: watchListReducer,
     subscription: subscriptionReducer,
+    auth: authReducer,
   },
 });
 

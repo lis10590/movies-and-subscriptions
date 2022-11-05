@@ -8,6 +8,8 @@ from routers.users_from_file_router import users_from_file
 from routers.permissions_router import permissions
 from routers.users_router import users
 from routers.watch_list_router import watchList
+from routers.auth_router import auth
+from routers.main_page_router import main_page
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -29,6 +31,8 @@ app.register_blueprint(users_from_file, url_prefix="/usersfromfile")
 app.register_blueprint(permissions, url_prefix="/permissions")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(watchList, url_prefix="/watchList")
+app.register_blueprint(auth, url_prefix="/auth")
+app.register_blueprint(main_page, url_prefix="/mainpage")
 
 
 app.run()

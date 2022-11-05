@@ -3,6 +3,7 @@ from BL.members_bl import MembersBL
 
 members = Blueprint('members', __name__)
 
+
 members_bl = MembersBL()
 
 #Get All
@@ -12,13 +13,13 @@ def get_all_members():
     return jsonify(members)
 
 #Get All from DB
-@members.route("/getMembers", methods=['GET'])
+@members.route("/getMembers" , methods=['GET'])
 def get_all_members_from_db():
     members = members_bl.get_members_from_db()
     return jsonify(members)  
 
 #Get One Member
-@members.route("/getOneMember/<member_id>", methods=['GET'])
+@members.route("/getOneMember/<member_id>" , methods=['GET'])
 def get_one_member(member_id):
     member = members_bl.get_member(member_id)
     return jsonify(member)       

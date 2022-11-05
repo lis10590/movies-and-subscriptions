@@ -11,7 +11,41 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import NavbarLogin from "./NavbarLogin";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { userRegistration } from "../store/auth";
+import { useNavigate } from "react-router-dom";
+
 const CreateAccountPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    password2: "",
+  });
+
+  const onChangeUser = (e) => {
+    const { name, value } = e.target;
+
+    setUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const createAccount = () => {
+    if (user.password === user.password2) {
+      const obj = {
+        username: user.username,
+        password: user.password,
+      };
+
+      dispatch(userRegistration(obj));
+      navigate("/mainpage");
+    }
+  };
+
   return (
     <div>
       <NavbarLogin />
@@ -29,7 +63,12 @@ const CreateAccountPage = () => {
         <Field>
           <Label size="small">Username</Label>
           <Control className="has-icons-left">
-            <Input name="username" type="text" size="small" />
+            <Input
+              name="username"
+              type="text"
+              size="small"
+              onChange={onChangeUser}
+            />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faUser} />
             </span>
@@ -38,7 +77,12 @@ const CreateAccountPage = () => {
         <Field>
           <Label size="small">Password</Label>
           <Control className="has-icons-left">
-            <Input name="password" type="password" size="small" />
+            <Input
+              name="password"
+              type="password"
+              size="small"
+              onChange={onChangeUser}
+            />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faLock} />
             </span>
@@ -47,7 +91,12 @@ const CreateAccountPage = () => {
         <Field>
           <Label size="small">Confirm Password</Label>
           <Control className="has-icons-left">
-            <Input name="password2" type="password" size="small" />
+            <Input
+              name="password2"
+              type="password"
+              size="small"
+              onChange={onChangeUser}
+            />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faLock} />
             </span>
@@ -55,7 +104,7 @@ const CreateAccountPage = () => {
         </Field>
         <Field>
           <Control>
-            <Button>Create Account</Button>
+            <Button onClick={createAccount}>Create Account</Button>
           </Control>
         </Field>
         <Field component={Link} to="/">
