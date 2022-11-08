@@ -1,12 +1,15 @@
 import { Navbar } from "react-bulma-companion";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { reset } from "../store/auth";
+import { useDispatch } from "react-redux";
 const NavbarComp = () => {
   const [moviesTab, setMoviesTab] = useState(false);
   const [subscriptionsTab, setSubscriptionTab] = useState(false);
   const [usersmTab, setUsersmTab] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onClickMoviesTabHandler = () => {
     setMoviesTab(true);
@@ -27,6 +30,12 @@ const NavbarComp = () => {
     setMoviesTab(false);
     setSubscriptionTab(false);
     navigate("/usersmanagement");
+  };
+
+  const onClickLogout = () => {
+    sessionStorage.removeItem("token");
+    dispatch(reset());
+    navigate("/");
   };
   return (
     <Navbar>
@@ -53,7 +62,9 @@ const NavbarComp = () => {
           >
             Users Management
           </Navbar.Item>
-          <Navbar.Item tab>Logout</Navbar.Item>
+          <Navbar.Item tab onClick={onClickLogout}>
+            Logout
+          </Navbar.Item>
         </Navbar.Start>
       </Navbar.Menu>
     </Navbar>

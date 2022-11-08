@@ -1,6 +1,6 @@
 import "./App.css";
 import "bulma/css/bulma.min.css";
-import { Route, Routes, redirect, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import CreateAccountPage from "./components/CreateAccountPage";
 import UsersPage from "./components/UsersPage";
@@ -18,7 +18,6 @@ import AddMember from "./components/AddMember";
 import AddUser from "./components/AddUser";
 
 function App() {
-  const token = sessionStorage.getItem("token");
   return (
     <div className="App">
       <Routes>
@@ -33,10 +32,7 @@ function App() {
         <Route path="/editmember" element={<EditMember />} />
         <Route path="/addmovie" element={<AddMovie />} />
         <Route path="/edituser" element={<EditUser />} />
-        <Route
-          path="/mainpage"
-          element={token ? <MainPage /> : <Navigate to="/" />}
-        />
+        <Route path="/mainpage" element={<MainPage />} />
         <Route path="allusers" element={<AllUsers />} />
         <Route path="/addmember" element={<AddMember />} />
         <Route path="/adduser" element={<AddUser />} />
