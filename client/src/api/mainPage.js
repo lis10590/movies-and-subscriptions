@@ -6,7 +6,7 @@ export const getMainPage = async () => {
   try {
     const res = await axios.get(`${apiUrl}/mainpage`, {
       headers: {
-        "x-access-token": sessionStorage.token,
+        "x-access-token": sessionStorage.getItem("token"),
       },
     });
 
