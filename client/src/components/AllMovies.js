@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { movieIdActions } from "../store/movieId";
 import { getList, selectAllWatchList } from "../store/watchList";
 import { getAllMembers, selectAllMembers } from "../store/members";
+import NavbarMovies from "./NavbarMovies";
 
 const AllMovies = () => {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ const AllMovies = () => {
 
   return (
     <div>
+      {/* <NavbarMovies /> */}
       <Field>
         Find Movie
         <Input

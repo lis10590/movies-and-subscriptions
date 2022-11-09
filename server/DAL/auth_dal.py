@@ -1,6 +1,8 @@
 import jwt
 from pymongo import MongoClient
-
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from datetime import datetime, timedelta
 
 
 class AuthDal:
@@ -11,34 +13,34 @@ class AuthDal:
         self.__db = self.__client["UsersDB"]
         self.__collection = self.__db["Users"]
 
-    def register_user(self,username,password):
-        self.__collection.insert_one({"username":username,"password":password}) 
+    def register_user(self, username, password):
+        self.__collection.insert_one(
+            {"username": username, "password": password})
         new_user = self.__collection.find_one({"username": username})
-        return new_user   
+        return new_user
 
-    def get_token(self,username, password):
-        user_id = self.__check_user(username,password)
+    def get_token(self, username, password):
+        user_id = self.__check_user(username, password)
         token = None
         if user_id is not None:
-            token = jwt.encode({"user_id" : user_id}, self.__key, self.__algorithm)
-        return token    
+            token = create_access_token(
+                identity=user_id, expires_delta=timedelta(minutes=2))
+            # jwt.encode({"user_id" : user_id}, self.__key, self.__algorithm)
+        return token
 
     def verify_token(self, token):
-        data = jwt.decode(token, self.__key, self.__algorithm)
-        user_id = data["user_id"]
+        # data = jwt.decode(token, self.__key, self.__algorithm)
+        user_id = get_jwt_identity()
+        # data["user_id"]
         if user_id:
             return True
         else:
-            return False        
+            return False
 
-
-    def __check_user(self,username, password):
+    def __check_user(self, username, password):
         # Check existance of that user in data base....
         user = self.__collection.find_one({"username": username})
         if user and user["password"] == password:
             return str(user["_id"])
         else:
             return None
-
-
-

@@ -5,7 +5,7 @@ import AllUsers from "./AllUsers";
 import AddUser from "./AddUser";
 
 const UsersPage = () => {
-  const [allUsersTab, setAllUsersTab] = useState(false);
+  const [allUsersTab, setAllUsersTab] = useState(true);
   const [addUserTab, setAddUserTab] = useState(false);
 
   const allUsersTabHandler = () => {

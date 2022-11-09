@@ -4,7 +4,7 @@ import NavbarComp from "./NavbarComp";
 import AllMembers from "./AllMembers";
 import AddMember from "./AddMember";
 const Subscriptions = () => {
-  const [allMembersTab, setAllMembersTab] = useState(false);
+  const [allMembersTab, setAllMembersTab] = useState(true);
   const [addMemberTab, setAddMemberTab] = useState(false);
 
   const allMembersTabHandler = () => {

@@ -10,6 +10,7 @@ from routers.users_router import users
 from routers.watch_list_router import watchList
 from routers.auth_router import auth
 from routers.main_page_router import main_page
+from flask_jwt_extended import JWTManager
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -21,6 +22,9 @@ class JSONEncoder(json.JSONEncoder):
 
 app = Flask(__name__)
 CORS(app)
+
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+jwt = JWTManager(app)
 
 
 app.json_encoder = JSONEncoder

@@ -5,9 +5,10 @@ import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const token = useSelector((state) => state.auth.token);
+  console.log(token);
   return (
     <div>
-      {token !== undefined && token !== "" ? (
+      {Object.keys(token).length !== 0 ? (
         <div>
           <NavbarComp />
           <Title style={{ fontFamily: "Alkalami, serif" }}>Main Page</Title>
