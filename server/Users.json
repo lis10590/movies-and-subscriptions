@@ -6,6 +6,13 @@
       "last_name": "Admin",
       "created_date": "16-10-2022",
       "session_time_out": 300000
+    },
+    {
+      "_id": "6368e3bb45915b627097f983",
+      "first_name": "Lis",
+      "last_name":"Setgasy",
+      "created_date":"16-10-2022",
+      "session_time_out": 1
     }
   ]
 }

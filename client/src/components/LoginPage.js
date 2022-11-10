@@ -11,14 +11,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import NavbarLogin from "./NavbarLogin";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../store/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  getUsersFromFile,
+  selectAllUsersFromFile,
+  getAllUsers,
+  selectAllUsers,
+} from "../store/users";
+import { reset } from "../store/auth";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getAllUsers());
+    dispatch(getUsersFromFile());
+  }, [dispatch]);
+
+  const users = useSelector(selectAllUsers);
+  const usersFromFile = useSelector(selectAllUsersFromFile);
+  console.log(usersFromFile);
+  console.log(users);
 
   const tokenData = useSelector((state) => state.auth.token);
   console.log(tokenData);
@@ -36,9 +52,32 @@ const LoginPage = () => {
     }));
   };
 
+  const findUserId = () => {
+    let id = "";
+    for (const item of users) {
+      if (item.username === user.username) {
+        id = item._id;
+      }
+    }
+    for (const item of usersFromFile) {
+      if (item._id === id) {
+        return item.session_time_out;
+      }
+    }
+  };
+
+  const removeToken = () => {
+    sessionStorage.removeItem("token");
+    dispatch(reset());
+  };
+
   const onLoginClick = () => {
     dispatch(userLogin(user));
     navigate("/mainpage");
+    setTimeout(() => {
+      removeToken();
+      navigate("/");
+    }, parseInt(findUserId()) * 60 * 1000);
   };
   return (
     <div>

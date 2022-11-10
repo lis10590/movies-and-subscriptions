@@ -28,12 +28,12 @@ class AuthDal:
             # jwt.encode({"user_id" : user_id}, self.__key, self.__algorithm)
         return token
 
-    def verify_token(self, token):
+    def verify_token(self):
         # data = jwt.decode(token, self.__key, self.__algorithm)
         user_id = get_jwt_identity()
         # data["user_id"]
         if user_id:
-            return True
+            return {"boolean": True, "id": user_id}
         else:
             return False
 

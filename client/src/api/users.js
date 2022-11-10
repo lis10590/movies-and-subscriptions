@@ -13,7 +13,12 @@ export const addNewUser = async (user) => {
 
 export const getUsers = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/users/getUsers`);
+    const res = await axios.get(`${apiUrl}/users/getUsers`, {
+      headers: {
+        Authorization: "Bearer".concat(" ", sessionStorage.getItem("token")),
+      },
+    });
+    console.log(res.data);
 
     return res.data;
   } catch (err) {

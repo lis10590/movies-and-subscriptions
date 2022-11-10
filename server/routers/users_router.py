@@ -1,17 +1,23 @@
 from flask import Blueprint, jsonify, request
 from BL.users_bl import UsersBL
+from BL.auth_bl import AuthBL
+from flask_jwt_extended import jwt_required
 
 users = Blueprint('users', __name__)
 
 users_bl = UsersBL()
+auth_bl = AuthBL()
 
 # Get All
 
 
 @users.route("/getUsers", methods=['GET'])
+@jwt_required()
 def get_all_users():
+    current_user = auth_bl.verify_token()
     users = users_bl.get_users()
-    return jsonify(users)
+    result = {"users": users, "current_user": current_user}
+    return jsonify(result)
 
 # Get One User by Id
 
