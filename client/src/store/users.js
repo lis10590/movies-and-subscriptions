@@ -10,6 +10,7 @@ import {
   getOneUserFromFile,
   getAllPermissions,
   getOnePermission,
+  getUsersAndPermissions,
 } from "../api/users";
 
 const initialUsersState = {
@@ -19,6 +20,8 @@ const initialUsersState = {
   user: {},
   userFromFile: {},
   permission: {},
+  loggedUser: {},
+  tokenDetails: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -47,6 +50,23 @@ export const getAllUsers = createAsyncThunk(
   async (thunkAPI) => {
     try {
       return await getUsers();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getAllUsersAndPermissions = createAsyncThunk(
+  "users/allUsers",
+  async (thunkAPI) => {
+    try {
+      return await getUsersAndPermissions();
     } catch (error) {
       const message =
         (error.response &&
@@ -230,6 +250,24 @@ const usersSlice = createSlice({
       })
 
       .addCase(getAllUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getAllUsersAndPermissions.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllUsersAndPermissions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.users = action.payload.users;
+        state.usersFromFile = action.payload.usersFromFile;
+        state.permissions = action.payload.permissions;
+        state.loggedUser = action.payload.currentUser;
+        state.tokenDetails = action.payload.tokenDetails;
+      })
+
+      .addCase(getAllUsersAndPermissions.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

@@ -26,6 +26,21 @@ export const getUsers = async () => {
   }
 };
 
+export const getUsersAndPermissions = async () => {
+  try {
+    const res = await axios.get(`${apiUrl}/users/allUsers`, {
+      headers: {
+        Authorization: "Bearer".concat(" ", sessionStorage.getItem("token")),
+      },
+    });
+    console.log(res.data);
+
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const getOneUser = async (userId) => {
   try {
     const res = await axios.get(`${apiUrl}/users/getOneUser/${userId}`);

@@ -2,6 +2,7 @@ import jwt
 from pymongo import MongoClient
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import decode_token
 from datetime import datetime, timedelta
 
 
@@ -44,3 +45,7 @@ class AuthDal:
             return str(user["_id"])
         else:
             return None
+
+    def get_token_details(self, token):
+        token_details = decode_token(token)
+        return token_details

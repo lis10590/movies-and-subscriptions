@@ -16,3 +16,7 @@ class AuthBL:
     def verify_token(self):
         result = self.__auth_dal.verify_token()
         return result
+
+    def get_token_details(self, token):
+        result = self.__auth_dal.get_token_details(token)
+        return result

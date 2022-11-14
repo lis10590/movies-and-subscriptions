@@ -74,10 +74,10 @@ const LoginPage = () => {
   const onLoginClick = () => {
     dispatch(userLogin(user));
     navigate("/mainpage");
-    setTimeout(() => {
-      removeToken();
-      navigate("/");
-    }, parseInt(findUserId()) * 60 * 1000);
+    // setTimeout(() => {
+    //   removeToken();
+    //   navigate("/");
+    // }, parseInt(findUserId()) * 60 * 1000);
   };
   return (
     <div>

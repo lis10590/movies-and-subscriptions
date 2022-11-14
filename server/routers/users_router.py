@@ -1,23 +1,41 @@
 from flask import Blueprint, jsonify, request
 from BL.users_bl import UsersBL
 from BL.auth_bl import AuthBL
+from BL.permissions_bl import PermissionsBL
+from BL.users_file_bl import UsersFromFileBL
 from flask_jwt_extended import jwt_required
 
 users = Blueprint('users', __name__)
 
 users_bl = UsersBL()
 auth_bl = AuthBL()
+permissions_bl = PermissionsBL()
+users_file_bl = UsersFromFileBL()
 
 # Get All
 
 
 @users.route("/getUsers", methods=['GET'])
-@jwt_required()
 def get_all_users():
-    current_user = auth_bl.verify_token()
     users = users_bl.get_users()
-    result = {"users": users, "current_user": current_user}
+    result = {"users": users}
     return jsonify(result)
+
+
+@users.route("/allUsers", methods=['GET'])
+@jwt_required()
+def get_all_users_and_permissions():
+    current_user = auth_bl.verify_token()
+    token = request.headers["Authorization"].split()[1]
+    token_details = auth_bl.get_token_details(token)
+    users = users_bl.get_users()
+    permissions = permissions_bl.get_permissions()
+    users_from_file = users_file_bl.get_users_from_file()
+    result = {"users": users, "permissions": permissions,
+              "usersFromFile": users_from_file, "currentUser": current_user, "tokenDetails": token_details}
+
+    return jsonify(result)
+
 
 # Get One User by Id
 

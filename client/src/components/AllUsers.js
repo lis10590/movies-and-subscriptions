@@ -5,29 +5,41 @@ import { userIdActions } from "../store/userId";
 import { useNavigate } from "react-router-dom";
 import { checkboxesActions } from "../store/checkboxes_permissions";
 import {
-  getAllUsers,
   selectAllUsers,
-  getPermissions,
   selectAllPermissions,
-  getUsersFromFile,
   selectAllUsersFromFile,
+  getAllUsersAndPermissions,
 } from "../store/users";
 import { deleteOneUser } from "../store/users";
+import { toDate } from "unix-timestamp";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getUsersFromFile());
-    dispatch(getPermissions());
-    dispatch(getAllUsers());
+    dispatch(getAllUsersAndPermissions());
+    checkExpiry();
   }, [dispatch]);
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
   const usersDB = useSelector(selectAllUsers);
   console.log(usersDB);
+  const tokenData = useSelector((state) => state.auth.token);
+  console.log(tokenData);
+  const tokenDetails = useSelector((state) => state.users.tokenDetails);
+  console.log(tokenDetails);
   let username = {};
+
+  const checkExpiry = () => {
+    if (Object.keys(tokenDetails).length !== 0) {
+      const expDate = toDate(tokenDetails.exp);
+      if (Date.now() > expDate) {
+        sessionStorage.removeItem("token");
+        navigate("/");
+      }
+    }
+  };
 
   const comboArr = (users, permissions) => {
     let arr = [];
