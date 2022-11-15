@@ -1,7 +1,11 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useDispatch, useSelector } from "react-redux";
-import { userAddition, getAllUsers } from "../store/users";
+import {
+  userAddition,
+  getAllUsers,
+  getAllUsersAndPermissions,
+} from "../store/users";
 import { useState, useEffect } from "react";
 import { checkboxesActions } from "../store/checkboxes_permissions";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +15,8 @@ const AddUser = () => {
   const checkboxes = useSelector((state) => state.checkboxes);
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    // dispatch(getAllUsers());
+    dispatch(getAllUsersAndPermissions());
   }, [dispatch]);
 
   const [inputObj, setInputObj] = useState({

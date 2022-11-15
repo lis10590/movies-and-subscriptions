@@ -13,11 +13,19 @@ export const addNewMember = async (member) => {
 
 export const getMembers = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/members/getMembers`);
+    const res = await axios.get(`${apiUrl}/members/getMembers`, {
+      headers: {
+        Authorization: "Bearer".concat(" ", sessionStorage.getItem("token")),
+      },
+    });
 
     return res.data;
   } catch (err) {
     console.error(err);
+    if (err.response.status === 401) {
+      sessionStorage.removeItem("token");
+      window.location.href = "/";
+    }
   }
 };
 

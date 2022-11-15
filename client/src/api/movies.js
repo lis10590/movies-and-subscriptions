@@ -13,11 +13,19 @@ export const addNewMovie = async (movie) => {
 
 export const getMovies = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/movies/getMovies`);
+    const res = await axios.get(`${apiUrl}/movies/getMovies`, {
+      headers: {
+        Authorization: "Bearer".concat(" ", sessionStorage.getItem("token")),
+      },
+    });
 
     return res.data;
   } catch (err) {
     console.error(err);
+    if (err.response.status === 401) {
+      sessionStorage.removeItem("token");
+      window.location.href = "/";
+    }
   }
 };
 

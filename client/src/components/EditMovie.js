@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMovies from "./InputMovies";
 import { useSelector, useDispatch } from "react-redux";
-import { getMovie, selectOneMovie } from "../store/movies";
+import { getMovie, selectOneMovie, getAllMovies } from "../store/movies";
 import { useNavigate } from "react-router-dom";
 import { selectEditMovie } from "../store/moviesReducer";
 
@@ -14,6 +14,7 @@ const EditMovie = (props) => {
 
   useEffect(() => {
     dispatch(getMovie(movieId));
+    dispatch(getAllMovies());
   }, [dispatch, movieId]);
   const movie = useSelector(selectOneMovie);
 

@@ -9,6 +9,7 @@ import {
   getUserFromFile,
   selectOneUserFromFile,
   getPermission,
+  getAllUsersAndPermissions,
 } from "../store/users";
 import { checkboxesActions } from "../store/checkboxes_permissions";
 import { selectEditUser } from "../store/usersReducer";
@@ -25,6 +26,7 @@ const EditUser = () => {
     dispatch(getUserFromFile(userId));
     dispatch(getPermission(userId));
     dispatch(getUser(userId));
+    dispatch(getAllUsersAndPermissions());
   }, [dispatch, userId]);
 
   const user = useSelector(selectOneUserFromFile);

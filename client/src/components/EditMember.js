@@ -1,6 +1,6 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMembers from "./InputMembers";
-import { selectMember, getMember } from "../store/members";
+import { selectMember, getMember, getAllMembers } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const EditMember = () => {
 
   useEffect(() => {
     dispatch(getMember(memberId));
+    dispatch(getAllMembers());
   }, [dispatch, memberId]);
 
   const member = useSelector(selectMember);

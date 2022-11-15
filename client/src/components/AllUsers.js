@@ -16,10 +16,6 @@ import { toDate } from "unix-timestamp";
 const AllUsers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(getAllUsersAndPermissions());
-    checkExpiry();
-  }, [dispatch]);
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
@@ -29,17 +25,33 @@ const AllUsers = () => {
   console.log(tokenData);
   const tokenDetails = useSelector((state) => state.users.tokenDetails);
   console.log(tokenDetails);
+  const tokenSession = sessionStorage.getItem("token");
+  console.log(tokenSession);
   let username = {};
 
-  const checkExpiry = () => {
+  useEffect(() => {
+    dispatch(getAllUsersAndPermissions());
+    // if (tokenSession.length === 0) {
+    //   navigate("/");
+    // }
     if (Object.keys(tokenDetails).length !== 0) {
       const expDate = toDate(tokenDetails.exp);
       if (Date.now() > expDate) {
-        sessionStorage.removeItem("token");
+        // sessionStorage.removeItem("token");
         navigate("/");
       }
     }
-  };
+  }, [dispatch, Date.now()]);
+
+  // const checkExpiry = () => {
+  //   if (Object.keys(tokenDetails).length !== 0) {
+  //     const expDate = toDate(tokenDetails.exp);
+  //     if (Date.now() > expDate) {
+  //       sessionStorage.removeItem("token");
+  //       navigate("/");
+  //     }
+  //   }
+  // };
 
   const comboArr = (users, permissions) => {
     let arr = [];

@@ -22,6 +22,7 @@ import {
   selectAllUsers,
 } from "../store/users";
 import { reset } from "../store/auth";
+import { toDate } from "unix-timestamp";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,11 @@ const LoginPage = () => {
 
   const users = useSelector(selectAllUsers);
   const usersFromFile = useSelector(selectAllUsersFromFile);
-  console.log(usersFromFile);
-  console.log(users);
+  const tokenDetails = useSelector((state) => state.users.tokenDetails);
+  const expDate =
+    Object.keys(tokenDetails).length !== 0 ? toDate(tokenDetails.exp) : null;
+  const timeout = expDate - Date.now();
+  console.log(timeout);
 
   const tokenData = useSelector((state) => state.auth.token);
   console.log(tokenData);

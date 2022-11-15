@@ -38,6 +38,10 @@ export const getUsersAndPermissions = async () => {
     return res.data;
   } catch (err) {
     console.error(err);
+    if (err.response.status === 401) {
+      sessionStorage.removeItem("token");
+      window.location.href = "/";
+    }
   }
 };
 
