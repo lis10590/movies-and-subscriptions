@@ -28,20 +28,19 @@ const AllUsers = () => {
   const tokenSession = sessionStorage.getItem("token");
   console.log(tokenSession);
   let username = {};
+  const expDate =
+    Object.keys(tokenDetails).length !== 0 ? toDate(tokenDetails.exp) : null;
 
   useEffect(() => {
     dispatch(getAllUsersAndPermissions());
-    // if (tokenSession.length === 0) {
-    //   navigate("/");
-    // }
-    if (Object.keys(tokenDetails).length !== 0) {
-      const expDate = toDate(tokenDetails.exp);
+    const interval = setInterval(() => {
       if (Date.now() > expDate) {
-        // sessionStorage.removeItem("token");
         navigate("/");
       }
-    }
-  }, [dispatch, Date.now()]);
+    }, 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
   // const checkExpiry = () => {
   //   if (Object.keys(tokenDetails).length !== 0) {
