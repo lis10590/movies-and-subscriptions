@@ -118,7 +118,7 @@ const memberSlice = createSlice({
       .addCase(memberAddition.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.members.push(action.payload);
+        state.members = action.payload.members;
       })
       .addCase(memberAddition.rejected, (state, action) => {
         state.isLoading = false;

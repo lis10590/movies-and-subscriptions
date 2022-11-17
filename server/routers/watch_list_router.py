@@ -10,8 +10,8 @@ watch_list_bl = WatchListBL()
 
 @watchList.route("/createsubs", methods=['POST'])
 def create_subscriptions():
-    members = request.json
-    result = watch_list_bl.create_subscriptions(members)
+    member = request.json
+    result = watch_list_bl.create_subscriptions(member)
     return jsonify(result)
 
 # Get All

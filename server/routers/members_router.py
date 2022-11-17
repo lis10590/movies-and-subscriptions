@@ -1,11 +1,13 @@
 from flask import Blueprint, jsonify, request
 from BL.members_bl import MembersBL
+from BL.watch_list_bl import WatchListBL
 from flask_jwt_extended import jwt_required
 
 members = Blueprint('members', __name__)
 
 
 members_bl = MembersBL()
+watchlist_bl = WatchListBL()
 
 # Get All
 
@@ -39,7 +41,12 @@ def get_one_member(member_id):
 def add_member():
     member = request.json
     result = members_bl.add_new_member(member)
-    return jsonify(result)
+    id = result["id"]
+    member = {}
+    member["_id"] = id
+    sub = watchlist_bl.create_subscriptions(member)
+    res = {"members": result["members"], "watchlist": sub}
+    return jsonify(res)
 
 # Update Member
 

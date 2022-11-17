@@ -5,8 +5,8 @@ class WatchListBL:
     def __init__(self):
         self.__watchlist_dal = WatchListDal()
 
-    def create_subscriptions(self, members):
-        subs = self.__watchlist_dal.create_subscriptions(members)
+    def create_subscriptions(self, member):
+        subs = self.__watchlist_dal.create_subscriptions(member)
         return subs
 
     def get_subscriptions(self):

@@ -2,7 +2,7 @@ import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMembers from "./InputMembers";
 import { selectMember, getMember, getAllMembers } from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { selectEditMember } from "../store/membersReducer";
 

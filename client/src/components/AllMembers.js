@@ -13,6 +13,7 @@ const AllMembers = () => {
 
   const members = useSelector(selectAllMembers);
   const subscriptions = useSelector(selectAllWatchList);
+  console.log(members);
 
   const comboArr = (members, subscriptions) => {
     let arr = [];
@@ -58,6 +59,8 @@ const AllMembers = () => {
     setAddButton(index);
     dispatch({ type: "onChangeId", payload: id });
   };
+
+  console.log(comboArr(members, subscriptions));
 
   return (
     <div>
