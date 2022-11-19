@@ -2,11 +2,16 @@ import { useEffect } from "react";
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMovies from "./InputMovies";
 import { useSelector, useDispatch } from "react-redux";
-import { getMovie, selectOneMovie, getAllMovies } from "../store/movies";
+import {
+  getMovie,
+  selectOneMovie,
+  getAllMovies,
+  movieUpdate,
+} from "../store/movies";
 import { useNavigate } from "react-router-dom";
 import { selectEditMovie } from "../store/moviesReducer";
 
-const EditMovie = (props) => {
+const EditMovie = () => {
   const movieId = useSelector((state) => state.movieId.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +40,16 @@ const EditMovie = (props) => {
   };
 
   const onCancelClick = () => {
+    navigate("/allmovies");
+  };
+
+  const onUpdateMovie = () => {
+    const obj = {
+      ...editMovie,
+      id: movieId,
+    };
+
+    dispatch(movieUpdate(obj));
     navigate("/allmovies");
   };
 
@@ -69,7 +84,7 @@ const EditMovie = (props) => {
         onChangePremiered={onChangePremiered}
       />
       <Buttons className="is-flex is-justify-content-center">
-        <Button>Update</Button>
+        <Button onClick={onUpdateMovie}>Update</Button>
         <Button onClick={onCancelClick}>Cancel</Button>
       </Buttons>
     </Box>

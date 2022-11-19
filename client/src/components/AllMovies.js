@@ -8,9 +8,9 @@ import {
   Input,
 } from "react-bulma-companion";
 import EditMovie from "./EditMovie";
-import { getAllMovies, selectAllMovies } from "../store/movies";
+import { getAllMovies, selectAllMovies, deleteOneMovie } from "../store/movies";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { movieIdActions } from "../store/movieId";
 import { getList, selectAllWatchList } from "../store/watchList";
 import { getAllMembers, selectAllMembers } from "../store/members";
@@ -19,6 +19,7 @@ import NavbarMovies from "./NavbarMovies";
 const AllMovies = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(getAllMovies());
@@ -27,6 +28,7 @@ const AllMovies = () => {
   }, [dispatch]);
 
   const movies = useSelector(selectAllMovies);
+
   const watchList = useSelector(selectAllWatchList);
   const members = useSelector(selectAllMembers);
   const [queryInput, setQueryInput] = useState("");
@@ -79,9 +81,13 @@ const AllMovies = () => {
     return membersArr;
   };
 
+  const onDeleteMovie = (id) => {
+    dispatch(deleteOneMovie(id));
+  };
+
   return (
     <div>
-      {/* <NavbarMovies /> */}
+      {location.pathname === "/allmovies" ? <NavbarMovies /> : null}
       <Field>
         Find Movie
         <Input
@@ -95,62 +101,71 @@ const AllMovies = () => {
       </Field>
       <Title>All Movies</Title>
 
-      {movies
-        .filter((item) => item.name.toLowerCase().includes(queryInput))
-        .map((movie) => {
-          return (
-            <Card
-              style={{
-                maxWidth: "30rem",
-                marginBottom: "2rem",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-              key={movie._id}
-            >
-              <Title size="5">
-                {movie.name},{movie.premiered.split("-")[0]}
-              </Title>
-              <h3>
-                Genres:
-                {movie.genres.map((genre, index) => {
-                  return (
-                    <span key={index}>
-                      "{genre}"{index === movie.genres.length - 1 ? null : ","}
-                    </span>
-                  );
-                })}
-              </h3>
-              <div style={{ display: "flex" }}>
-                <img
+      {movies.length !== 0
+        ? movies
+            .filter((item) => item.name.toLowerCase().includes(queryInput))
+            .map((movie) => {
+              return (
+                <Card
                   style={{
-                    maxWidth: "50%",
-                    marginLeft: "15px",
-                    marginRight: "15px",
+                    maxWidth: "30rem",
+                    marginBottom: "2rem",
+                    marginLeft: "auto",
+                    marginRight: "auto",
                   }}
-                  alt="movie"
-                  src={movie.image.medium}
-                />
-                <div>
-                  <Title size="6">Subscriptions Watched</Title>
-                  <ul style={{ listStyle: "disc", marginLeft: "20px" }}>
-                    {findSubscriptions(watchList, movie.name).map(
-                      (item, index) => {
-                        return <li key={index}>{item}</li>;
-                      }
-                    )}
-                  </ul>
-                </div>
-              </div>
-              <Buttons className="is-justify-content-center mt-4">
-                <Button onClick={() => onEditClickHandler(movie._id)}>
-                  Edit
-                </Button>
-                <Button>Delete</Button>
-              </Buttons>
-            </Card>
-          );
-        })}
+                  key={movie._id}
+                >
+                  <Title size="5">
+                    {movie.name},{movie.premiered.split("-")[0]}
+                  </Title>
+                  <h3>
+                    Genres:
+                    {movie.genres.map((genre, index) => {
+                      return (
+                        <span key={index}>
+                          "{genre}"
+                          {index === movie.genres.length - 1 ? null : ","}
+                        </span>
+                      );
+                    })}
+                  </h3>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      style={{
+                        maxWidth: "50%",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                      }}
+                      alt="movie"
+                      src={movie.image.medium}
+                    />
+                    <div>
+                      <Title size="6">Subscriptions Watched</Title>
+                      <ul style={{ listStyle: "disc", marginLeft: "20px" }}>
+                        {findSubscriptions(watchList, movie.name).map(
+                          (item, index) => {
+                            return <li key={index}>{item}</li>;
+                          }
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                  <Buttons className="is-justify-content-center mt-4">
+                    <Button onClick={() => onEditClickHandler(movie._id)}>
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        onDeleteMovie(movie._id);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </Buttons>
+                </Card>
+              );
+            })
+        : null}
       {true ? null : <EditMovie />}
     </div>
   );

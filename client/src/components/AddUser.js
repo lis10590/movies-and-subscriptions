@@ -1,21 +1,19 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputUser from "./InputUser";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  userAddition,
-  getAllUsers,
-  getAllUsersAndPermissions,
-} from "../store/users";
+import { userAddition, getAllUsersAndPermissions } from "../store/users";
 import { useState, useEffect } from "react";
 import { checkboxesActions } from "../store/checkboxes_permissions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import NavbarUsers from "./NavbarUsers";
+
 const AddUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const checkboxes = useSelector((state) => state.checkboxes);
 
   useEffect(() => {
-    // dispatch(getAllUsers());
     dispatch(getAllUsersAndPermissions());
   }, [dispatch]);
 
@@ -124,46 +122,49 @@ const AddUser = () => {
   };
 
   return (
-    <Box
-      style={{
-        maxWidth: "25rem",
-        marginTop: "2rem",
-        marginLeft: "auto",
-        marginRight: "auto",
-      }}
-    >
-      <Title>Add User</Title>
-      <InputUser
-        firstNameValue={inputObj.firstName}
-        lastNameValue={inputObj.lastName}
-        sessionValue={inputObj.sessionTimeOut}
-        usernameValue={inputObj.username}
-        onChangeFirstName={onChangeInputHandler}
-        onChangeLastName={onChangeInputHandler}
-        onChangeSession={onChangeInputHandler}
-        onChangeUsername={onChangeInputHandler}
-        checkedViewSub={checkboxes.viewSub}
-        checkedCreateSub={checkboxes.createSub}
-        checkedDelSub={checkboxes.deleteSub}
-        checkedUpdateSub={checkboxes.updateSub}
-        checkedViewMovies={checkboxes.viewMovies}
-        checkedCreateMovies={checkboxes.createMovies}
-        checkedDelMovies={checkboxes.deleteMovies}
-        checkedUpdateMovies={checkboxes.updateMovies}
-        onChangeViewSub={changeViewSubHandler}
-        onChangeCreateSub={changeCreateSubHandler}
-        onChangeDelSub={changeDeleteSubHandler}
-        onChangeUpdateSub={changeUpdateSubHandler}
-        onChangeViewMovies={changeViewMoviesHandler}
-        onChangeCreateMovies={changeCreateMoviesHandler}
-        onChangeDelMovies={changeDeleteMoviesHandler}
-        onChangeUpdateMovies={changeUpdateMoviesHandler}
-      />
-      <Buttons className="is-flex is-justify-content-center mt-6">
-        <Button onClick={onSaveClickHandler}>Save</Button>
-        <Button>Cancel</Button>
-      </Buttons>
-    </Box>
+    <div>
+      {location.pathname === "/adduser" ? <NavbarUsers /> : null}
+      <Box
+        style={{
+          maxWidth: "25rem",
+          marginTop: "2rem",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
+        <Title>Add User</Title>
+        <InputUser
+          firstNameValue={inputObj.firstName}
+          lastNameValue={inputObj.lastName}
+          sessionValue={inputObj.sessionTimeOut}
+          usernameValue={inputObj.username}
+          onChangeFirstName={onChangeInputHandler}
+          onChangeLastName={onChangeInputHandler}
+          onChangeSession={onChangeInputHandler}
+          onChangeUsername={onChangeInputHandler}
+          checkedViewSub={checkboxes.viewSub}
+          checkedCreateSub={checkboxes.createSub}
+          checkedDelSub={checkboxes.deleteSub}
+          checkedUpdateSub={checkboxes.updateSub}
+          checkedViewMovies={checkboxes.viewMovies}
+          checkedCreateMovies={checkboxes.createMovies}
+          checkedDelMovies={checkboxes.deleteMovies}
+          checkedUpdateMovies={checkboxes.updateMovies}
+          onChangeViewSub={changeViewSubHandler}
+          onChangeCreateSub={changeCreateSubHandler}
+          onChangeDelSub={changeDeleteSubHandler}
+          onChangeUpdateSub={changeUpdateSubHandler}
+          onChangeViewMovies={changeViewMoviesHandler}
+          onChangeCreateMovies={changeCreateMoviesHandler}
+          onChangeDelMovies={changeDeleteMoviesHandler}
+          onChangeUpdateMovies={changeUpdateMoviesHandler}
+        />
+        <Buttons className="is-flex is-justify-content-center mt-6">
+          <Button onClick={onSaveClickHandler}>Save</Button>
+          <Button>Cancel</Button>
+        </Buttons>
+      </Box>
+    </div>
   );
 };
 

@@ -52,14 +52,18 @@ def add_member():
 
 
 @members.route("/updateMember", methods=['PUT'])
-def update_member(id):
+def update_member():
     member = request.json
+    id = member["id"] 
     result = members_bl.update_member(id, member)
     return jsonify(result)
 
 
 # Delete Member
 @members.route("/deleteMember", methods=['DELETE'])
-def delete_member(id):
-    result = members_bl.delete_member(id)
+def delete_member():
+    id = request.json["memberId"]
+    member_id = members_bl.delete_member(id)
+    subs = watchlist_bl.delete_watchlist(id)
+    result = {"id":member_id,"subscriptions":subs}
     return jsonify(result)

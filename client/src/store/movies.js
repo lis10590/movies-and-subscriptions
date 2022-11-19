@@ -120,7 +120,7 @@ const movieSlice = createSlice({
       .addCase(movieAddition.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.movies.push(action.payload);
+        state.movies = action.payload;
       })
       .addCase(movieAddition.rejected, (state, action) => {
         state.isLoading = false;
@@ -156,7 +156,7 @@ const movieSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.movies = state.movies.filter(
-          (movie) => movie._id !== action.payload.id
+          (movie) => movie._id !== action.payload
         );
       })
       .addCase(deleteOneMovie.rejected, (state, action) => {
@@ -170,7 +170,7 @@ const movieSlice = createSlice({
       .addCase(movieUpdate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.movies.push(action.payload);
+        state.movies = action.payload;
       })
       .addCase(movieUpdate.rejected, (state, action) => {
         state.isLoading = false;

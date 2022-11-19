@@ -25,7 +25,7 @@ class AuthDal:
         token = None
         if user_id is not None:
             token = create_access_token(
-                identity=user_id, expires_delta=timedelta(minutes=2))
+                identity=user_id, expires_delta=timedelta(minutes=30))
             # jwt.encode({"user_id" : user_id}, self.__key, self.__algorithm)
         return token
 

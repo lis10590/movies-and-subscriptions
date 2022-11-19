@@ -28,5 +28,6 @@ class WatchListDal:
         return users
 
     def delete_all_subscriptions(self, id):
-        self.__collection.delete_one({"_id": ObjectId(id)})
-        return 'Deleted!'
+        self.__collection.delete_one({"member_id": id})
+        users = list(self.__collection.find({}))
+        return users

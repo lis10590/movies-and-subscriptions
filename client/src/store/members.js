@@ -154,7 +154,7 @@ const memberSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.members = state.members.filter(
-          (client) => client._id !== action.payload.id
+          (member) => member._id !== action.payload.id
         );
       })
       .addCase(deleteOneMember.rejected, (state, action) => {
@@ -168,7 +168,7 @@ const memberSlice = createSlice({
       .addCase(memberUpdate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.members.push(action.payload);
+        state.members = action.payload;
       })
       .addCase(memberUpdate.rejected, (state, action) => {
         state.isLoading = false;

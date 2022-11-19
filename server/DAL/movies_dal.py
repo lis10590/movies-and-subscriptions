@@ -23,12 +23,17 @@ class MoviesDal:
 
      def add_new_movie(self,movie):
          self.__collection.insert_one(movie)
-         return 'Created with ID' + str(movie["_id"])
+         movies = list(self.__collection.find({}))
+         return movies
 
      def update_movie(self,id,movie):
-        self.__collection.update_one({"_id" : ObjectId(id)}, {"$set" : movie})
-        return 'Updated!' 
+        self.__collection.update_one({"_id" : ObjectId(id)}, {"$set" : {
+         "name":movie["name"],"genres":movie["genres"],"image":{"medium":movie["image"]},
+         "premiered":movie["premiered"]
+        }})
+        movies = list(self.__collection.find({}))
+        return movies 
 
      def delete_movie(self,id):
         self.__collection.delete_one({"_id" : ObjectId(id)})
-        return 'Deleted!'    
+        return id  

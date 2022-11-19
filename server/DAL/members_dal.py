@@ -30,9 +30,11 @@ class MembersDal:
         return {"id": id, "members": members}
 
     def update_member(self, id, member):
-        self.__collection.update_one({"_id": ObjectId(id)}, {"$set": member})
-        return 'Updated!'
+        self.__collection.update_one({"_id": ObjectId(id)}, 
+        {"$set":{"name":member["name"],"email":member["email"],"city":member["city"]}})
+        members = list(self.__collection.find({}))
+        return members
 
     def delete_member(self, id):
         self.__collection.delete_one({"_id": ObjectId(id)})
-        return 'Deleted!'
+        return id

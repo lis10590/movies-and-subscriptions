@@ -4,35 +4,35 @@ import { useNavigate } from "react-router-dom";
 import { reset } from "../store/auth";
 import { useDispatch } from "react-redux";
 
-const NavbarMovies = () => {
-  const [allMoviesTab, setAllMoviesTab] = useState(false);
-  const [addMovieTab, setAddMovieTab] = useState(false);
+const NavbarUsers = () => {
+  const [allUsersTab, setAllUsersTab] = useState(false);
+  const [addUserTab, setAddUserTab] = useState(false);
   const [mainMenuTab, setMainMenuTab] = useState(false);
   const [logoutTab, setLogoutTab] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const allMoviesTabHandler = () => {
-    setAllMoviesTab(true);
-    setAddMovieTab(false);
+  const allUsersTabHandler = () => {
+    setAllUsersTab(true);
+    setAddUserTab(false);
     setMainMenuTab(false);
     setLogoutTab(false);
-    navigate("/allmovies");
+    navigate("/allusers");
   };
 
-  const addMovieTabHandler = () => {
-    setAddMovieTab(true);
-    setAllMoviesTab(false);
+  const addUserTabHandler = () => {
+    setAddUserTab(true);
+    setAllUsersTab(false);
     setMainMenuTab(false);
     setLogoutTab(false);
-    navigate("/addmovie");
+    navigate("/adduser");
   };
 
   const mainMenuTabHandler = () => {
     setMainMenuTab(true);
-    setAddMovieTab(false);
-    setAllMoviesTab(false);
+    setAddUserTab(false);
+    setAllUsersTab(false);
     setLogoutTab(false);
     navigate("/mainpage");
   };
@@ -40,8 +40,8 @@ const NavbarMovies = () => {
   const logoutTabHandler = () => {
     setLogoutTab(true);
     setMainMenuTab(false);
-    setAddMovieTab(false);
-    setAllMoviesTab(false);
+    setAddUserTab(false);
+    setAllUsersTab(false);
     sessionStorage.removeItem("token");
     dispatch(reset());
     navigate("/");
@@ -53,17 +53,17 @@ const NavbarMovies = () => {
         <Navbar.Start>
           <Navbar.Item
             tab
-            onClick={allMoviesTabHandler}
-            active={allMoviesTab ? true : false}
+            onClick={allUsersTabHandler}
+            active={allUsersTab ? true : false}
           >
-            All Movies
+            All Users
           </Navbar.Item>
           <Navbar.Item
             tab
-            onClick={addMovieTabHandler}
-            active={addMovieTab ? true : false}
+            onClick={addUserTabHandler}
+            active={addUserTab ? true : false}
           >
-            Add Movie
+            Add User
           </Navbar.Item>
           <Navbar.Item
             tab
@@ -85,4 +85,4 @@ const NavbarMovies = () => {
   );
 };
 
-export default NavbarMovies;
+export default NavbarUsers;

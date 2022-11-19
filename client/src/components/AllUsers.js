@@ -2,7 +2,7 @@ import { Card, Button, Title, Buttons } from "react-bulma-companion";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userIdActions } from "../store/userId";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { checkboxesActions } from "../store/checkboxes_permissions";
 import {
   selectAllUsers,
@@ -12,10 +12,12 @@ import {
 } from "../store/users";
 import { deleteOneUser } from "../store/users";
 import { toDate } from "unix-timestamp";
+import NavbarUsers from "./NavbarUsers";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const users = useSelector(selectAllUsersFromFile);
   const permissions = useSelector(selectAllPermissions);
@@ -41,16 +43,6 @@ const AllUsers = () => {
 
     return () => clearInterval(interval);
   }, [dispatch]);
-
-  // const checkExpiry = () => {
-  //   if (Object.keys(tokenDetails).length !== 0) {
-  //     const expDate = toDate(tokenDetails.exp);
-  //     if (Date.now() > expDate) {
-  //       sessionStorage.removeItem("token");
-  //       navigate("/");
-  //     }
-  //   }
-  // };
 
   const comboArr = (users, permissions) => {
     let arr = [];
@@ -127,6 +119,7 @@ const AllUsers = () => {
 
   return (
     <div>
+      {location.pathname === "/allusers" ? <NavbarUsers /> : null}
       <Title>All Users</Title>
       {comboArr(users, permissions).map((user) => {
         return (

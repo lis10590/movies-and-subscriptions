@@ -3,11 +3,14 @@ import InputMembers from "./InputMembers";
 import { getAllMembers, memberAddition } from "../store/members";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import NavbarMembers from "./NavbarMembers";
 
 const AddMember = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     dispatch(getAllMembers());
   }, [dispatch]);
@@ -34,28 +37,31 @@ const AddMember = () => {
     navigate("/allMembers");
   };
   return (
-    <Box
-      style={{
-        maxWidth: "25rem",
-        marginTop: "2rem",
-        marginLeft: "auto",
-        marginRight: "auto",
-      }}
-    >
-      <Title>Add Member</Title>
-      <InputMembers
-        nameValue={member.name}
-        onChangeName={onChangeMember}
-        emailValue={member.email}
-        onChangeEmail={onChangeMember}
-        cityValue={member.city}
-        onChangeCity={onChangeMember}
-      />
-      <Buttons className="is-flex is-justify-content-center">
-        <Button onClick={onSaveMember}>Save</Button>
-        <Button onClick={onCancelMember}>Cancel</Button>
-      </Buttons>
-    </Box>
+    <div>
+      {location.pathname === "/addmember" ? <NavbarMembers /> : null}
+      <Box
+        style={{
+          maxWidth: "25rem",
+          marginTop: "2rem",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
+        <Title>Add Member</Title>
+        <InputMembers
+          nameValue={member.name}
+          onChangeName={onChangeMember}
+          emailValue={member.email}
+          onChangeEmail={onChangeMember}
+          cityValue={member.city}
+          onChangeCity={onChangeMember}
+        />
+        <Buttons className="is-flex is-justify-content-center">
+          <Button onClick={onSaveMember}>Save</Button>
+          <Button onClick={onCancelMember}>Cancel</Button>
+        </Buttons>
+      </Box>
+    </div>
   );
 };
 

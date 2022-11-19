@@ -43,6 +43,7 @@ export const deleteMovie = async (movieId) => {
     const res = await axios.delete(`${apiUrl}/movies/deleteMovie`, {
       data: { movieId },
     });
+
     return res.data;
   } catch (err) {
     console.error(err);

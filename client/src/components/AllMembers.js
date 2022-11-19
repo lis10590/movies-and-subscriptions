@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { Card, Title, Buttons, Button, Box } from "react-bulma-companion";
-import { getAllMembers, selectAllMembers } from "../store/members";
+import {
+  getAllMembers,
+  selectAllMembers,
+  deleteOneMember,
+} from "../store/members";
 import { useSelector, useDispatch } from "react-redux";
 import { memberIdActions } from "../store/memberId";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getList, selectAllWatchList } from "../store/watchList";
 import AddSubscription from "./AddSubscription";
+import NavbarMembers from "./NavbarMembers";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const members = useSelector(selectAllMembers);
   const subscriptions = useSelector(selectAllWatchList);
@@ -60,10 +66,13 @@ const AllMembers = () => {
     dispatch({ type: "onChangeId", payload: id });
   };
 
-  console.log(comboArr(members, subscriptions));
+  const onDeleteMember = (id) => {
+    dispatch(deleteOneMember(id));
+  };
 
   return (
     <div>
+      {location.pathname === "/allmembers" ? <NavbarMembers /> : null}
       {comboArr(members, subscriptions).map((member, index) => {
         return (
           <Card
@@ -86,7 +95,13 @@ const AllMembers = () => {
               >
                 Edit
               </Button>
-              <Button>Delete</Button>
+              <Button
+                onClick={() => {
+                  onDeleteMember(member._id);
+                }}
+              >
+                Delete
+              </Button>
             </Buttons>
             <Card>
               <Title size="6">Movies Watched</Title>

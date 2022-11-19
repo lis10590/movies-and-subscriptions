@@ -44,14 +44,16 @@ def add_movie():
 
 
 @movies.route("/updateMovie", methods=['PUT'])
-def update_movie(id):
+def update_movie():
     movie = request.json
+    id = movie["id"]
     result = movies_bl.update_movie(id, movie)
     return jsonify(result)
 
 
 # Delete Movie
 @movies.route("/deleteMovie", methods=['DELETE'])
-def delete_movie(id):
+def delete_movie():
+    id = request.json["movieId"]
     result = movies_bl.delete_movie(id)
     return jsonify(result)
