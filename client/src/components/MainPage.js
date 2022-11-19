@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 const MainPage = () => {
   const token = useSelector((state) => state.auth.token);
   console.log(token);
+  const tokenDetails = useSelector((state) => state.users.tokenDetails);
+  console.log(tokenDetails);
   return (
     <div>
       <NavbarComp />

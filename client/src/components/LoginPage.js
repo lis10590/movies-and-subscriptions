@@ -35,6 +35,7 @@ const LoginPage = () => {
   const users = useSelector(selectAllUsers);
   const usersFromFile = useSelector(selectAllUsersFromFile);
   const tokenDetails = useSelector((state) => state.users.tokenDetails);
+  console.log(tokenDetails);
   const expDate =
     Object.keys(tokenDetails).length !== 0 ? toDate(tokenDetails.exp) : null;
   const timeout = expDate - Date.now();

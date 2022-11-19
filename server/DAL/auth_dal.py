@@ -3,8 +3,10 @@ from pymongo import MongoClient
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import decode_token
-from datetime import datetime, timedelta
+from datetime import timedelta
+from DAL.users_file_dal import UsersFileDal
 
+users_file_dal = UsersFileDal()
 
 class AuthDal:
     def __init__(self):
@@ -22,10 +24,12 @@ class AuthDal:
 
     def get_token(self, username, password):
         user_id = self.__check_user(username, password)
+        user = users_file_dal.get_one_user_from_file(user_id)
+        session = int(user["session_time_out"])
         token = None
         if user_id is not None:
             token = create_access_token(
-                identity=user_id, expires_delta=timedelta(minutes=30))
+                identity=user_id, expires_delta=timedelta(minutes=session))
             # jwt.encode({"user_id" : user_id}, self.__key, self.__algorithm)
         return token
 

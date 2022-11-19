@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request, make_response
 from BL.auth_bl import AuthBL
 
+
 auth = Blueprint('auth', __name__)
 
 
 auth_bl = AuthBL()
+
 
 
 @auth.route("/register", methods=['POST'])
