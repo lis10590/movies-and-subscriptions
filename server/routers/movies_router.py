@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from BL.movies_bl import MoviesBL
 from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt
 
 movies = Blueprint('movies', __name__)
 
@@ -20,8 +21,10 @@ def get_all_movies():
 @movies.route("/getMovies", methods=['GET'])
 @jwt_required()
 def get_all_movies_from_db():
+    data = get_jwt()
     movies = movies_bl.get_movies_from_db()
-    return jsonify(movies)
+    result = {"data": data, "movies": movies}
+    return jsonify(result)
 
 # Get One Movie
 

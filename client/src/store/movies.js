@@ -10,6 +10,7 @@ import {
 const initialMoviesState = {
   movies: [],
   movie: {},
+  moviesPermissions: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -106,9 +107,6 @@ const movieSlice = createSlice({
   initialState: initialMoviesState,
   reducers: {
     reset: (state) => initialMoviesState,
-    // onChangeInputValue: (state, action) => {
-    //   (state.movie = { ...state.movie }), action.payload;
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -133,7 +131,8 @@ const movieSlice = createSlice({
       .addCase(getAllMovies.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.movies = action.payload;
+        state.movies = action.payload.movies;
+        state.moviesPermissions = action.payload.data;
       })
       .addCase(getMovie.rejected, (state, action) => {
         state.isLoading = false;

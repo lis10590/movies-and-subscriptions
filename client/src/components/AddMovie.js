@@ -1,6 +1,6 @@
 import { Box, Button, Title, Buttons } from "react-bulma-companion";
 import InputMovies from "./InputMovies";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllMovies, movieAddition } from "../store/movies";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,14 +12,31 @@ const AddMovie = () => {
   const location = useLocation();
   useEffect(() => {
     dispatch(getAllMovies());
+    createMoviesCheck();
   }, [dispatch]);
 
+  const permissions = useSelector((state) => state.movies.moviesPermissions);
   const [movie, setMovie] = useState({
     name: "",
     genres: [],
     image: "",
     premiered: "",
   });
+
+  const createMoviesCheck = () => {
+    if (Object.keys(permissions).length !== 0) {
+      for (const property in permissions) {
+        if (property === "Create Movies" && permissions[property] === false) {
+          return false;
+        } else if (
+          property === "Create Movies" &&
+          permissions[property] === true
+        ) {
+          return true;
+        }
+      }
+    }
+  };
 
   const onChangeMovie = (e) => {
     const { name, value } = e.target;
@@ -51,30 +68,36 @@ const AddMovie = () => {
   return (
     <div>
       {location.pathname === "/addmovie" ? <NavbarMovies /> : null}
-      <Box
-        style={{
-          maxWidth: "25rem",
-          marginTop: "2rem",
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
-        <Title>Add Movie</Title>
-        <InputMovies
-          nameValue={movie.name}
-          onChangeName={onChangeMovie}
-          genresValue={movie.genres}
-          onChangeGenres={onChangeGenres}
-          imgurlValue={movie.image}
-          onChangeImg={onChangeMovie}
-          premieredValue={movie.premiered}
-          onChangePremiered={onChangeMovie}
-        />
-        <Buttons className="is-flex is-justify-content-center">
-          <Button onClick={onSaveMovie}>Save</Button>
-          <Button onClick={onCancel}>Cancel</Button>
-        </Buttons>
-      </Box>
+      {createMoviesCheck() === true ? (
+        <div>
+          <Box
+            style={{
+              maxWidth: "25rem",
+              marginTop: "2rem",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            <Title>Add Movie</Title>
+            <InputMovies
+              nameValue={movie.name}
+              onChangeName={onChangeMovie}
+              genresValue={movie.genres}
+              onChangeGenres={onChangeGenres}
+              imgurlValue={movie.image}
+              onChangeImg={onChangeMovie}
+              premieredValue={movie.premiered}
+              onChangePremiered={onChangeMovie}
+            />
+            <Buttons className="is-flex is-justify-content-center">
+              <Button onClick={onSaveMovie}>Save</Button>
+              <Button onClick={onCancel}>Cancel</Button>
+            </Buttons>
+          </Box>
+        </div>
+      ) : (
+        <div>You are not Authorized!</div>
+      )}
     </div>
   );
 };

@@ -1,18 +1,1 @@
-{
-  "users": [
-    {
-      "_id": "634c342bcbb3da6a00d08409",
-      "first_name": "Admin",
-      "last_name": "Admin",
-      "created_date": "16-10-2022",
-      "session_time_out": 300000
-    },
-    {
-      "_id": "6366946b92ec048de394d245",
-      "first_name": "Lis",
-      "last_name": "Setgasy",
-      "created_date": "16-10-2022",
-      "session_time_out": 30
-    }
-  ]
-}
+{"users": [{"_id": "634c342bcbb3da6a00d08409", "first_name": "Admin", "last_name": "Admin", "created_date": "16-10-2022", "session_time_out": 300000}, {"_id": "6366946b92ec048de394d245", "first_name": "Lis", "last_name": "Setgasy", "created_date": "16-10-2022", "session_time_out": 30}, {"_id": "6368e3bb45915b627097f983", "first_name": "Lis", "last_name": "Setgasy", "created_date": "16-10-2022", "session_time_out": 30}, {"_id": "637a340e9792a76c94de65fa", "first_name": "Dafna", "last_name": "Dekel", "session_time_out": "30", "created_date": "20/11/2022"}]}
