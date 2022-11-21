@@ -2,7 +2,7 @@ import { Navbar } from "react-bulma-companion";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { reset } from "../store/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const NavbarComp = () => {
   const [moviesTab, setMoviesTab] = useState(false);
   const [subscriptionsTab, setSubscriptionTab] = useState(false);
@@ -10,6 +10,20 @@ const NavbarComp = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const permissions = useSelector((state) => state.movies.moviesPermissions);
+  console.log(permissions);
+
+  const adminCheck = () => {
+    if (Object.keys(permissions).length !== 0) {
+      for (const property in permissions) {
+        if (property === "Admin" && permissions[property] === false) {
+          return false;
+        } else if (property === "Admin" && permissions[property] === true) {
+          return true;
+        }
+      }
+    }
+  };
 
   const onClickMoviesTabHandler = () => {
     setMoviesTab(true);
@@ -55,13 +69,15 @@ const NavbarComp = () => {
           >
             Subscriptions
           </Navbar.Item>
-          <Navbar.Item
-            tab
-            onClick={onClickUsermTabHandler}
-            active={usersmTab ? true : false}
-          >
-            Users Management
-          </Navbar.Item>
+          {adminCheck() === true ? (
+            <Navbar.Item
+              tab
+              onClick={onClickUsermTabHandler}
+              active={usersmTab ? true : false}
+            >
+              Users Management
+            </Navbar.Item>
+          ) : null}
           <Navbar.Item tab onClick={onClickLogout}>
             Logout
           </Navbar.Item>

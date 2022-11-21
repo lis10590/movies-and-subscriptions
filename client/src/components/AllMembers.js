@@ -19,7 +19,7 @@ const AllMembers = () => {
 
   const members = useSelector(selectAllMembers);
   const subscriptions = useSelector(selectAllWatchList);
-  console.log(members);
+  const permissions = useSelector((state) => state.members.permissions);
 
   const comboArr = (members, subscriptions) => {
     let arr = [];
@@ -44,6 +44,42 @@ const AllMembers = () => {
   }, [dispatch]);
 
   const [addButton, setAddButton] = useState(-1);
+
+  const viewSubsCheck = () => {
+    if (Object.keys(permissions).length !== 0) {
+      for (const property in permissions) {
+        if (
+          property === "View Subscriptions" &&
+          permissions[property] === false
+        ) {
+          return false;
+        } else if (
+          property === "View Subscriptions" &&
+          permissions[property] === true
+        ) {
+          return true;
+        }
+      }
+    }
+  };
+
+  const createSubsCheck = () => {
+    if (Object.keys(permissions).length !== 0) {
+      for (const property in permissions) {
+        if (
+          property === "Create Subscriptions" &&
+          permissions[property] === false
+        ) {
+          return false;
+        } else if (
+          property === "Create Subscriptions" &&
+          permissions[property] === true
+        ) {
+          return true;
+        }
+      }
+    }
+  };
 
   const onEditMember = (id) => {
     dispatch(memberIdActions.editId(id));
@@ -103,29 +139,33 @@ const AllMembers = () => {
                 Delete
               </Button>
             </Buttons>
-            <Card>
-              <Title size="6">Movies Watched</Title>
-              <Button
-                className="mb-3"
-                onClick={() => onClickAddButton(index, member.subId)}
-              >
-                Subscribe to a new movie{" "}
-              </Button>
-              {addButton === index ? <AddSubscription /> : null}
-              <Box className="is-flex is-justify-content-center">
-                <ul style={{ listStyleType: "disc" }}>
-                  {member.movies.length > 0
-                    ? member.movies.map((movie, index) => {
-                        return (
-                          <li key={index}>
-                            {movie.movie},{movie.date}
-                          </li>
-                        );
-                      })
-                    : null}
-                </ul>
-              </Box>
-            </Card>
+            {viewSubsCheck() === true ? (
+              <Card>
+                <Title size="6">Movies Watched</Title>
+                {createSubsCheck() === true ? (
+                  <Button
+                    className="mb-3"
+                    onClick={() => onClickAddButton(index, member.subId)}
+                  >
+                    Subscribe to a new movie{" "}
+                  </Button>
+                ) : null}
+                {addButton === index ? <AddSubscription /> : null}
+                <Box className="is-flex is-justify-content-center">
+                  <ul style={{ listStyleType: "disc" }}>
+                    {member.movies.length > 0
+                      ? member.movies.map((movie, index) => {
+                          return (
+                            <li key={index}>
+                              {movie.movie},{movie.date}
+                            </li>
+                          );
+                        })
+                      : null}
+                  </ul>
+                </Box>
+              </Card>
+            ) : null}
           </Card>
         );
       })}

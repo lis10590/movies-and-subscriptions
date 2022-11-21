@@ -7,9 +7,11 @@ from flask_jwt_extended import get_jwt
 from datetime import timedelta
 from DAL.users_file_dal import UsersFileDal
 from DAL.permissions_dal import PermissionsDal
+from DAL.users_dal import UsersDal
 
 users_file_dal = UsersFileDal()
 permissions_dal = PermissionsDal()
+users_dal = UsersDal()
 
 
 class AuthDal:
@@ -27,13 +29,18 @@ class AuthDal:
 
     def get_token(self, username, password):
         user_id = self.__check_user(username, password)
+        print(user_id)
         user = users_file_dal.get_one_user_from_file(user_id)
         session = int(user["session_time_out"])
+        user_db = users_dal.get_one_user_by_username("Admin")
+        admin_id = str(user_db["_id"])
         user_permissions = permissions_dal.get_one_permission(user_id)
         permissions = user_permissions["permissions"]
         additional_data = {"View Movies": False, "Create Movies": False, "Delete Movies": False, "Update Movies": False,
-                           "Create Subscriptions": False, "View Subscriptions": False, "Update Subscriptions": False, "Delete Subscriptions": False}
+                           "Create Subscriptions": False, "View Subscriptions": False, "Update Subscriptions": False, "Delete Subscriptions": False, "Admin":False}
 
+        if user_id == admin_id:
+            additional_data["Admin"] = True
         for per in permissions:
             if per == "Create Movies":
                 additional_data["Create Movies"] = True

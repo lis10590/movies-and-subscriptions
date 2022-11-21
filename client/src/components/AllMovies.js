@@ -81,6 +81,24 @@ const AllMovies = () => {
     }
   };
 
+  const viewSubsCheck = () => {
+    if (Object.keys(permissions).length !== 0) {
+      for (const property in permissions) {
+        if (
+          property === "View Subscriptions" &&
+          permissions[property] === false
+        ) {
+          return false;
+        } else if (
+          property === "View Subscriptions" &&
+          permissions[property] === true
+        ) {
+          return true;
+        }
+      }
+    }
+  };
+
   const onEditClickHandler = (id) => {
     dispatch(movieIdActions.editId(id));
     let chosenMovie = {};
@@ -189,16 +207,20 @@ const AllMovies = () => {
                           alt="movie"
                           src={movie.image.medium}
                         />
-                        <div>
-                          <Title size="6">Subscriptions Watched</Title>
-                          <ul style={{ listStyle: "disc", marginLeft: "20px" }}>
-                            {findSubscriptions(watchList, movie.name).map(
-                              (item, index) => {
-                                return <li key={index}>{item}</li>;
-                              }
-                            )}
-                          </ul>
-                        </div>
+                        {viewSubsCheck() === true ? (
+                          <div>
+                            <Title size="6">Subscriptions Watched</Title>
+                            <ul
+                              style={{ listStyle: "disc", marginLeft: "20px" }}
+                            >
+                              {findSubscriptions(watchList, movie.name).map(
+                                (item, index) => {
+                                  return <li key={index}>{item}</li>;
+                                }
+                              )}
+                            </ul>
+                          </div>
+                        ) : null}
                       </div>
                       <Buttons className="is-justify-content-center mt-4">
                         {updateMoviesCheck() === true ? (

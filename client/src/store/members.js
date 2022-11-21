@@ -10,6 +10,7 @@ import {
 const initialMembersState = {
   members: [],
   member: {},
+  permissions: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -131,7 +132,8 @@ const memberSlice = createSlice({
       .addCase(getAllMembers.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.members = action.payload;
+        state.members = action.payload.members;
+        state.permissions = action.payload.data;
       })
       .addCase(getAllMembers.rejected, (state, action) => {
         state.isLoading = false;

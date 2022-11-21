@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from BL.members_bl import MembersBL
 from BL.watch_list_bl import WatchListBL
 from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt
 
 members = Blueprint('members', __name__)
 
@@ -13,7 +14,7 @@ watchlist_bl = WatchListBL()
 
 
 @members.route("/", methods=['GET'])
-@jwt_required()
+
 def get_all_members():
     members = members_bl.get_members()
     return jsonify(members)
@@ -22,9 +23,12 @@ def get_all_members():
 
 
 @members.route("/getMembers", methods=['GET'])
+@jwt_required()
 def get_all_members_from_db():
-    members = members_bl.get_members_from_db()
-    return jsonify(members)
+     data = get_jwt()
+     members = members_bl.get_members_from_db()
+     result = {"members":members,"data":data}
+     return jsonify(result)
 
 # Get One Member
 
