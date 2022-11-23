@@ -12,7 +12,6 @@ const AddMovie = () => {
   const location = useLocation();
   useEffect(() => {
     dispatch(getAllMovies());
-    createMoviesCheck();
   }, [dispatch]);
 
   const permissions = useSelector((state) => state.movies.moviesPermissions);
@@ -58,11 +57,11 @@ const AddMovie = () => {
 
   const onSaveMovie = () => {
     dispatch(movieAddition(movie));
-    navigate("/allMovies");
+    navigate("/allmovies");
   };
 
   const onCancel = () => {
-    navigate("/allMovies");
+    navigate("/allmovies");
   };
 
   return (

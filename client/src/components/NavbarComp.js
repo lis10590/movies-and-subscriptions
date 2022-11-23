@@ -1,8 +1,11 @@
 import { Navbar } from "react-bulma-companion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { reset } from "../store/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { selectEditUser } from "../store/usersReducer";
+import "../styles/navbarComp.css";
+
 const NavbarComp = () => {
   const [moviesTab, setMoviesTab] = useState(false);
   const [subscriptionsTab, setSubscriptionTab] = useState(false);
@@ -10,17 +13,15 @@ const NavbarComp = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const permissions = useSelector((state) => state.movies.moviesPermissions);
-  console.log(permissions);
+  const location = useLocation();
+  const user = useSelector(selectEditUser);
 
   const adminCheck = () => {
-    if (Object.keys(permissions).length !== 0) {
-      for (const property in permissions) {
-        if (property === "Admin" && permissions[property] === false) {
-          return false;
-        } else if (property === "Admin" && permissions[property] === true) {
-          return true;
-        }
+    if (user.user !== " ") {
+      if (user.user === "Admin") {
+        return true;
+      } else {
+        return false;
       }
     }
   };
@@ -48,8 +49,13 @@ const NavbarComp = () => {
 
   const onClickLogout = () => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("username");
     dispatch(reset());
     navigate("/");
+  };
+
+  const onClickMainPage = () => {
+    navigate("/mainpage");
   };
   return (
     <Navbar>
@@ -69,6 +75,7 @@ const NavbarComp = () => {
           >
             Subscriptions
           </Navbar.Item>
+
           {adminCheck() === true ? (
             <Navbar.Item
               tab
@@ -76,6 +83,11 @@ const NavbarComp = () => {
               active={usersmTab ? true : false}
             >
               Users Management
+            </Navbar.Item>
+          ) : null}
+          {location.pathname !== "/mainpage" ? (
+            <Navbar.Item tab onClick={onClickMainPage}>
+              Back To Main Page
             </Navbar.Item>
           ) : null}
           <Navbar.Item tab onClick={onClickLogout}>

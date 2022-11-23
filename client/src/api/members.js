@@ -24,6 +24,7 @@ export const getMembers = async () => {
     console.error(err);
     if (err.response.status === 401) {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("username");
       window.location.href = "/";
     }
   }

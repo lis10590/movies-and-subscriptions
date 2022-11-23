@@ -30,11 +30,11 @@ const AddMember = () => {
 
   const onSaveMember = () => {
     dispatch(memberAddition(member));
-    navigate("/allMembers");
+    navigate("/allmembers");
   };
 
   const onCancelMember = () => {
-    navigate("/allMembers");
+    navigate("/allmembers");
   };
   return (
     <div>

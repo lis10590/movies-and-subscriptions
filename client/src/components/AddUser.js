@@ -89,7 +89,7 @@ const AddUser = () => {
     console.log(obj);
 
     dispatch(userAddition(obj));
-    navigate("/allUsers");
+    navigate("/allusers");
   };
 
   const changeViewSubHandler = () => {
@@ -119,6 +119,10 @@ const AddUser = () => {
 
   const changeDeleteMoviesHandler = () => {
     dispatch(checkboxesActions.changeDeleteMovies(!checkboxes.deleteMovies));
+  };
+
+  const onCancel = () => {
+    navigate("/allusers");
   };
 
   return (
@@ -161,7 +165,7 @@ const AddUser = () => {
         />
         <Buttons className="is-flex is-justify-content-center mt-6">
           <Button onClick={onSaveClickHandler}>Save</Button>
-          <Button>Cancel</Button>
+          <Button onClick={onCancel}>Cancel</Button>
         </Buttons>
       </Box>
     </div>

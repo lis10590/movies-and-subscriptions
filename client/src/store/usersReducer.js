@@ -1,5 +1,11 @@
 const editUsersReducer = (
-  state = { first_name: "", last_name: "", username: "", session_time_out: "" },
+  state = {
+    first_name: "",
+    last_name: "",
+    username: "",
+    session_time_out: "",
+    user: "",
+  },
   action
 ) => {
   switch (action.type) {
@@ -11,6 +17,8 @@ const editUsersReducer = (
       return { ...state, username: action.payload };
     case "onChangeSession":
       return { ...state, session_time_out: action.payload };
+    case "onChangeUser":
+      return { ...state, user: action.payload };
     default:
       return state;
   }

@@ -15,6 +15,7 @@ import { movieIdActions } from "../store/movieId";
 import { getList, selectAllWatchList } from "../store/watchList";
 import { getAllMembers, selectAllMembers } from "../store/members";
 import NavbarMovies from "./NavbarMovies";
+import "../styles/flipCard.css";
 
 const AllMovies = () => {
   const dispatch = useDispatch();

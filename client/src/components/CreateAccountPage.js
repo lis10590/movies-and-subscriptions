@@ -22,6 +22,9 @@ import {
   selectAllUsers,
 } from "../store/users";
 import { reset } from "../store/auth";
+import popcorn from "../assets/popcorn.png";
+import video from "../assets/video-player.png";
+import film from "../assets/film-reel.png";
 
 const CreateAccountPage = () => {
   const dispatch = useDispatch();
@@ -88,12 +91,25 @@ const CreateAccountPage = () => {
     <div>
       <NavbarLogin />
       <Title style={{ fontFamily: "Alkalami, serif" }}>
-        Movies - Subscription Website
+        Movies & Subscriptions Website
       </Title>
+      <img
+        src={popcorn}
+        style={{ width: "5rem", position: "relative", right: "10rem" }}
+      ></img>
+      <img
+        src={film}
+        style={{
+          width: "5rem",
+          position: "relative",
+          left: "13rem",
+          top: "5rem",
+        }}
+      ></img>
       <Box
         style={{
           maxWidth: "25rem",
-          marginTop: "7rem",
+          marginTop: "2rem",
           marginLeft: "auto",
           marginRight: "auto",
         }}
@@ -142,13 +158,24 @@ const CreateAccountPage = () => {
         </Field>
         <Field>
           <Control>
-            <Button onClick={createAccount}>Create Account</Button>
+            <Button onClick={createAccount} color="primary">
+              Create Account
+            </Button>
           </Control>
         </Field>
         <Field component={Link} to="/">
           Already Registered? Go to Login Page
         </Field>
       </Box>
+      <img
+        src={video}
+        style={{
+          width: "5rem",
+          position: "relative",
+          right: "17rem",
+          bottom: "7rem",
+        }}
+      ></img>
     </div>
   );
 };
