@@ -3,7 +3,6 @@ import { Title, Image } from "react-bulma-companion";
 import movieImg from "../assets/movie.png";
 import { useSelector } from "react-redux";
 import glasses from "../assets/3d-glasses.png";
-import FlipCard from "./FlipCard";
 
 const MainPage = () => {
   const token = useSelector((state) => state.auth.token);
@@ -27,7 +26,6 @@ const MainPage = () => {
           <Image.Content src={movieImg} />
         </Image>
       </div>
-      <FlipCard />
     </div>
   );
 };
