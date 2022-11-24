@@ -1,17 +1,16 @@
 import NavbarComp from "./NavbarComp";
 import { Title, Image } from "react-bulma-companion";
 import movieImg from "../assets/movie.png";
-import { useSelector, useDispatch } from "react-redux";
-import { selectEditUser } from "../store/usersReducer";
+import { useSelector } from "react-redux";
 import glasses from "../assets/3d-glasses.png";
-import { getUserByUsername } from "../store/users";
+import FlipCard from "./FlipCard";
 
 const MainPage = () => {
   const token = useSelector((state) => state.auth.token);
   console.log(token);
   const tokenDetails = useSelector((state) => state.users.tokenDetails);
   console.log(tokenDetails);
-  // const user = useSelector(selectEditUser);
+
   const username = sessionStorage.getItem("username");
   return (
     <div>
@@ -28,6 +27,7 @@ const MainPage = () => {
           <Image.Content src={movieImg} />
         </Image>
       </div>
+      <FlipCard />
     </div>
   );
 };

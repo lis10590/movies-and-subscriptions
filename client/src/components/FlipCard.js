@@ -1,18 +1,21 @@
-import { Card } from "react-bulma-companion";
+import { CSSTransition } from "react-transition-group";
 import { useState } from "react";
+import BasicCard from "./BasicCard";
 import "../styles/flipCard.css";
 
 const FlipCard = (props) => {
-  const [isRotated, setIsRotated] = useState(false);
-
-  const onRotate = () => {
-    setIsRotated(!isRotated);
-  };
-
+  const [showFront, setShowFront] = useState(true);
   return (
-    <div className={`card ${isRotated ? "rotated" : ""}`} onClick={onRotate}>
-      <div className="front">{props.front}</div>
-      <div className="back">{props.back}</div>
+    <div className="flippable-card-container">
+      <CSSTransition in={showFront} timeout={300} classNames="flip">
+        <BasicCard
+          onClick={() => {
+            setShowFront((v) => !v);
+          }}
+          front={props.front}
+          back={props.back}
+        />
+      </CSSTransition>
     </div>
   );
 };
