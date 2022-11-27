@@ -35,6 +35,7 @@ def get_one_movie(movie_id):
 
 @movies.route("/newMovie", methods=['POST'])
 def add_movie():
+    print(request.json)
     movie = request.json
     result = movies_bl.add_new_movie(movie)
     return jsonify(result)
@@ -44,6 +45,7 @@ def add_movie():
 
 @movies.route("/updateMovie", methods=['PUT'])
 def update_movie():
+    print(request.json)
     movie = request.json
     id = movie["id"]
     result = movies_bl.update_movie(id, movie)

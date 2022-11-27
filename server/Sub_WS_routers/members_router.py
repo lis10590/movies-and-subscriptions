@@ -13,7 +13,6 @@ watchlist_bl = WatchListBL()
 
 
 @members.route("/", methods=['GET'])
-
 def get_all_members():
     members = members_bl.get_members()
     return jsonify(members)
@@ -22,11 +21,10 @@ def get_all_members():
 
 
 @members.route("/getMembers", methods=['GET'])
-
 def get_all_members_from_db():
-   
-     members = members_bl.get_members_from_db()
-     return jsonify(members)
+
+    members = members_bl.get_members_from_db()
+    return jsonify(members)
 
 # Get One Member
 
@@ -55,8 +53,9 @@ def add_member():
 
 @members.route("/updateMember", methods=['PUT'])
 def update_member():
+    print(request.json)
     member = request.json
-    id = member["id"] 
+    id = member["id"]
     result = members_bl.update_member(id, member)
     return jsonify(result)
 
@@ -67,5 +66,5 @@ def delete_member():
     id = request.json["memberId"]
     member_id = members_bl.delete_member(id)
     subs = watchlist_bl.delete_watchlist(id)
-    result = {"id":member_id,"subscriptions":subs}
+    result = {"id": member_id, "subscriptions": subs}
     return jsonify(result)

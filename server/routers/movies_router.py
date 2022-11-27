@@ -25,9 +25,9 @@ def get_all_movies():
 @movies.route("/getMovies", methods=['GET'])
 @jwt_required()
 def get_all_movies_from_db():
-     data = get_jwt()
-     resp = sub_movies_bl.get_movies()
-     return jsonify({"data":data,"movies":resp})
+    data = get_jwt()
+    resp = sub_movies_bl.get_movies()
+    return jsonify({"data": data, "movies": resp})
     # data = get_jwt()
     # movies = movies_bl.get_movies_from_db()
     # result = {"data": data, "movies": movies}
@@ -59,7 +59,7 @@ def add_movie():
 def update_movie():
     movie = request.json
     id = movie["id"]
-    result = sub_movies_bl.update_movie(id,movie)
+    result = sub_movies_bl.update_movie(movie)
     # result = movies_bl.update_movie(id, movie)
     return jsonify(result)
 
