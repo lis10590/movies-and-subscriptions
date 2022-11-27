@@ -46,7 +46,13 @@ const AddSubscription = () => {
   };
 
   return (
-    <Card>
+    <Card
+      style={{
+        maxWidth: "80%",
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <Title size="5">Add a New Movie</Title>
       <div className="has-text-centered" style={{ minHeight: 250 }}>
         <Dropdown className="mr-3" active={openMenu}>

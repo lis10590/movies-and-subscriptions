@@ -63,7 +63,7 @@ def update_member():
 # Delete Member
 @members.route("/deleteMember", methods=['DELETE'])
 def delete_member():
-    id = request.json["memberId"]
+    id = request.json
     member_id = members_bl.delete_member(id)
     subs = watchlist_bl.delete_watchlist(id)
     result = {"id": member_id, "subscriptions": subs}

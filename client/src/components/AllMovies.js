@@ -28,8 +28,8 @@ const AllMovies = () => {
     dispatch(getAllMovies());
     dispatch(getList());
     dispatch(getAllMembers());
-    viewMoviesCheck();
-    updateMoviesCheck();
+    // viewMoviesCheck();
+    // updateMoviesCheck();
   }, [dispatch]);
 
   const movies = useSelector(selectAllMovies);
