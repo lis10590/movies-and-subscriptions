@@ -38,5 +38,5 @@ app.register_blueprint(watchList, url_prefix="/watchList")
 app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(main_page, url_prefix="/mainpage")
 
-
-app.run()
+if __name__ == '__main__':
+    app.run(debug=False)
