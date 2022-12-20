@@ -1,9 +1,12 @@
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class SubWSMoviesBL:
     def __init__(self):
-        self.__url = "http://localhost:5001/movies"
+        self.__url = os.environ.get("SUBS_WS_URI") +"/movies"
 
     def get_movies(self):
         resp = requests.get(self.__url + "/getMovies")

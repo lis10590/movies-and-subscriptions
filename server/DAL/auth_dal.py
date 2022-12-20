@@ -8,6 +8,9 @@ from datetime import timedelta
 from DAL.users_file_dal import UsersFileDal
 from DAL.permissions_dal import PermissionsDal
 from DAL.users_dal import UsersDal
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 users_file_dal = UsersFileDal()
 permissions_dal = PermissionsDal()
@@ -17,7 +20,7 @@ users_dal = UsersDal()
 class AuthDal:
     def __init__(self):
 
-        self.__client = MongoClient(port=27017)
+        self.__client = MongoClient(os.environ.get("MONGO_DB_URI"))
         self.__db = self.__client["UsersDB"]
         self.__collection = self.__db["Users"]
 

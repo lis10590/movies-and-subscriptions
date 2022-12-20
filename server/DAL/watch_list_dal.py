@@ -1,10 +1,13 @@
 from pymongo import MongoClient
 from bson import ObjectId
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class WatchListDal:
     def __init__(self):
-        self.__client = MongoClient(port=27017)
+        self.__client = MongoClient(os.environ.get("MONGO_DB_URI"))
         self.__db = self.__client["SubscriptionsDB"]
         self.__collection = self.__db["Subscriptions"]
 
