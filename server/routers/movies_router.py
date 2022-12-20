@@ -4,12 +4,16 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
 from Sub_WS_BL.movies_bl import SubWSMoviesBL
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 movies = Blueprint('movies', __name__)
 
 movies_bl = MoviesBL()
 sub_movies_bl = SubWSMoviesBL()
-url = "http://localhost:5001/movies"
+url = os.environ.get("SUBS_WS_URI") + "/movies"
+
 
 # Get All
 

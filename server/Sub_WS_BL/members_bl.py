@@ -1,9 +1,12 @@
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class SubWSMembersBL:
     def __init__(self):
-        self.__url = "http://localhost:5001/members"
+        self.__url = os.environ.get("SUBS_WS_URI") + "/members"
 
     def get_members(self):
         resp = requests.get(self.__url + "/getMembers")

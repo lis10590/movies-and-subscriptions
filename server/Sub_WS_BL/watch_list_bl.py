@@ -1,9 +1,12 @@
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class SubWSWatchListBL:
     def __init__(self):
-        self.__url = "http://localhost:5001/watchList"
+        self.__url = os.environ.get("SUBS_WS_URI") + "/watchList"
 
     def create_subs(self, member):
         resp = requests.post(self.__url + "/createsubs", json=member)

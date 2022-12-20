@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:5000";
-
+const apiUrl = process.env.REACT_APP_API_URL;
 export const addNewMovie = async (movie) => {
   try {
     const res = await axios.post(`${apiUrl}/movies/newMovie`, movie);

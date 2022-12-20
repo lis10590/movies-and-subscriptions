@@ -11,7 +11,8 @@ from routers.watch_list_router import watchList
 from routers.auth_router import auth
 from routers.main_page_router import main_page
 from flask_jwt_extended import JWTManager
-from waitress import serve
+
+
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -40,4 +41,4 @@ app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(main_page, url_prefix="/mainpage")
 
 # app.run()
-# serve(app,host="127.0.0.1",port=5000)
+
