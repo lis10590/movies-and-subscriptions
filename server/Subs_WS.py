@@ -5,6 +5,7 @@ from bson import ObjectId
 from Sub_WS_routers.movies_router import movies
 from Sub_WS_routers.members_router import members
 from Sub_WS_routers.watch_list_router import watchList
+from waitress import serve
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -31,4 +32,6 @@ subs_ws.register_blueprint(watchList, url_prefix="/watchList")
 
 
 
-subs_ws.run(port=5001)
+
+serve(subs_ws,host="127.0.0.1",port=5001)
+# subs_ws.run(port=5001)
