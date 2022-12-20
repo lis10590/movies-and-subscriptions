@@ -33,5 +33,5 @@ subs_ws.register_blueprint(watchList, url_prefix="/watchList")
 
 
 
-serve(subs_ws,host="127.0.0.1",port=5001)
+# serve(subs_ws,host="127.0.0.1",port=5001)
 # subs_ws.run(port=5001)
