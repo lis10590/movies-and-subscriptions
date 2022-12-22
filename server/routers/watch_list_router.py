@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from BL.watch_list_bl import WatchListBL
 from Sub_WS_BL.watch_list_bl import SubWSWatchListBL
+from flask_cors import cross_origin
 
 watchList = Blueprint('watchList', __name__)
 
@@ -11,6 +12,7 @@ subs_ws_watchlist_bl = SubWSWatchListBL()
 
 
 @watchList.route("/createsubs", methods=['POST'])
+@cross_origin()
 def create_subscriptions():
     member = request.json
     result = subs_ws_watchlist_bl.create_subs(member)
@@ -21,6 +23,7 @@ def create_subscriptions():
 
 
 @watchList.route("/", methods=['GET'])
+@cross_origin()
 def get_all_subscriptions():
     subs = subs_ws_watchlist_bl.get_subscriptions()
     # subs = watch_list_bl.get_subscriptions()
@@ -30,6 +33,7 @@ def get_all_subscriptions():
 # Add New Subscription
 
 @watchList.route("/addToList", methods=['PUT'])
+@cross_origin()
 def add_subscription():
     sub = request.json
     result = subs_ws_watchlist_bl.add_subscription(sub)
@@ -39,6 +43,7 @@ def add_subscription():
 
 # Delete Subscriptions
 @watchList.route("/delete/<id>", methods=['DELETE'])
+@cross_origin()
 def delete_subscriptions(id):
     result = subs_ws_watchlist_bl.delete_watchlist(id)
     # result = watch_list_bl.delete_watchlist(id)

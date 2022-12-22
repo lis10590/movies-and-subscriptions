@@ -4,6 +4,7 @@ from BL.auth_bl import AuthBL
 from BL.permissions_bl import PermissionsBL
 from BL.users_file_bl import UsersFromFileBL
 from flask_jwt_extended import jwt_required
+from flask_cors import cross_origin
 
 users = Blueprint('users', __name__)
 
@@ -16,6 +17,7 @@ users_file_bl = UsersFromFileBL()
 
 
 @users.route("/getUsers", methods=['GET'])
+@cross_origin()
 def get_all_users():
     users = users_bl.get_users()
     result = {"users": users}
@@ -23,6 +25,7 @@ def get_all_users():
 
 
 @users.route("/allUsers", methods=['GET'])
+@cross_origin()
 @jwt_required()
 def get_all_users_and_permissions():
     current_user = auth_bl.verify_token()
@@ -41,6 +44,7 @@ def get_all_users_and_permissions():
 
 
 @users.route("/getOneUser/<user_id>", methods=['GET'])
+@cross_origin()
 def get_one_user(user_id):
     result = users_bl.get_user(user_id)
     return jsonify(result)
@@ -49,6 +53,7 @@ def get_one_user(user_id):
 
 
 @users.route("/getByUsername/<username>", methods=['GET'])
+@cross_origin()
 def get_user_by_username(username):
     result = users_bl.get_user_by_username(username)
     return jsonify(result)
@@ -57,6 +62,7 @@ def get_user_by_username(username):
 
 
 @users.route("/newUser", methods=['POST'])
+@cross_origin()
 def add_user():
     user = request.json
     result = users_bl.add_new_user(user)
@@ -66,6 +72,7 @@ def add_user():
 
 
 @users.route("/updateUser", methods=['PUT'])
+@cross_origin()
 def update_user():
     user = request.json
     id = user["_id"]
@@ -75,6 +82,7 @@ def update_user():
 
 # Delete User
 @users.route("/deleteUser", methods=['DELETE'])
+@cross_origin()
 def delete_user():
     id = request.json["userId"]
     result = users_bl.delete_user(id)
@@ -82,6 +90,7 @@ def delete_user():
 
 
 @users.route("/addUserAndPermissions", methods=['POST'])
+@cross_origin()
 def add_user_and_permissions():
     user = request.json
     result = users_bl.add_user_and_permissions(user)

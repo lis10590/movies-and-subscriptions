@@ -5,6 +5,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
 from Sub_WS_BL.members_bl import SubWSMembersBL
 from Sub_WS_BL.watch_list_bl import SubWSWatchListBL
+from flask_cors import cross_origin
 
 members = Blueprint('members', __name__)
 
@@ -18,6 +19,7 @@ sub_ws_watchlist_bl = SubWSWatchListBL()
 
 
 @members.route("/", methods=['GET'])
+@cross_origin()
 def get_all_members():
     members = members_bl.get_members()
     return jsonify(members)
@@ -26,6 +28,7 @@ def get_all_members():
 
 
 @members.route("/getMembers", methods=['GET'])
+@cross_origin()
 @jwt_required()
 def get_all_members_from_db():
     data = get_jwt()
@@ -38,6 +41,7 @@ def get_all_members_from_db():
 
 
 @members.route("/getOneMember/<member_id>", methods=['GET'])
+@cross_origin()
 def get_one_member(member_id):
     # member = members_bl.get_member(member_id)
     member = sub_ws_members_bl.get_one_member(member_id)
@@ -47,6 +51,7 @@ def get_one_member(member_id):
 
 
 @members.route("/newMember", methods=['POST'])
+@cross_origin()
 def add_member():
     member = request.json
     result = sub_ws_members_bl.add_member(member)
@@ -63,6 +68,7 @@ def add_member():
 
 
 @members.route("/updateMember", methods=['PUT'])
+@cross_origin()
 def update_member():
     member = request.json
     # id = member["id"]
@@ -73,6 +79,7 @@ def update_member():
 
 # Delete Member
 @members.route("/deleteMember", methods=['DELETE'])
+@cross_origin()
 def delete_member():
     id = request.json["memberId"]
     member_id = sub_ws_members_bl.delete_member(id)

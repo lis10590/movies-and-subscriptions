@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from BL.members_bl import MembersBL
 from BL.watch_list_bl import WatchListBL
+from flask_cors import cross_origin
 
 
 members = Blueprint('members', __name__)
@@ -13,6 +14,7 @@ watchlist_bl = WatchListBL()
 
 
 @members.route("/", methods=['GET'])
+@cross_origin()
 def get_all_members():
     members = members_bl.get_members()
     return jsonify(members)
@@ -21,6 +23,7 @@ def get_all_members():
 
 
 @members.route("/getMembers", methods=['GET'])
+@cross_origin()
 def get_all_members_from_db():
 
     members = members_bl.get_members_from_db()
@@ -30,6 +33,7 @@ def get_all_members_from_db():
 
 
 @members.route("/getOneMember/<member_id>", methods=['GET'])
+@cross_origin()
 def get_one_member(member_id):
     member = members_bl.get_member(member_id)
     return jsonify(member)
@@ -38,6 +42,7 @@ def get_one_member(member_id):
 
 
 @members.route("/newMember", methods=['POST'])
+@cross_origin()
 def add_member():
     member = request.json
     result = members_bl.add_new_member(member)
@@ -52,6 +57,7 @@ def add_member():
 
 
 @members.route("/updateMember", methods=['PUT'])
+@cross_origin()
 def update_member():
     print(request.json)
     member = request.json
@@ -62,6 +68,7 @@ def update_member():
 
 # Delete Member
 @members.route("/deleteMember", methods=['DELETE'])
+@cross_origin()
 def delete_member():
     id = request.json
     member_id = members_bl.delete_member(id)
