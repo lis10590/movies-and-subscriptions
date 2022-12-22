@@ -13,8 +13,6 @@ from routers.main_page_router import main_page
 from flask_jwt_extended import JWTManager
 
 
-
-
 class JSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, ObjectId):
@@ -23,7 +21,7 @@ class JSONEncoder(json.JSONEncoder):
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins="https://movies-client-v224.onrender.com")
 
 app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 jwt = JWTManager(app)
@@ -41,4 +39,3 @@ app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(main_page, url_prefix="/mainpage")
 
 # app.run()
-

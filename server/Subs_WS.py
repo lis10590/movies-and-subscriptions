@@ -15,7 +15,7 @@ class JSONEncoder(json.JSONEncoder):
 
 
 subs_ws = Flask(__name__)
-CORS(subs_ws)
+CORS(subs_ws, origins="https://movies-client-v224.onrender.com")
 
 subs_ws.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 
