@@ -13,6 +13,7 @@ import {
 import { deleteOneUser } from "../store/users";
 import { toDate } from "unix-timestamp";
 import NavbarUsers from "./NavbarUsers";
+import { SpinnerCircular } from "spinners-react";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -121,53 +122,57 @@ const AllUsers = () => {
     <div>
       {location.pathname === "/allusers" ? <NavbarUsers /> : null}
       <Title>All Users</Title>
-      {comboArr(users, permissions).map((user) => {
-        return (
-          <Card
-            style={{
-              maxWidth: "25rem",
-              marginBottom: "2rem",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-            key={user._id}
-          >
-            <p>
-              Name: {user.first_name} {user.last_name}
-            </p>
-            {usersDB.map((userDB) => {
-              if (userDB._id === user._id) {
-                return <p key={userDB._id}>Username: {userDB.username}</p>;
-              }
-            })}
-
-            <p>Session Time Out (Minutes): {user.session_time_out} </p>
-            <p>Created Data: {user.created_date}</p>
-            <p>
-              Permissions:{" "}
-              {user.permissions.map((per, index) => {
-                return <span key={index}>{per},</span>;
+      {users.length === 0 || permissions.length === 0 ? (
+        <SpinnerCircular />
+      ) : (
+        comboArr(users, permissions).map((user) => {
+          return (
+            <Card
+              style={{
+                maxWidth: "25rem",
+                marginBottom: "2rem",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              key={user._id}
+            >
+              <p>
+                Name: {user.first_name} {user.last_name}
+              </p>
+              {usersDB.map((userDB) => {
+                if (userDB._id === user._id) {
+                  return <p key={userDB._id}>Username: {userDB.username}</p>;
+                }
               })}
-            </p>
-            <Buttons className="is-justify-content-center mt-4">
-              <Button
-                onClick={() => {
-                  EditUserHandler(user._id);
-                }}
-              >
-                Edit
-              </Button>
-              <Button
-                onClick={() => {
-                  deleteUserHandler(user._id);
-                }}
-              >
-                Delete
-              </Button>
-            </Buttons>
-          </Card>
-        );
-      })}
+
+              <p>Session Time Out (Minutes): {user.session_time_out} </p>
+              <p>Created Data: {user.created_date}</p>
+              <p>
+                Permissions:{" "}
+                {user.permissions.map((per, index) => {
+                  return <span key={index}>{per},</span>;
+                })}
+              </p>
+              <Buttons className="is-justify-content-center mt-4">
+                <Button
+                  onClick={() => {
+                    EditUserHandler(user._id);
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => {
+                    deleteUserHandler(user._id);
+                  }}
+                >
+                  Delete
+                </Button>
+              </Buttons>
+            </Card>
+          );
+        })
+      )}
     </div>
   );
 };

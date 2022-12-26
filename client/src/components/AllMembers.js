@@ -11,6 +11,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getList, selectAllWatchList } from "../store/watchList";
 import AddSubscription from "./AddSubscription";
 import NavbarMembers from "./NavbarMembers";
+import { SpinnerCircular } from "spinners-react";
 
 const AllMembers = () => {
   const dispatch = useDispatch();
@@ -127,76 +128,80 @@ const AllMembers = () => {
   return (
     <div>
       {location.pathname === "/allmembers" ? <NavbarMembers /> : null}
-      {comboArr(members, subscriptions).map((member, index) => {
-        return (
-          <Card
-            style={{
-              maxWidth: "25rem",
-              marginBottom: "2rem",
-              marginLeft: "auto",
-              marginRight: "auto",
-              paddingBottom: "5rem",
-            }}
-            key={member._id}
-          >
-            <Title size="5">{member.name}</Title>
-            <p>Email: {member.email}</p>
-            <p>City: {member.city}</p>
-            <Buttons className="is-justify-content-center mt-4">
-              {updateSubsCheck() === true ? (
-                <Button
-                  onClick={() => {
-                    onEditMember(member._id);
-                  }}
-                >
-                  Edit
-                </Button>
-              ) : null}
-              {deleteSubsCheck() === true ? (
-                <Button
-                  onClick={() => {
-                    onDeleteMember(member._id);
-                  }}
-                >
-                  Delete
-                </Button>
-              ) : null}
-            </Buttons>
-
+      {members.length === 0 || subscriptions.length === 0 ? (
+        <SpinnerCircular />
+      ) : (
+        comboArr(members, subscriptions).map((member, index) => {
+          return (
             <Card
               style={{
-                maxWidth: "80%",
+                maxWidth: "25rem",
+                marginBottom: "2rem",
                 marginLeft: "auto",
                 marginRight: "auto",
+                paddingBottom: "5rem",
               }}
+              key={member._id}
             >
-              <Title size="6">Movies Watched</Title>
+              <Title size="5">{member.name}</Title>
+              <p>Email: {member.email}</p>
+              <p>City: {member.city}</p>
+              <Buttons className="is-justify-content-center mt-4">
+                {updateSubsCheck() === true ? (
+                  <Button
+                    onClick={() => {
+                      onEditMember(member._id);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                ) : null}
+                {deleteSubsCheck() === true ? (
+                  <Button
+                    onClick={() => {
+                      onDeleteMember(member._id);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                ) : null}
+              </Buttons>
 
-              <Button
-                className="mb-3"
-                onClick={() => onClickAddButton(index, member.subId)}
+              <Card
+                style={{
+                  maxWidth: "80%",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
               >
-                Subscribe to a new movie{" "}
-              </Button>
+                <Title size="6">Movies Watched</Title>
 
-              {addButton === index ? <AddSubscription /> : null}
-              <Box className="is-flex is-justify-content-center">
-                <ul style={{ listStyleType: "disc" }}>
-                  {member.movies.length > 0
-                    ? member.movies.map((movie, index) => {
-                        return (
-                          <li key={index}>
-                            {movie.movie},{movie.date}
-                          </li>
-                        );
-                      })
-                    : null}
-                </ul>
-              </Box>
+                <Button
+                  className="mb-3"
+                  onClick={() => onClickAddButton(index, member.subId)}
+                >
+                  Subscribe to a new movie{" "}
+                </Button>
+
+                {addButton === index ? <AddSubscription /> : null}
+                <Box className="is-flex is-justify-content-center">
+                  <ul style={{ listStyleType: "disc" }}>
+                    {member.movies.length > 0
+                      ? member.movies.map((movie, index) => {
+                          return (
+                            <li key={index}>
+                              {movie.movie},{movie.date}
+                            </li>
+                          );
+                        })
+                      : null}
+                  </ul>
+                </Box>
+              </Card>
             </Card>
-          </Card>
-        );
-      })}
+          );
+        })
+      )}
     </div>
   );
 };

@@ -11,6 +11,9 @@ from routers.watch_list_router import watchList
 from routers.auth_router import auth
 from routers.main_page_router import main_page
 from flask_jwt_extended import JWTManager
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -21,7 +24,7 @@ class JSONEncoder(json.JSONEncoder):
 
 
 app = Flask(__name__)
-CORS(app, origins="https://movies-client-v224.onrender.com")
+CORS(app, origins=os.environ.get("CLIENT_ORIGIN"))
 
 app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 jwt = JWTManager(app)

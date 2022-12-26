@@ -5,6 +5,9 @@ from bson import ObjectId
 from Sub_WS_routers.movies_router import movies
 from Sub_WS_routers.members_router import members
 from Sub_WS_routers.watch_list_router import watchList
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -15,7 +18,7 @@ class JSONEncoder(json.JSONEncoder):
 
 
 subs_ws = Flask(__name__)
-CORS(subs_ws, origins="https://movies-server.onrender.com")
+CORS(subs_ws, origins=os.environ.get("SERVER_ORIGIN"))
 
 subs_ws.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 
@@ -27,5 +30,5 @@ subs_ws.register_blueprint(members, url_prefix="/members")
 subs_ws.register_blueprint(watchList, url_prefix="/watchList")
 
 
-# serve(subs_ws,host="127.0.0.1",port=5001)
+
 # subs_ws.run(port=5001)
