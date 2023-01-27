@@ -22,9 +22,7 @@ import {
   selectAllUsers,
 } from "../store/users";
 import { reset } from "../store/auth";
-import popcorn from "../assets/popcorn.png";
 import video from "../assets/video-player.png";
-import film from "../assets/film-reel.png";
 
 const CreateAccountPage = () => {
   const dispatch = useDispatch();
@@ -93,23 +91,10 @@ const CreateAccountPage = () => {
       <Title style={{ fontFamily: "Alkalami, serif" }}>
         Movies & Subscriptions Website
       </Title>
-      <img
-        src={popcorn}
-        style={{ width: "5rem", position: "relative", right: "10rem" }}
-      ></img>
-      <img
-        src={film}
-        style={{
-          width: "5rem",
-          position: "relative",
-          left: "13rem",
-          top: "5rem",
-        }}
-      ></img>
+
       <Box
         style={{
           maxWidth: "25rem",
-          marginTop: "2rem",
           marginLeft: "auto",
           marginRight: "auto",
         }}
@@ -173,7 +158,7 @@ const CreateAccountPage = () => {
           width: "5rem",
           position: "relative",
           right: "17rem",
-          bottom: "7rem",
+          bottom: "9rem",
         }}
       ></img>
     </div>

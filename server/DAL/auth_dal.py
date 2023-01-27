@@ -34,7 +34,10 @@ class AuthDal:
         user_id = self.__check_user(username, password)
         print(user_id)
         user = users_file_dal.get_one_user_from_file(user_id)
-        session = int(user["session_time_out"])
+        if isinstance(user["session_time_out"],str):
+            session = int(user["session_time_out"])
+        else:
+             session = user["session_time_out"]    
         user_db = users_dal.get_one_user_by_username("Admin")
         admin_id = str(user_db["_id"])
         user_permissions = permissions_dal.get_one_permission(user_id)

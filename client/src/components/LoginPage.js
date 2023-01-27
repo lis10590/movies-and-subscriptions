@@ -66,7 +66,6 @@ const LoginPage = () => {
       <Box
         style={{
           maxWidth: "25rem",
-          marginTop: "2rem",
           marginLeft: "auto",
           marginRight: "auto",
         }}
