@@ -207,7 +207,7 @@ const AllMovies = () => {
                             <div>
                               <h3>
                                 Genres:
-                                {movie.genres.map((genre, index) => {
+                                { movie.genres.length >0 ?movie.genres.map((genre, index) => {
                                   return (
                                     <span key={index}>
                                       "{genre}"
@@ -216,7 +216,7 @@ const AllMovies = () => {
                                         : ","}
                                     </span>
                                   );
-                                })}
+                                }):null}
                               </h3>
                               {viewSubsCheck() === true ? (
                                 <div>
