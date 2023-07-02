@@ -3,8 +3,8 @@ from BL.members_bl import MembersBL
 from BL.watch_list_bl import WatchListBL
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
-from Sub_WS_BL.members_bl import SubWSMembersBL
-from Sub_WS_BL.watch_list_bl import SubWSWatchListBL
+from sub_ws_bl.members_bl import SubWSMembersBL
+from sub_ws_bl.watch_list_bl import SubWSWatchListBL
 from flask_cors import cross_origin
 
 members = Blueprint('members', __name__)

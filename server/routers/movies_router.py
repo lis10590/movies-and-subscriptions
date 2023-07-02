@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from BL.movies_bl import MoviesBL
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
-from Sub_WS_BL.movies_bl import SubWSMoviesBL
+from sub_ws_bl.movies_bl import SubWSMoviesBL
 from flask_cors import cross_origin
 import requests
 import os

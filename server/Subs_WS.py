@@ -2,9 +2,9 @@ from flask import Flask
 import json
 from flask_cors import CORS
 from bson import ObjectId
-from Sub_WS_routers.movies_router import movies
-from Sub_WS_routers.members_router import members
-from Sub_WS_routers.watch_list_router import watchList
+from sub_ws_routers.movies_router import movies
+from sub_ws_routers.members_router import members
+from sub_ws_routers.watch_list_router import watchList
 import os
 from dotenv import load_dotenv
 load_dotenv()

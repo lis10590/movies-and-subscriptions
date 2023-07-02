@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from BL.watch_list_bl import WatchListBL
-from Sub_WS_BL.watch_list_bl import SubWSWatchListBL
+from sub_ws_bl.watch_list_bl import SubWSWatchListBL
 from flask_cors import cross_origin
 
 watchList = Blueprint('watchList', __name__)
